@@ -18,7 +18,13 @@ const Landing = () => {
             <div style={{backgroundColor: "info"}} className="col-3 border border-white ">
                 -
             </div>
+            
         </div>
+        <div className="row ">
+            <div style={{backgroundColor: "pink"}} className="col-12 border border-white ">
+                -
+            </div>
+            </div>
         </div>
       
     );

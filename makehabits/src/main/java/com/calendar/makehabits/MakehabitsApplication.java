@@ -1,4 +1,4 @@
-package com.calendario.makehabits;
+package com.calendar.makehabits;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

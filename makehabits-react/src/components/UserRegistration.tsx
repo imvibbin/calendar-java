@@ -1,40 +1,54 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import UserInterface from "../models/UserInterface";
+import { createUser } from "../services/UserService";
 
 const UserRegistration = () => {
-  let [user, setUser] = useState<UserInterface>({
+  const userInitial = {
+    id: 0,
     username: "",
     password: "",
     rol: 0,
-  });
+  };
 
-  const handleSubmit = (event: ChangeEvent) => {
-    console.log(event);
+  const [user, setUser] = useState<UserInterface>(userInitial);
+
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(user);
+    createUser(user);
   };
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           id="username"
-          placeholder="Your email"
+          name="username"
+          placeholder="tu username"
           value={user.username}
-          onChange={handleSubmit}
+          onChange={handleOnChange}
         />
         <input
           type="text"
           id="password"
-          placeholder="Your name"
+          name="password"
+          placeholder="tu contraseña"
           value={user.password}
-          onChange={handleSubmit}
+          onChange={handleOnChange}
         />
         <input
-          type="text"
+          type="number"
           id="rol"
-          placeholder="Role wapo"
+          name="rol"
+          placeholder="role"
           value={user.rol}
-          onChange={handleSubmit}
+          onChange={handleOnChange}
         />
         <button type="submit">Submit</button>
       </form>

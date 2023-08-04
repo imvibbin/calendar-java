@@ -1,25 +1,24 @@
 package com.calendar.makehabits.controllers;
 
 import com.calendar.makehabits.models.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.calendar.makehabits.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/users")
 public class UserController {
 
-  @PostMapping("/user")
-  public String createUser(@RequestBody String newUser) {
-    System.out.println(newUser);
-    return newUser;
-  }
+  @Autowired private UserService userService;
 
-  @GetMapping("/user/{id}")
-  public User getUser(@PathVariable Long id) {
-    return new User(1L, "sup", "sup", 2);
+  @GetMapping("/{id}")
+  public ResponseEntity<User> getUserById(@PathVariable long id) {
+    User user = userService.getUserById(id);
+    if (user == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(user, HttpStatus.OK);
   }
 }

@@ -19,4 +19,8 @@ public class UserService {
   public List<User> userLogin(String username, String password) {
     return userRepository.authLogin(username, password);
   }
+
+  // public int registerUser(User userToRegister) {
+  // return userRepository.createUser(userToRegister);
+  // }
 }

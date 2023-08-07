@@ -1,0 +1,26 @@
+.landing-logo{
+    padding: 0.25rem;
+}
+.landing-title{
+    font-size: 17px;
+    font-weight: 500;
+}
+.sidebar-card{
+    border-bottom: 2px solid #DFE5F1;
+    border-radius: 1px;
+}
+
+.card-logo{
+    width: 32px;
+    height: 32px;
+    border-radius: 30px;
+}
+.card-title{
+    color: black;
+    font-weight: 700;
+}
+.card-subtitle{
+    font-size: 14px;
+    color: #A5B4CB;
+    font-weight: 500;
+}

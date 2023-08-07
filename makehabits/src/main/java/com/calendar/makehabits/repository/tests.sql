@@ -10,3 +10,10 @@ CREATE TABLE
     rol_id INTEGER,
     PRIMARY KEY (user_id)
   );
+
+INSERT INTO
+  users (username, password, rol_id)
+VALUES
+  ('johndoe', 'secret', 1),
+  ('maryjane', 'qwerty', 2),
+  ('admin', 'admin', 3);

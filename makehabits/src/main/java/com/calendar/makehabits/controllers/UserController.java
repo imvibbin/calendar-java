@@ -35,13 +35,8 @@ public class UserController {
     return new ResponseEntity<>(users.get(0), HttpStatus.OK);
   }
 
-  // @PostMapping("/registration")
-  // public ResponseEntity<User> createNewUser(@RequestBody User userToRegister) {
-  // boolean success = userService.registerUser(userToRegister) == 1 ? true :
-  // false;
-  // if (success) {
-  // return new ResponseEntity<>(HttpStatus.OK);
-  // }
-  // return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-  // }
+  @PostMapping("/registration")
+  public ResponseEntity<User> createNewUser(@RequestBody User userToRegister) {
+    return userService.registerUser(userToRegister);
+  }
 }

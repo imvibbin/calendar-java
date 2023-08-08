@@ -4,7 +4,7 @@ import { createUser } from "../services/UserService";
 
 const UserRegistration = () => {
   const userInitial = {
-    id: 0,
+    user_id: 0,
     username: "",
     password: "",
     rol: 0,
@@ -33,6 +33,7 @@ const UserRegistration = () => {
           placeholder="tu username"
           value={user.username}
           onChange={handleOnChange}
+          required
         />
         <input
           type="text"
@@ -41,6 +42,7 @@ const UserRegistration = () => {
           placeholder="tu contraseña"
           value={user.password}
           onChange={handleOnChange}
+          required
         />
         <input
           type="number"

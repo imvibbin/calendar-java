@@ -1,9 +1,11 @@
 @font-face {
-    font-family: "Publio W01 Regular";
-    src: local("Publio W01 Regular"),
-    url("./assets/fonts/Publio W01 Regular/Publio W01 Regular.ttf") format("truetype");
-    font-weight: bold;
+  font-family: "Publio W01 Regular";
+  src:
+    local("Publio W01 Regular"),
+    url("./assets/fonts/Publio W01 Regular/Publio W01 Regular.ttf")
+      format("truetype");
+  font-weight: bold;
 }
-*{
-    font-family: "Publio W01 Regular";
+* {
+  font-family: "Publio W01 Regular";
 }

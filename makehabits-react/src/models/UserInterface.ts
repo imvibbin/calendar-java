@@ -1,5 +1,5 @@
 interface UserInterface {
-  id: number;
+  user_id: number;
   username: string;
   password: string;
   rol: number;

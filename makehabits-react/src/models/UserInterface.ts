@@ -2,7 +2,7 @@ interface UserInterface {
   user_id: number;
   username: string;
   password: string;
-  rol: number;
+  rol_id: number;
 }
 
 export default UserInterface;

@@ -3,8 +3,7 @@ package com.calendar.makehabits.models;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ErrorMessages {
-
+public class Messages {
   private static final Map<String, MessageBuilder> errorMessageMap = new HashMap<>();
 
   static {

@@ -7,7 +7,7 @@ const UserRegistration = () => {
     user_id: 0,
     username: "",
     password: "",
-    rol: 0,
+    rol_id: 0,
   };
 
   const [user, setUser] = useState<UserInterface>(userInitial);
@@ -49,7 +49,7 @@ const UserRegistration = () => {
           id="rol"
           name="rol"
           placeholder="role"
-          value={user.rol}
+          value={user.rol_id}
           onChange={handleOnChange}
         />
         <button type="submit">Submit</button>

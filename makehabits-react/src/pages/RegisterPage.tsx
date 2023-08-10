@@ -9,7 +9,7 @@ const RegisterPage = () => {
     user_id: 0,
     username: "",
     password: "",
-    rol: 0,
+    rol_id: 0,
   };
 
   const [user, setUser] = useState<UserInterface>(userInitial);

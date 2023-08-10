@@ -2,12 +2,35 @@
   background-color: #ffb4c1;
 }
 
+.circle1,
+.circle2 {
+  width: 600px;
+  height: 600px;
+  border: 4px white solid;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.circle2 {
+  z-index: 2;
+}
+
+.main-container-content-form {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: min-content;
+  width: 65%;
+}
+
 .main-container-content-form input {
   border: 1px gray solid;
   margin: 1vh 0 1vh 0;
 }
 
 .main-container-content-form button {
+  width: 100%;
   border: hidden;
   outline: none;
   background-color: #2f2f2f;

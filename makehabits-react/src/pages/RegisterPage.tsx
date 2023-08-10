@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import UserInterface from "../models/UserInterface";
 import { createUser } from "../services/UserService";
+import { Link } from "react-router-dom";
 
 import "./styles/RegisterPage.css";
 
@@ -9,11 +10,12 @@ const RegisterPage = () => {
     user_id: 0,
     username: "",
     password: "",
-    rol: 0,
+    rol_id: 0,
   };
 
   const [user, setUser] = useState<UserInterface>(userInitial);
   const [btnStatus, setBtnClicked] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -31,12 +33,13 @@ const RegisterPage = () => {
   return (
     <>
       <div className="main-container container-fluid vh-100">
-        <div className="row vh-100">
-          <div className="main-container-banner col-7 d-flex align-items-center justify-content-center">
-            <h1 className="align-items-center">1st</h1>
+        <div className="row h-auto vh-100 overflow-hidden">
+          <div className="main-container-banner col-md-7 d-flex align-items-center justify-content-center overflow-hidden">
+            <div className="circle1 rounded-circle"></div>
+            <div className="circle2 rounded-circle"></div>
           </div>
-          <div className="main-container-content col-5 d-flex align-items-center justify-content-center flex-column p-5">
-            <div className="main-container-content-form">
+          <div className="main-container-content col-5 p-5 position-relative">
+            <div className="main-container-content-form position-absolute">
               <h2>Welcome to Makehabits!</h2>
               <form onSubmit={handleSubmit} className="d-flex flex-column">
                 <input
@@ -44,7 +47,7 @@ const RegisterPage = () => {
                   id="username"
                   className="p-3 rounded-pill"
                   name="username"
-                  placeholder="Email Address"
+                  placeholder="Username"
                   value={user.username}
                   onChange={handleOnChange}
                   required
@@ -65,7 +68,7 @@ const RegisterPage = () => {
                     btnStatus ? "btn-triggered" : ""
                   }`}
                 >
-                  { btnStatus ? "Ok!" : "Register" }
+                  {btnStatus ? "Ok!" : "Register"}
                 </button>
               </form>
             </div>

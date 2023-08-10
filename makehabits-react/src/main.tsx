@@ -5,9 +5,10 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import './assets/fonts/Publio W01 Regular/Publio W01 Regular.ttf';
 import App from "./App";
+import SideBarNavRight from "./components/SideBarNavRight/SideBarNavRight";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App/>
+    <SideBarNavRight/>
   </React.StrictMode>,
 );

@@ -3,6 +3,7 @@ import "./App.css";
 import Landing from "./pages/Landing";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import SideBarNavRight from "./components/SideBarNavRight/SideBarNavRight";
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
           <Route index element={<Landing />} />
           <Route path="registration" element={<RegisterPage />} />
           <Route path="Login" element={<LoginPage />} />
+
+          
 
 
         </Routes>

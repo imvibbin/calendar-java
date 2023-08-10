@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Landing from "./pages/Landing";
 import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
         <Routes>
           <Route index element={<Landing />} />
           <Route path="registration" element={<RegisterPage />} />
+          <Route path="Login" element={<LoginPage />} />
+
+
         </Routes>
       </BrowserRouter>
     </>

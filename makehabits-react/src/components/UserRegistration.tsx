@@ -4,10 +4,10 @@ import { createUser } from "../services/UserService";
 
 const UserRegistration = () => {
   const userInitial = {
-    id: 0,
+    user_id: 0,
     username: "",
     password: "",
-    rol: 0,
+    rol_id: 0,
   };
 
   const [user, setUser] = useState<UserInterface>(userInitial);
@@ -33,6 +33,7 @@ const UserRegistration = () => {
           placeholder="tu username"
           value={user.username}
           onChange={handleOnChange}
+          required
         />
         <input
           type="text"
@@ -41,13 +42,14 @@ const UserRegistration = () => {
           placeholder="tu contraseña"
           value={user.password}
           onChange={handleOnChange}
+          required
         />
         <input
           type="number"
           id="rol"
           name="rol"
           placeholder="role"
-          value={user.rol}
+          value={user.rol_id}
           onChange={handleOnChange}
         />
         <button type="submit">Submit</button>

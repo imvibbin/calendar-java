@@ -1,6 +1,6 @@
 import UserInterface from "../models/UserInterface";
 
-const BASE_URL = "http://localhost:8080/user";
+const BASE_URL = "http://localhost:8080/users";
 
 // Function to make a GET request to fetch all users
 async function getAllUsers(): Promise<UserInterface[]> {
@@ -18,7 +18,8 @@ async function getAllUsers(): Promise<UserInterface[]> {
 // Function to make a POST request to create a new user
 async function createUser(newUser: UserInterface): Promise<UserInterface> {
   try {
-    const response = await fetch(BASE_URL, {
+    console.log(`${BASE_URL}/registration`);
+    const response = await fetch(`${BASE_URL}/registration`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,6 +29,7 @@ async function createUser(newUser: UserInterface): Promise<UserInterface> {
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
+    console.log(JSON.stringify(response));
     return await response.json();
   } catch (error: any) {
     throw new Error("Failed to create user: " + error.message);
@@ -37,7 +39,7 @@ async function createUser(newUser: UserInterface): Promise<UserInterface> {
 // Function to make a PUT request to update a user
 async function updateUser(updatedUser: UserInterface): Promise<UserInterface> {
   try {
-    const response = await fetch(`${BASE_URL}/${updatedUser.id}`, {
+    const response = await fetch(`${BASE_URL}/${updatedUser.user_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

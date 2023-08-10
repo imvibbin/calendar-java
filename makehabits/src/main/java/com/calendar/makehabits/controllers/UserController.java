@@ -1,6 +1,7 @@
 package com.calendar.makehabits.controllers;
 
 import com.calendar.makehabits.models.ErrorMessages;
+import com.calendar.makehabits.models.Messages;
 import com.calendar.makehabits.models.User;
 import com.calendar.makehabits.services.UserService;
 
@@ -56,9 +57,9 @@ public class UserController {
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
     if (status == 0) {
-      return new ResponseEntity<>(HttpStatus.OK);
+      return new ResponseEntity<>("Oc.", HttpStatus.OK);
     } else if (status == 1) {
-      return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+      return new ResponseEntity<>(ErrorMessages.getMessage("USERNAME_ALREADY_EXISTS"), HttpStatus.NOT_MODIFIED);
     } else if (status == 2) {
       return new ResponseEntity<>(
           ErrorMessages.getMessage("USERNAME_ALREADY_EXISTS"), HttpStatus.CONFLICT);

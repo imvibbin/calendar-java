@@ -8,9 +8,10 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import './assets/fonts/Publio W01 Regular/Publio W01 Regular.ttf';
 import HandleForm from "./components/HandleForm/HandleForm";
+import Try from "./components/Try/Try";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <HandleForm/>
+    <Try/>
   </React.StrictMode>,
 );

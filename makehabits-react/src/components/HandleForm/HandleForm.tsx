@@ -1,13 +1,16 @@
 import React, { useState, ChangeEvent } from 'react';
 
 const HandleForm = () => {
-const [eventData, setEventData] = useState({
-    title: '',
-    description: '',
-    date: '',
-    type: 'activity',
-});
+    const [eventData, setEventData] = useState({
+        title: '',
+        description: '',
+        type: 'activity',
+        selectedDates: [] as string[], // Initialize selectedDates as an empty array
+    });
+
     const [selectedDates, setSelectedDates] = useState<string[]>([]);
+    const [formattedDate, setFormattedDate] = useState('');
+
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEventData((prevData) => ({
@@ -16,24 +19,44 @@ const [eventData, setEventData] = useState({
     }));
 };
 
+const handleDate = (e:ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = e.target.value;
+    setSelectedDates((prevDates) => [...prevDates, selectedDate]);
+};
+const 
+/* const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = e.target.value;
+    setSelectedDates((prevDates) => [...prevDates, selectedDate]);
+};
+const toggleDay = (day: string) => {
+    if (selectedDates.includes(day)) {
+        setSelectedDates((prevDays) => prevDays.filter((d) => d !== day));
+    } else {
+        setSelectedDates((prevDays) => [...prevDays, day]);
+    }
+}; */
 const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedType = e.target.value;
     setEventData((prevData) => ({
     ...prevData,
     type: selectedType,
     }));
+    setEventData((prevData) => ({
+        ...prevData,
+        selectedDates: [],
+    }));
 };
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const jsonEventData = JSON.stringify(eventData);
-    console.log(jsonEventData); // Display the JSON string in the console
+    console.log(jsonEventData); 
     // You can then send this JSON to your API or use it as needed.
 };
 
 return (
     <form onSubmit={handleSubmit}>
-    <div>
+    <div>{/* TITLE INPUT */}
         <label>Title:</label>
         <input
             type="text"
@@ -42,16 +65,7 @@ return (
             onChange={handleInputChange}
         />
     </div>
-    <div>
-        <label>Date:</label>
-        <input
-            type="date"
-            name="date"
-            value={eventData.date}
-            onChange={handleInputChange}
-        />
-    </div>
-    <div>
+    <div>{/* DESCRIPTION INPUT */}
         <label>Description</label>
         <input
             type="text"
@@ -60,7 +74,7 @@ return (
             onChange={handleInputChange}
         />
     </div>
-    <div>
+    <div>{/* TYPE OF ACTIVITY  */}
         <label>Type:</label>
         <label>
         <input
@@ -83,24 +97,45 @@ return (
         Activity
         </label>
     </div>
-    {eventData.type === 'habit' && (
+    
+    {eventData.type === 'habit' && (/* HANDLE FORM INPUT FOR HABITS */
         <div>
-            <div className="checkbox-list">
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                <label key={day} className={`circular-checkbox ${selectedDays.includes(day) ? 'selected' : ''}`}>
-                    <input
-                    type="checkbox"
-                    value={day}
-                    checked={selectedDays.includes(day)}
-                    onChange={() => toggleDay(day)}
-                    />
-                    {day}
-                </label>
-                ))}
-            </div>
-    </div>
+            <p>Select Habit Days:</p>
+            {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
+            <label key={day} className={`circular-checkbox ${selectedDates.includes(day) ? 'selected' : ''}`}>
+                <input
+                type="checkbox"
+                value={day}
+                checked={selectedDates.includes(day)}
+                onChange={() => toggleDay(day)}
+                />
+            {day}
+            </label>
+        ))}
+        </div>
     )}
-    <button type="submit">Create Event</button>
+    <div>
+        <label>
+          Selected Dates:
+          {selectedDates.map((date, index) => (
+            <span key={index}>{date}, </span>
+          ))}
+        </label>
+    </div>
+      {eventData.type === 'activity' && (/* HANDLE FORM INPUT FOR ACTIVITIES */
+      <div>
+        <label>
+          Choose Date:
+          <input
+            type="date"
+            name="date"
+            onChange={handleDateChange}
+            value={selectedDates[selectedDates.length - 1] || ''}
+          />
+        </label>
+      </div>
+    )}
+    <button type="submit" >Create Event</button>
     </form>
 );
 };

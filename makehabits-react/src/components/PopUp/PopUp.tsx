@@ -4,7 +4,9 @@ import { useState, ChangeEvent, } from 'react';
 import Button from 'react-bootstrap/Button';
 
 const PopUp = () => {
-  
+    const userInitial = {
+        typeActivity:
+    };
 
     const [show, setShow] = useState(false);
     const [selectedDays, setSelectedDays] = useState([]);

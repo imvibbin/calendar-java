@@ -1,5 +1,5 @@
 import perfil from "../../assets/perfil.png";
-
+import notificacion from "../../assets/notificacion.png"
 function SideBarNavRight() {
 
   
@@ -9,8 +9,11 @@ function SideBarNavRight() {
       <header className="App-header">
         <p className="user-text">
           User{" "}
-          <span className="user-icon">
+          <span className="user-icon ">
             <img src={perfil} alt="User" />
+          </span>
+          <span className="notificacion-icon">
+       <img src={notificacion} alt="notificaciones" />
             
 
           </span>

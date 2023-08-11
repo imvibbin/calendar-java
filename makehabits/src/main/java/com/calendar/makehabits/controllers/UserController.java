@@ -1,12 +1,10 @@
 package com.calendar.makehabits.controllers;
 
-import com.calendar.makehabits.models.ErrorMessages;
+import com.calendar.makehabits.enums.MessageType;
 import com.calendar.makehabits.models.Messages;
 import com.calendar.makehabits.models.User;
 import com.calendar.makehabits.services.UserService;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,7 +27,8 @@ public class UserController {
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
     if (user == null) {
-      return new ResponseEntity<>(ErrorMessages.getMessage("User not found"), HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(
+          Messages.getMessage(MessageType.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
     }
 
     return new ResponseEntity<>(user, HttpStatus.OK);
@@ -43,7 +42,8 @@ public class UserController {
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
     if (users.isEmpty()) {
-      return new ResponseEntity<>(ErrorMessages.getMessage("USERNAME_ALREADY_EXISTS"), HttpStatus.UNAUTHORIZED);
+      return new ResponseEntity<>(
+          Messages.getMessage(MessageType.INVALID_USER_OR_PASSWORD), HttpStatus.UNAUTHORIZED);
     }
 
     return new ResponseEntity<>(users.get(0), HttpStatus.OK);
@@ -57,12 +57,13 @@ public class UserController {
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
     if (status == 0) {
-      return new ResponseEntity<>("Oc.", HttpStatus.OK);
+      return new ResponseEntity<>(Messages.getMessage(MessageType.OK), HttpStatus.OK);
     } else if (status == 1) {
-      return new ResponseEntity<>(ErrorMessages.getMessage("USERNAME_ALREADY_EXISTS"), HttpStatus.NOT_MODIFIED);
+      return new ResponseEntity<>(
+          Messages.getMessage(MessageType.USERNAME_ALREADY_EXISTS), HttpStatus.NOT_MODIFIED);
     } else if (status == 2) {
       return new ResponseEntity<>(
-          ErrorMessages.getMessage("USERNAME_ALREADY_EXISTS"), HttpStatus.CONFLICT);
+          Messages.getMessage(MessageType.USERNAME_ALREADY_EXISTS), HttpStatus.CONFLICT);
     }
     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
   }

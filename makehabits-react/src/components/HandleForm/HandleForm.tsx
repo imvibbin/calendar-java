@@ -1,15 +1,45 @@
+import ActivityInterface from "../../models/ActivityInterface";
 import React, { useState, ChangeEvent } from 'react';
 
 const HandleForm = () => {
-    const [eventData, setEventData] = useState({
+    const [eventData, setEventData] = useState<ActivityInterface>({
         title: '',
         description: '',
         type: 'activity',
-        selectedDates: [] as string[], // Initialize selectedDates as an empty array
+        eventDate: [], 
+        habitDays: [],
     });
 
     const [selectedDates, setSelectedDates] = useState<string[]>([]);
-    const [formattedDate, setFormattedDate] = useState('');
+    
+
+    const handleDateChange = (startDate: string, endDate: string) => {
+        const startTimestamp = Date.parse(startDate);
+        const endTimestamp = Date.parse(endDate);
+
+        // Check if startDate is set and endDate is not a previous date
+        if (startTimestamp && (!endTimestamp || endTimestamp >= startTimestamp)) {
+            setEventData({
+            ...eventData,
+            eventDate: [startDate, endDate],
+            });
+        }
+    };
+
+    const handleDayCheckboxChange = (day: number) => {
+        console.log(day);
+        if(eventData.type === 'habit') {
+        
+        const updatedDays = eventData.habitDays.includes(day)
+        ? eventData.habitDays.filter((d) => d !== day)
+        : [...eventData.habitDays, day];
+    
+        setEventData({
+        ...eventData,
+        habitDays: updatedDays,
+        });
+    }
+    };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,32 +49,15 @@ const HandleForm = () => {
     }));
 };
 
-const handleDate = (e:ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = e.target.value;
-    setSelectedDates((prevDates) => [...prevDates, selectedDate]);
-};
-const 
-/* const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = e.target.value;
-    setSelectedDates((prevDates) => [...prevDates, selectedDate]);
-};
-const toggleDay = (day: string) => {
-    if (selectedDates.includes(day)) {
-        setSelectedDates((prevDays) => prevDays.filter((d) => d !== day));
-    } else {
-        setSelectedDates((prevDays) => [...prevDays, day]);
-    }
-}; */
+
 const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedType = e.target.value;
     setEventData((prevData) => ({
     ...prevData,
     type: selectedType,
+    habitDays: [],
     }));
-    setEventData((prevData) => ({
-        ...prevData,
-        selectedDates: [],
-    }));
+    
 };
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,6 +76,7 @@ return (
             name="title"
             value={eventData.title}
             onChange={handleInputChange}
+            required
         />
     </div>
     <div>{/* DESCRIPTION INPUT */}
@@ -72,6 +86,7 @@ return (
             name="description"
             value={eventData.description}
             onChange={handleInputChange}
+            required
         />
     </div>
     <div>{/* TYPE OF ACTIVITY  */}
@@ -82,6 +97,7 @@ return (
             name="type"
             value="habit"
             checked={eventData.type === 'habit'}
+            
             onChange={handleRadioChange}
         />
         Habit
@@ -98,44 +114,64 @@ return (
         </label>
     </div>
     
-    {eventData.type === 'habit' && (/* HANDLE FORM INPUT FOR HABITS */
+    {eventData.type === 'activity' && (/* HANDLE FORM INPUT FOR HABITS */
         <div>
-            <p>Select Habit Days:</p>
-            {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
-            <label key={day} className={`circular-checkbox ${selectedDates.includes(day) ? 'selected' : ''}`}>
-                <input
-                type="checkbox"
-                value={day}
-                checked={selectedDates.includes(day)}
-                onChange={() => toggleDay(day)}
-                />
-            {day}
-            </label>
-        ))}
+            <label>Start Date:</label>
+            <input
+            type="date"
+            value={eventData.eventDate[0] || ''}
+            onChange={(e) => {
+                const selectedStartDate = e.target.value;
+                const nextDay = new Date(selectedStartDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                const formattedNextDay = nextDay.toISOString().substr(0, 10);
+                handleDateChange(selectedStartDate, formattedNextDay);
+            }}
+            required
+            />
+
+            <label>End Date:</label>
+            <input
+            type="date"
+
+            value={eventData.eventDate[1] || ''}
+            onChange={(e) => handleDateChange(eventData.eventDate[0], e.target.value)}
+            required
+            />
         </div>
+
     )}
     <div>
         <label>
-          Selected Dates:
-          {selectedDates.map((date, index) => (
+        Selected Dates:
+            {selectedDates.map((date, index) => (
             <span key={index}>{date}, </span>
-          ))}
+        ))}
         </label>
     </div>
-      {eventData.type === 'activity' && (/* HANDLE FORM INPUT FOR ACTIVITIES */
-      <div>
-        <label>
-          Choose Date:
-          <input
-            type="date"
-            name="date"
-            onChange={handleDateChange}
-            value={selectedDates[selectedDates.length - 1] || ''}
-          />
+      {eventData.type === 'habit' && (/* HANDLE FORM INPUT FOR ACTIVITIES */
+    <div>
+        <div>
+        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'].map((day, index) => (
+        <label key={index}>
+            <input
+                type="checkbox"
+                checked={eventData.habitDays.includes(index)}
+                onChange={() => handleDayCheckboxChange(index)}
+            />
+            {day}
         </label>
-      </div>
+        ))}
+    </div>
+        <label>Date:</label>
+            <input
+            type="date"
+            value={eventData.eventDate[0] || ''}
+            onChange={(e) => handleDateChange(e.target.value, '')}
+            />
+    </div>
     )}
-    <button type="submit" >Create Event</button>
+    <button type="submit">Create Event</button>
     </form>
 );
 };

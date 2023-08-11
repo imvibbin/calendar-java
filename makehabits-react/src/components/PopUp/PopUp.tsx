@@ -4,14 +4,14 @@ import { useState, ChangeEvent, } from 'react';
 import Button from 'react-bootstrap/Button';
 
 const PopUp = () => {
-    const userInitial = {
-        typeActivity:
-    };
 
     const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    /*     const toggleDay = (day) => {
     const [selectedDays, setSelectedDays] = useState([]);
 
-    const toggleDay = (day) => {
         if (selectedDays.includes(day)) {
           setSelectedDays(selectedDays.filter(selectedDay => selectedDay !== day));
         } else {
@@ -19,14 +19,13 @@ const PopUp = () => {
 
         }
       };
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    
 
     const [selectedOption, setSelectedOption] = useState('');
-    /*  OPEN CLOSE MODAL */
+      OPEN CLOSE MODAL 
     const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSelectedOption(event.target.value);
-    };
+    }; */
     return (
     <>
 

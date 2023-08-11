@@ -1,4 +1,4 @@
-import UserInterfaceNODEBERIADEJARMEELORDENADORABIERTO from "../models/UserInterface";
+import UserInterface from "../models/UserInterface";
 
 const BASE_URL = "http://localhost:8080/user";
 

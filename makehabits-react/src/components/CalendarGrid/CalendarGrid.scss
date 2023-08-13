@@ -13,7 +13,7 @@ body, html, #root {
     margin: 0 auto;
 }
 
-.grid-cell {
+.grid--cell {
     width: 100%;
     display: flex;
     align-items: center;
@@ -22,4 +22,16 @@ body, html, #root {
     color: white;
     font-weight: bold;
     border: 1px solid #ccc; /* Agrega un borde para visualizar las celdas */
-  }
+}
+
+.grid--hour{
+    display: flex;
+    align-items: flex-start;
+    justify-content: end;
+}   
+
+.grid--day{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

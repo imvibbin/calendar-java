@@ -6,31 +6,33 @@ const CalendarGrid = () => {
   const numCols = 8;
   const daysOfWeek = ['', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const daysOfMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct', 'Nov', 'Dec'];
-  const hourRange = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct', 'Nov', 'Dec'];
+  const hourRange = ['','8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM','4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM','8:00 PM', '9:00 PM', '10:00 PM'];
   const generateCells = () => {
     const cells = [];
-
+  
     for (let row = 0; row < numRows; row++) {
       for (let col = 0; col < numCols; col++) {
-        const cellKey = `cell-${row}-${col}`;
+        const cellKey = `cell--${row}-${col}`;
         const color = getRandomColor();
-        if(row == 0){
+        let cellContent = `${row},${col}`;
+        let cellClass = "grid--cell";
 
+        if (row === 0) {
+          cellContent = daysOfWeek[col];
+          cellClass = "grid--day";
+        } else if (col === 0) {
+          cellContent = hourRange[row];
+          cellClass = "grid--hour";
         }
-        else if(col == 0){
-
-        }
-        else{
-          cells.push(
-            
-            <div key={cellKey} className="grid-cell" style={{ backgroundColor: color }}>
-              {`${row},${col}`}
-            </div>
-          );
-        }
+  
+        cells.push(
+          <div key={cellKey} className={cellClass} style={{ backgroundColor: color }}>
+            {cellContent}
+          </div>
+        );
       }
     }
-
+  
     return cells;
   };
 

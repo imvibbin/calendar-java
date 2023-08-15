@@ -1,31 +1,83 @@
 import Modal from 'react-bootstrap/Modal';
 import './PopUp.css';
-import { useState, ChangeEvent, } from 'react';
+import { useState, ChangeEvent } from 'react';
 import Button from 'react-bootstrap/Button';
 
+import HandleForm from "../HandleForm/HandleForm";
+import ActivityInterface from "../../models/ActivityInterface";
 const PopUp = () => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [eventData, setEventData] = useState<ActivityInterface>({
+      title: '',
+      description: '',
+      type: 'activity',
+      eventDate: [], 
+      habitDays: [],
+  });
 
-    /*     const toggleDay = (day) => {
-    const [selectedDays, setSelectedDays] = useState([]);
+  const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  
 
-        if (selectedDays.includes(day)) {
-          setSelectedDays(selectedDays.filter(selectedDay => selectedDay !== day));
-        } else {
-          setSelectedDays([...selectedDays, day]);
+  const handleDateChange = (startDate: string, endDate: string) => {
+      const startTimestamp = Date.parse(startDate);
+      const endTimestamp = Date.parse(endDate);
 
-        }
-      };
+      // Check if startDate is set and endDate is not a previous date
+      if (startTimestamp && (!endTimestamp || endTimestamp >= startTimestamp)) {
+          setEventData({
+          ...eventData,
+          eventDate: [startDate, endDate],
+          });
+      }
+  };
+
+  const handleDayCheckboxChange = (day: number) => {
+      console.log(day);
+      if(eventData.type === 'habit') {
+      
+      const updatedDays = eventData.habitDays.includes(day)
+      ? eventData.habitDays.filter((d) => d !== day)
+      : [...eventData.habitDays, day];
+  
+      setEventData({
+      ...eventData,
+      habitDays: updatedDays,
+      });
+  }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  setEventData((prevData) => ({
+  ...prevData,
+  [name]: value,
+  }));
+};
+
+
+const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const selectedType = e.target.value;
+  setEventData((prevData) => ({
+  ...prevData,
+  type: selectedType,
+  habitDays: [],
+  }));
+  
+};
+
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const jsonEventData = JSON.stringify(eventData);
+  console.log(jsonEventData); 
+  // You can then send this JSON to your API or use it as needed.
+};
+
     
 
-    const [selectedOption, setSelectedOption] = useState('');
-      OPEN CLOSE MODAL 
-    const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSelectedOption(event.target.value);
-    }; */
+
     return (
     <>
 
@@ -39,60 +91,118 @@ const PopUp = () => {
 
         <article className="card">
             <section className="card-time">
-            {selectedOption === 'typeOfActivity1' && <div className="activity-event">
-                
-                    <span>23</span><span>feb</span>
-                    <button> j </button>
-                    <button> j </button>
-                
-            </div>}
-            {selectedOption === 'typeOfActivity2' && <div className="activity-habit">
-            <div className="checkbox-list">
-                {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                <label key={day} className={`circular-checkbox ${selectedDays.includes(day) ? 'selected' : ''}`}>
-                    <input
-                    type="checkbox"
-                    value={day}
-                    checked={selectedDays.includes(day)}
-                    onChange={() => toggleDay(day)}
-                    />
-                    {day}
-                </label>
-                ))}
-            </div>
-
-                </div>}
 
             
             </section>
             <section className="card-info"> 
-                
-                    <div><input className="input-title" placeholder='Activity/Event'/></div>
-                    <div><input className="input-description" placeholder='Go run with my homies' /></div>
-                    <div>
-                        <label>
-                            <input
-                            type="radio"
-                            value="typeOfActivity1"
-                            checked={selectedOption === 'typeOfActivity1'}
-                            onChange={handleOptionChange}
-                            />
-                            Event
-                        </label>
-                
-                        <label>
-                            <input
-                            type="radio"
-                            value="typeOfActivity2"
-                            checked={selectedOption === 'typeOfActivity2'}
-                            onChange={handleOptionChange}
-                            />
-                            Habit
-                        </label>
-                    </div>
-                    <button className="button--save" onClick={handleClose}>
-                    Save Activity
-                    </button>
+            <form onSubmit={handleSubmit}>
+    <div>{/* TITLE INPUT */}
+        <label>Title:</label>
+        <input
+            type="text"
+            name="title"
+            value={eventData.title}
+            onChange={handleInputChange}
+            required
+        />
+    </div>
+    <div>{/* DESCRIPTION INPUT */}
+        <label>Description</label>
+        <input
+            type="text"
+            name="description"
+            value={eventData.description}
+            onChange={handleInputChange}
+            required
+        />
+    </div>
+    <div>{/* TYPE OF ACTIVITY  */}
+        <label>Type:</label>
+        <label>
+        <input
+            type="radio"
+            name="type"
+            value="habit"
+            checked={eventData.type === 'habit'}
+            
+            onChange={handleRadioChange}
+        />
+        Habit
+        </label>
+        <label>
+        <input
+            type="radio"
+            name="type"
+            value="activity"
+            checked={eventData.type === 'activity'}
+            onChange={handleRadioChange}
+        />
+        Activity
+        </label>
+    </div>
+    
+    {eventData.type === 'activity' && (/* HANDLE FORM INPUT FOR HABITS */
+        <div>
+            <label>Start Date:</label>
+            <input
+            type="date"
+            value={eventData.eventDate[0] || ''}
+            onChange={(e) => {
+                const selectedStartDate = e.target.value;
+                const nextDay = new Date(selectedStartDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                const formattedNextDay = nextDay.toISOString().substr(0, 10);
+                handleDateChange(selectedStartDate, formattedNextDay);
+            }}
+            required
+            />
+
+            <label>End Date:</label>
+            <input
+            type="date"
+
+            value={eventData.eventDate[1] || ''}
+            onChange={(e) => handleDateChange(eventData.eventDate[0], e.target.value)}
+            required
+            />
+        </div>
+
+    )}
+    <div>
+        <label>
+        Selected Dates:
+            {selectedDates.map((date, index) => (
+            <span key={index}>{date}, </span>
+        ))}
+        </label>
+    </div>
+      {eventData.type === 'habit' && (/* HANDLE FORM INPUT FOR ACTIVITIES */
+    <div>
+        <div>
+        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'].map((day, index) => (
+        <label key={index}>
+            <input
+                type="checkbox"
+                checked={eventData.habitDays.includes(index)}
+                onChange={() => handleDayCheckboxChange(index)}
+            />
+            {day}
+        </label>
+        ))}
+    </div>
+        <label>Date:</label>
+            <input
+            type="date"
+            value={eventData.eventDate[0] || ''}
+            onChange={(e) => handleDateChange(e.target.value, '')}
+            />
+    </div>
+    )}
+    <button type="submit"  className="button--save" onClick={handleClose} >
+              Create Event
+              </button>
+    </form>
+              
                 
             </section>
         </article>

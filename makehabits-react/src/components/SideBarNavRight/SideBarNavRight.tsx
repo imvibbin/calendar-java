@@ -1,8 +1,12 @@
+import React from 'react'
 import perfil from "../../assets/perfil.png";
 import notificacion from "../../assets/notificacion.png"
-function SideBarNavRight() {
+const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    // Handle the click event here 
+    alert("Hello world!");
+  };
 
-  
+function SideBarNavRight() {
 
   return (
     <>
@@ -14,10 +18,11 @@ function SideBarNavRight() {
           </span>
           <span className="notificacion-icon">
        <img src={notificacion} alt="notificaciones" />
-            
-
           </span>
         </p>
+        <span>List Activity</span>
+        <br />
+        <button onClick={handleClick} >+ New Activity</button>
       </header>
   
     </>

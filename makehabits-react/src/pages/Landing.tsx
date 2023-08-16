@@ -123,8 +123,8 @@ const Landing = () => {
           style={{ backgroundColor: "blue" }}
           className="col-3 border border-white "
         >
-            <div>
-            <div className="perfil d-flex justify-content-end">
+            
+            <div className="perfil d-flex">
             <div className="notificacion d-flex justify-content-start">
             <SideBarNavRight />
           </div>
@@ -132,7 +132,7 @@ const Landing = () => {
         </div>
       </div>
       </div>
-    </div>
+   
   );
 };
 

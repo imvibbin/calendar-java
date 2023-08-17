@@ -15,6 +15,6 @@ import CalendarGrid from "./components/CalendarGrid/CalendarGrid";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <PopUp/>
+    <Layout/>
   </React.StrictMode>,
 );

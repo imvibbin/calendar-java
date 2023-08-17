@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal';
-import './PopUp.css';
+import './PopUp.scss';
 import { useState, ChangeEvent } from 'react';
 import Button from 'react-bootstrap/Button';
 
@@ -91,7 +91,64 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
         <article className="card">
             <section className="card-time">
+            {eventData.type === 'activity' && (/* HANDLE FORM INPUT FOR HABITS */
+        <div>
+            <label>Start Date:</label>
+            <input
+            type="date"
+            value={eventData.eventDate[0] || ''}
+            onChange={(e) => {
+                const selectedStartDate = e.target.value;
+                const nextDay = new Date(selectedStartDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                const formattedNextDay = nextDay.toISOString().substr(0, 10);
+                handleDateChange(selectedStartDate, formattedNextDay);
+            }}
+            required
+            />
 
+            <label>End Date:</label>
+            <input
+            type="date"
+
+            value={eventData.eventDate[1] || ''}
+            onChange={(e) => handleDateChange(eventData.eventDate[0], e.target.value)}
+            required
+            />
+        </div>
+
+    )}
+    <div>
+        <label>
+        Selected Dates:
+            {selectedDates.map((date, index) => (
+            <span key={index}>{date}, </span>
+        ))}
+        </label>
+    </div>
+      {eventData.type === 'habit' && (/* HANDLE FORM INPUT FOR ACTIVITIES */
+    <div>
+        <div>
+        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'].map((day, index) => (
+        <label key={index}>
+            <input 
+                type="checkbox"
+                checked={eventData.habitDays.includes(index)}
+                onChange={() => handleDayCheckboxChange(index)}
+            />
+            {day}
+        </label>
+        ))}
+    </div>
+    
+        <label>Date:</label>
+            <input className="input--date"
+            type="date"
+            value={eventData.eventDate[0] || ''}
+            onChange={(e) => handleDateChange(e.target.value, '')}
+            />
+    </div>
+    )}
             
             </section>
             <section className="card-info"> 
@@ -141,63 +198,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         </label>
     </div>
     
-    {eventData.type === 'activity' && (/* HANDLE FORM INPUT FOR HABITS */
-        <div>
-            <label>Start Date:</label>
-            <input
-            type="date"
-            value={eventData.eventDate[0] || ''}
-            onChange={(e) => {
-                const selectedStartDate = e.target.value;
-                const nextDay = new Date(selectedStartDate);
-                nextDay.setDate(nextDay.getDate() + 1);
-                const formattedNextDay = nextDay.toISOString().substr(0, 10);
-                handleDateChange(selectedStartDate, formattedNextDay);
-            }}
-            required
-            />
-
-            <label>End Date:</label>
-            <input
-            type="date"
-
-            value={eventData.eventDate[1] || ''}
-            onChange={(e) => handleDateChange(eventData.eventDate[0], e.target.value)}
-            required
-            />
-        </div>
-
-    )}
-    <div>
-        <label>
-        Selected Dates:
-            {selectedDates.map((date, index) => (
-            <span key={index}>{date}, </span>
-        ))}
-        </label>
-    </div>
-      {eventData.type === 'habit' && (/* HANDLE FORM INPUT FOR ACTIVITIES */
-    <div>
-        <div>
-        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'].map((day, index) => (
-        <label key={index}>
-            <input
-                type="checkbox"
-                checked={eventData.habitDays.includes(index)}
-                onChange={() => handleDayCheckboxChange(index)}
-            />
-            {day}
-        </label>
-        ))}
-    </div>
-        <label>Date:</label>
-            <input
-            type="date"
-            value={eventData.eventDate[0] || ''}
-            onChange={(e) => handleDateChange(e.target.value, '')}
-            />
-    </div>
-    )}
+    
     <button type="submit"  className="button--save" onClick={handleClose} >
               Create Event
               </button>

@@ -9,7 +9,6 @@ constructor(props) {
     super(props);
 
     this.state = {
-        
         rightOpen: true,
     }
 }
@@ -33,8 +32,8 @@ render() {
 
           <div id='right' className={rightOpen} >
               <div className='icon'
-                   onClick={this.toggleSidebar} >
-                   &equiv;
+                  onClick={this.toggleSidebar} >
+                  &equiv;
               </div>
               <div className={`sidebar ${rightOpen}`} >
                   <div className='header'>

@@ -4,7 +4,7 @@ import { loginUser } from "../services/UserService";
 import CustomError from "../models/CustomError";
 import { useNavigate } from "react-router-dom";
 
-import "./styles/RegisterPage.css";
+import "./styles/Users.css";
 
 const RegisterPage = () => {
   const userInitial = {
@@ -31,7 +31,7 @@ const RegisterPage = () => {
     try {
       const response = await loginUser(user.username, user.password);
       localStorage.setItem("USER_DATA", JSON.stringify(response));
-      console.log("User created:", response);
+      console.log("User logged:", response);
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -49,52 +49,69 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="main-container container-fluid vh-100">
-        <div className="row h-auto vh-100 overflow-hidden">
-          <div className="main-container-banner col-md-7 d-flex align-items-center justify-content-center overflow-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-              <path
-                fill="#0099ff"
-                fillOpacity="1"
-                d="M0,224L30,213.3C60,203,120,181,180,192C240,203,300,245,360,240C420,235,480,181,540,138.7C600,96,660,64,720,69.3C780,75,840,117,900,149.3C960,181,1020,203,1080,192C1140,181,1200,139,1260,117.3C1320,96,1380,96,1410,96L1440,96L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"
-              ></path>
-            </svg>
+      <div className="main-container d-flex border align-items-center justify-content-end p-5 vh-100">
+        <div className="main-container-content-form d-flex flex-column h-100 align-items-center justify-content-center">
+          <div className="w-100 ">
+            <h2>Welcome to Makehabits!</h2>
+            <p>Please enter your username and password</p>
           </div>
-          <div className="main-container-content col-5 p-5 position-relative">
-            <div className="main-container-content-form position-absolute">
-              <h2>Welcome to Makehabits!</h2>
-              <form onSubmit={handleSubmit} className="d-flex flex-column">
-                <input
-                  type="text"
-                  id="username"
-                  className="p-3 rounded-pill"
-                  name="username"
-                  placeholder="Username"
-                  value={user.username}
-                  onChange={handleOnChange}
-                  required
-                />
-                <input
-                  type="password"
-                  id="password"
-                  className="p-3 rounded-pill"
-                  name="password"
-                  placeholder="Password"
-                  value={user.password}
-                  onChange={handleOnChange}
-                  required
-                />
-                <button
-                  type="submit"
-                  className={`p-3 rounded-pill mt-2 mb-2 ${
-                    btnStatus ? "btn-triggered" : ""
-                  }`}
+          <form onSubmit={handleSubmit} className="w-100">
+            <div className="d-flex justify-content-between align-items-center mt-4">
+              <div className="username-icon p-3 border rounded-start-pill d-flex text-center align-items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 448 512"
                 >
-                  {btnStatus ? "Ok!" : "Register"}
-                </button>
-              </form>
+                  <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="username"
+                className="p-3 rounded-end-pill w-100"
+                name="username"
+                placeholder="Username"
+                value={user.username}
+                onChange={handleOnChange}
+                required
+              />
             </div>
-          </div>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="1em"
+                viewBox="0 0 448 512"
+              >
+                <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" />
+              </svg>
+
+              <input
+                type="password"
+                id="password"
+                className="p-3 rounded-end-pill"
+                name="password"
+                placeholder="Password"
+                value={user.password}
+                onChange={handleOnChange}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className={`p-3 rounded-pill mt-4 mb-2 w-100 ${
+                btnStatus ? "btn-triggered" : ""
+              }`}
+            >
+              {btnStatus ? "Ok!" : "Login"}
+            </button>
+            <div className="">
+              <p className="forgot-pass text-center">Forgot password</p>
+              <p className="create-acc mt-4 text-center">
+                Don't have an account yet? <span>Create account</span>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
     </>

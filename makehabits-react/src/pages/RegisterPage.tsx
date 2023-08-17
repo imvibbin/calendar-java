@@ -4,7 +4,7 @@ import { createUser } from "../services/UserService";
 import CustomError from "../models/CustomError";
 import { useNavigate } from "react-router-dom";
 
-import "./styles/RegisterPage.css";
+import "./styles/Users.css";
 
 const RegisterPage = () => {
   const userInitial = {

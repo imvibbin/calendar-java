@@ -11,9 +11,7 @@ function App() {
         <Routes>
           <Route index element={<Landing />} />
           <Route path="registration" element={<RegisterPage />} />
-          <Route path="Login" element={<LoginPage />} />
-
-
+          <Route path="login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </>

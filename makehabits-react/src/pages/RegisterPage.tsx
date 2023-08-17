@@ -30,6 +30,7 @@ const RegisterPage = () => {
     console.log(user);
     try {
       const response = await createUser(user);
+      localStorage.setItem("USER_DATA", JSON.stringify(response));
       console.log("User created:", response);
       setTimeout(() => {
         navigate("/");

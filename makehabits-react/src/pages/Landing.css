@@ -1,26 +1,86 @@
-.landing-logo{
+.landing-logo {
     padding: 0.25rem;
 }
-.landing-title{
+
+.landing-title {
     font-size: 17px;
     font-weight: 500;
 }
-.sidebar-card{
+
+.sidebar-card {
     border-bottom: 2px solid #DFE5F1;
     border-radius: 1px;
 }
 
-.card-logo{
+.card-logo {
     width: 32px;
     height: 32px;
     border-radius: 30px;
 }
-.card-title{
+
+.card-title {
     color: black;
-    font-weight: 700;
+    font-weight: 100;
 }
-.card-subtitle{
-    font-size: 14px;
+
+.card-subtitle {
+    font-size: 5 px;
     color: #A5B4CB;
-    font-weight: 500;
+    font-weight: 100;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.user-icon {
+    display: flex;
+    align-items: end;
+}
+
+.user-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+
+}
+
+.user1 {
+    display: flex;
+    justify-content: center;
+
+}
+
+.button {
+    align-items: end;
+    margin-right: 25px;
+    /* Espacio entre el botón y el icono */
+}
+
+.user-icon img {
+    width: 30px;
+    /* Ajusta el ancho según tus necesidades */
+    height: 30px;
+    /* Ajusta la altura según tus necesidades */
+    margin-right: 10px;
+    /* Espacio entre el icono y el título del curso */
+}
+
+.course-title {
+    font-weight: bold;
+    margin-right: 15px;
+    /* Espacio entre el título del curso y el botón '...' */
+}
+
+.custom-btn {
+
+    margin-left: 0rem;
+    padding-top: .0rem;
+
+
+}
+
+.vertical {
+    transform: rotate(-90deg);
 }

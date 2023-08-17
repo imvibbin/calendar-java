@@ -34,7 +34,7 @@ public class UserController {
     return new ResponseEntity<>(user, HttpStatus.OK);
   }
 
-  @GetMapping("/login-auth")
+  @PostMapping("/login-auth")
   public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
     List<User> users = userService.userLogin(loginRequest.getUsername(), loginRequest.getPassword());
 

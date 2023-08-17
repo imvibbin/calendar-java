@@ -32,6 +32,23 @@ async function createUser(newUser: UserInterface): Promise<UserInterface> {
   return response.json();
 }
 
+async function loginUser(username: string, password: string) {
+  const response = await fetch(`${BASE_URL}/login-auth`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username: username, password: password }),
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message); // Throw an error with the error message from the backend
+  }
+
+  return response.json();
+}
+
 // Function to make a PUT request to update a user
 async function updateUser(updatedUser: UserInterface): Promise<UserInterface> {
   const response = await fetch(`${BASE_URL}/${updatedUser.user_id}`, {
@@ -62,4 +79,4 @@ async function deleteUser(userId: number): Promise<void> {
   return await response.json();
 }
 
-export { getAllUsers, createUser, updateUser, deleteUser };
+export { getAllUsers, createUser, loginUser, updateUser, deleteUser };

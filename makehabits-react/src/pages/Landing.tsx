@@ -120,7 +120,7 @@ const Landing = () => {
           -
         </div>
         <div
-          style={{ backgroundColor: "purple" }}
+          style={{ backgroundColor: "fuchsia" }}
           className="col-3 border border-white "
         >
           <div>

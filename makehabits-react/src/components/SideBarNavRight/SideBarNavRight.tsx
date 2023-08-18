@@ -3,7 +3,10 @@ import perfil from "../../assets/perfil.png";
 import notificacion from "../../assets/notificacion.png";
 import app from "../../assets/app.png";
 import gym from "../../assets/gym.png";
-import user1 from "../../assets/user1.png";
+import work from "../../assets/work.png";
+import study from "../../assets/study.png";
+import cook from "../../assets/cook.png";
+import calendar from "../../assets/calendar.png";
 
 const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
   // Handle the click event here
@@ -11,6 +14,49 @@ const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
 };
 
 function SideBarNavRight() {
+  const eventsWithImages = [
+    {
+      name: "App Development Course",
+      imageUrl: app,
+    },
+    {
+      name: "Gym",
+      imageUrl: gym,
+    },
+    {
+      name: "work",
+      imageUrl: work,
+    },
+    {
+      name: "Study",
+      imageUrl: study,
+    },
+    {
+      name: "work",
+      imageUrl: work,
+    },
+    {
+      name: "Cooking",
+      imageUrl: cook,
+    },
+    {
+      name: "Gym",
+      imageUrl: gym,
+    },
+    {
+      name: "work",
+      imageUrl: work,
+    },
+    {
+      name: "Study",
+      imageUrl: study,
+    },
+    {
+      name: "work",
+      imageUrl: work,
+    },
+  ];
+
   return (
     <>
       <header className="App-header">
@@ -34,17 +80,9 @@ function SideBarNavRight() {
           </span>
         </p>
 
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
+        <span className="calendar-icon ">
+          <img src={calendar} alt="tome" />
+        </span>
         <div className="container">
           <span>List Activity</span>
         </div>
@@ -54,34 +92,28 @@ function SideBarNavRight() {
         </div>
         <br />
         <br />
-        <div className="container">
-          <span className="user-icon ">
-            <img src={app} alt="Course" />
-          </span>
-          App Devlopmwnt Course {""}
-          <div className="btn custom-btn ">
-            <ul>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="1em"
-                viewBox="0 0 128 512"
-                fill="#A5B4CB"
-              >
-                <svg width="100" height="100" style={{ fill: "#A5B4CB" }}></svg>
-                <path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
-              </svg>
-            </ul>
-          </div>
-        </div>
+        <div className="barra overflow-y-scroll  ">
+          {eventsWithImages.map((event, index) => (
+            <div key={index} className="container2">
+              <span className="user-icon">
+                <img src={event.imageUrl} alt="Course" />
+              </span>
 
-        <div className="container">
-          <span className="user-icon ">
-            <img src={gym} alt="gym" />
-          </span>
-          Gym - It's gym time {""}
-        </div>
-        <div className="user1">
-          <img src={user1} alt="user1" />
+              {event.name}
+              <div className=" btn-custom-btn">
+                <ul>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1em"
+                    viewBox="0 0 128 512"
+                    fill="#A5B4CB"
+                  >
+                    <path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
+                  </svg>
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
       </header>
     </>

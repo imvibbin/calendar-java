@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import UserInterface from "../models/UserInterface";
-import { createUser } from "../services/UserService";
-import CustomError from "../models/CustomError";
+import UserInterface from "../../models/UserInterface";
+import { createUser } from "../../services/UserService";
+import CustomError from "../../models/CustomError";
 import { useNavigate } from "react-router-dom";
 
-import "./styles/Users.css";
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
   const userInitial = {

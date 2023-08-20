@@ -1,6 +1,9 @@
 import "./Landing.css";
 import logoUser from "../assets/logo-user.png";
+import { useNavigate } from "react-router-dom";
+
 const Landing = () => {
+  const navigate = useNavigate();
   const USER_DATA = localStorage.getItem("USER_DATA");
   console.log(USER_DATA);
 
@@ -132,6 +135,7 @@ const Landing = () => {
           style={{ backgroundColor: "blue" }}
           className="col-3 border border-white "
         >
+          <button onClick={(() => navigate("/login"))}>Login</button>
           {USER_DATA != null && (
             <>
               <h1>Welcome, logged in user!</h1>

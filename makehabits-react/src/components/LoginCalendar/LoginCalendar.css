@@ -1,9 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Borel&display=swap");
+
 .main-container-content {
-  width: 50%;
-  height: 85%;
+  width: 85%;
+  height: 65%;
   background-color: #fffafa;
+  outline: 15px #4f4d5b solid;
   border-radius: 50px;
-  box-shadow: 7px 15px 2px 3px #5b414e;
+  box-shadow: 7px 15px 5px 3px #2f2e34;
   z-index: 1000;
 }
 
@@ -22,12 +25,12 @@
 
 .pill1 {
   top: -40px;
-  left: 82px;
+  left: 132px;
 }
 
 .pill2 {
   top: -40px;
-  right: 82px;
+  right: 132px;
 }
 
 .circle {
@@ -38,37 +41,37 @@
 
 .circle1 {
   top: 10px;
-  left: 70px;
+  left: 120px;
 }
 
 .circle2 {
   top: 10px;
-  right: 70px;
+  right: 120px;
+}
+
+.calendar-title {
+  width: 50%;
+  height: 70%;
+  background-color: #646273;
+  border: 5px #a5a2bd solid;
+}
+
+.calendar-title-content {
+  color: #fffafa;
+  height: 100%;
+  font-size: 80px;
+  font-family: "Borel", cursive;
 }
 
 .calendar-arrows {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #fffafa;
   cursor: pointer;
 }
 
-.calendar-arrows > svg {
+.calendar-arrows svg {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.calendar-arrow-previous {
-  margin-left: 20%;
-}
-
-.calendar-arrow-next {
-  margin-right: 20%;
-}
-
-.calendar-title {
-  color: #fffafa;
-  font-size: 100px;
-  font-weight: bolder;
 }

@@ -26,12 +26,10 @@ const LoginCalendarForm = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     setBtnClicked(true);
     event.preventDefault();
-    console.log(`Button status: ${btnStatus}`);
-    console.log(user);
+
     try {
       const response = await loginUser(user.username, user.password);
       localStorage.setItem("USER_DATA", JSON.stringify(response));
-      console.log("User logged:", response);
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -48,12 +46,12 @@ const LoginCalendarForm = () => {
   };
 
   return (
-    <div className="main-container-form w-100 px-5 py-5 d-flex justify-content-center align-items-center border border-danger">
+    <div className="main-container-form w-100 py-5 d-flex justify-content-center align-items-center">
       <form
         onSubmit={handleSubmit}
-        className="w-50 h-100 d-flex flex-column justify-content-center align-items-center border border-success"
+        className="w-50 h-100 d-flex flex-column justify-content-between align-items-center"
       >
-        <div className="inputs w-100 border border-primary">
+        <div className="inputs w-100">
           <div className="main-container-content-form-input d-flex justify-content-between align-items-center w-100">
             <div className="input-icons p-3 rounded-circle d-flex justify-content-center align-items-center h-100">
               <svg

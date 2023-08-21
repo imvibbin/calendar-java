@@ -1,0 +1,64 @@
+.main-container-form {
+  height: 75%;
+}
+
+.input-icons {
+  border-top: 1px #ffb4c1 solid;
+  border-bottom: 1px #ffb4c1 solid;
+  border-left: 1px #ffb4c1 solid;
+  border-right: none;
+  background-color: #ffb4c1;
+  width: 60px;
+}
+
+.main-container-content input {
+  border: 1px #ffb4c1 solid;
+  margin: 1vh 0 1vh 0;
+  width: 83%;
+}
+
+.main-container-content-form-input {
+  height: 60px;
+}
+
+.main-container-content button {
+  width: 50%;
+  border: hidden;
+  outline: none;
+  background-color: #2f2f2f;
+  background-color: #fffafa;
+  border-radius: 40px;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #ffb4c1;
+}
+
+.main-container-content button.btn-triggered {
+  background-color: #fffafa;
+}
+
+.links {
+  height: fit-content;
+}
+
+.create-acc {
+  width: 100%; /* border-top: 1px #ffb4c1 solid; */
+}
+
+.create-acc * {
+  color: #ffb4c1;
+}
+
+.create-acc > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.main-container-content-shadow {
+  width: 50%;
+  height: 85%;
+  background-color: #5b414e;
+  border-radius: 50px;
+  z-index: 0;
+}

@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Borel&display=swap");
+
+.login-title {
+  color: #fffafa;
+  font-size: 120px;
+  font-family: "Borel", cursive;
+  text-shadow: 3px 3px 1px #8d89a6;
+}

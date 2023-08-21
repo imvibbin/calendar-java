@@ -49,7 +49,8 @@ public class UserRepository {
     try {
       List<User> users = jdbcTemplate.query(
           CHECK_IF_USER_EXISTS, new UserRowMapper(), userToRegister.getUsername());
-      if (users.size() > 1) {
+
+      if (users.size() > 0) {
         return 2; // User already exists
       }
 

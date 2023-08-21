@@ -1,17 +1,32 @@
-.login-title-container {
+.login-title-container ul {
+  list-style: none;
+}
+
+.login-title-container .texts {
   color: #fffafa;
   text-shadow: 3px 3px 1px #8d89a6;
   font-family: "Borel", cursive;
+  cursor: default;
+}
+
+.login-title-container .text-1-0 {
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+.login-title-container .text-3-0 {
+  margin-left: 30%;
+  margin-right: 8%;
 }
 
 @media (min-width: 1366px) {
-  .login-title-container {
+  .login-title-container .texts {
     font-size: 120px;
   }
 }
 
-@media (min-width: 700px) {
-  .login-title-container {
+@media (min-width: 700px) and (max-width: 1366px) {
+  .login-title-container .texts {
     font-size: 80px;
   }
 }

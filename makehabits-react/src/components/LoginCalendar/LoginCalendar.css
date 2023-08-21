@@ -1,6 +1,5 @@
 .main-container-content {
-  background-color: #fffafa;
-  outline: 15px #4f4d5b solid;
+  background: linear-gradient(to top, #fffafa 60%, #ebced9);
   border-radius: 50px;
   box-shadow: 7px 15px 5px 3px #2f2e34;
   z-index: 1000;
@@ -16,7 +15,7 @@
 .pill {
   width: 45px;
   height: 110px;
-  background-color: #f2d5f8;
+  background-color: #ff7c92;
 }
 
 .circle {
@@ -56,6 +55,7 @@
   .main-container-content {
     width: 85%;
     height: 65%;
+    outline: 15px #4f4d5b solid;
   }
 
   .pill1 {
@@ -79,10 +79,11 @@
   }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 700px) and (max-width: 1366px) {
   .main-container-content {
     width: 90%;
     height: 75%;
+    outline: 10px #4f4d5b solid;
   }
 
   .pill1 {

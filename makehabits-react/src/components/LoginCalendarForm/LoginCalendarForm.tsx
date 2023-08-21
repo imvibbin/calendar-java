@@ -3,6 +3,8 @@ import UserInterface from "../../models/UserInterface";
 import { loginUser } from "../../services/UserService";
 import CustomError from "../../models/CustomError";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 import "./LoginCalendarForm.css";
 
@@ -15,8 +17,24 @@ const LoginCalendarForm = () => {
   };
 
   const [user, setUser] = useState<UserInterface>(userInitial);
-  const [btnStatus, setBtnClicked] = useState(false);
   const navigate = useNavigate();
+
+  const notification = (loginSuccess: boolean) => {
+    const toastMessage = loginSuccess
+      ? "Success!"
+      : "Username or password incorrect";
+
+    toast[loginSuccess ? "success" : "error"](toastMessage, {
+      position: "top-center",
+      autoClose: loginSuccess ? 1000 : 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -24,18 +42,19 @@ const LoginCalendarForm = () => {
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    setBtnClicked(true);
     event.preventDefault();
 
     try {
       const response = await loginUser(user.username, user.password);
       localStorage.setItem("USER_DATA", JSON.stringify(response));
+      notification(true);
       setTimeout(() => {
         navigate("/");
-      }, 1000);
+      }, 2000);
     } catch (error) {
       const backendError = error as CustomError; // Cast to custom error type
       if (backendError.message) {
+        notification(false);
         console.error("Failed to authenticate user:", backendError.message);
       } else {
         console.error(
@@ -95,14 +114,23 @@ const LoginCalendarForm = () => {
             />
           </div>
         </div>
-        <button
+
+        <motion.button
           type="submit"
-          className={`p-3 rounded-pill mt-3 mb-2 w-100 ${
-            btnStatus ? "btn-triggered" : ""
-          }`}
+          whileHover={{
+            color: "white",
+            scale: 1.1,
+            transition: {
+              duration: 0.5,
+              type: "spring",
+              stiffness: 500,
+            },
+          }}
+          whileTap={{ scale: 0.9 }}
+          className="rounded-pill mt-3 mb-2 w-100"
         >
-          {btnStatus ? "Ok!" : "Login"}
-        </button>
+          Login
+        </motion.button>
 
         <div className="links w-100 d-flex flex-column justify-content-center">
           <div className="forgot-pass text-center">Forgot password</div>
@@ -114,8 +142,8 @@ const LoginCalendarForm = () => {
           </div>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
-
 export default LoginCalendarForm;

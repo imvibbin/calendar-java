@@ -1,10 +1,5 @@
 .main-container-form {
   height: 75%;
-  border: 2px blue solid;
-}
-
-.main-container-form form {
-  border: 2px green solid;
 }
 
 .input-icons {
@@ -15,14 +10,6 @@
   background-color: #ffb4c1;
 }
 
-.inputs {
-  border: 2px red solid;
-}
-
-.main-container-content-form-input {
-  border: 2px black solid;
-}
-
 .main-container-content input {
   border: 1px #ffb4c1 solid;
   width: 83%;
@@ -31,17 +18,9 @@
 .main-container-content button {
   border: hidden;
   outline: none;
-  background-color: #2f2f2f;
-  background-color: #fffafa;
-  border-radius: 40px;
   text-align: center;
-  overflow: hidden;
   cursor: pointer;
   background-color: #ffb4c1;
-}
-
-.main-container-content button.btn-triggered {
-  background-color: #fffafa;
 }
 
 .links {
@@ -49,7 +28,7 @@
 }
 
 .create-acc {
-  width: 100%; /* border-top: 1px #ffb4c1 solid; */
+  width: 100%;
 }
 
 .create-acc * {
@@ -81,9 +60,13 @@
   .input-icons {
     width: 60px;
   }
+
+  .main-container-form button {
+    height: 60px;
+  }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 700px) and (max-width: 1366px) {
   .main-container-form {
     padding: 2%;
   }
@@ -97,6 +80,6 @@
   }
 
   .main-container-form button {
-    height: 30px;
+    height: 40px;
   }
 }

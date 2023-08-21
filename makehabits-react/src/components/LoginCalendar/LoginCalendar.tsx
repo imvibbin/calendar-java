@@ -22,14 +22,20 @@ const LoginCalendar = () => {
   };
 
   return (
-    <div className="w-50 h-100 d-flex align-items-center justify-content-center border">
+    <div className="w-50 h-100 d-flex align-items-center justify-content-center">
       <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-          delay: 0.1,
-          ease: [0, 0.71, 0.2, 1.01],
+        initial={{ y: 5000, opacity: 0, scale: 0.5 }}
+        animate={{
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          transition: {
+            duration: 0.8,
+            delay: 1.2,
+            ease: [0, 0.71, 0.2, 1.01],
+            type: "spring",
+            stiffness: 35 
+          },
         }}
         className="main-container-content d-flex flex-column align-items-center justify-content-between"
       >

@@ -13,9 +13,7 @@ public class UserRepository {
   private JdbcTemplate jdbcTemplate;
 
   public UserRepository(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
-
+    this.jdbcTemplate = jdbcTemplate;bv 
   public User findById(long id) {
     String GET_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
     try {

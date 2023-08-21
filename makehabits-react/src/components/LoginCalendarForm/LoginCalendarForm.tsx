@@ -46,7 +46,7 @@ const LoginCalendarForm = () => {
   };
 
   return (
-    <div className="main-container-form w-100 py-5 d-flex justify-content-center align-items-center">
+    <div className="main-container-form w-100 d-flex justify-content-center align-items-center">
       <form
         onSubmit={handleSubmit}
         className="w-50 h-100 d-flex flex-column justify-content-between align-items-center"
@@ -73,7 +73,7 @@ const LoginCalendarForm = () => {
               required
             />
           </div>
-          <div className="main-container-content-form-input d-flex justify-content-between align-items-center mt-4 w-100">
+          <div className="main-container-content-form-input d-flex justify-content-between align-items-center mt-2 w-100">
             <div className="input-icons p-3 rounded-circle d-flex justify-content-center align-items-center h-100">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@ const LoginCalendarForm = () => {
         </div>
         <button
           type="submit"
-          className={`p-3 rounded-pill mt-4 mb-2 w-100 ${
+          className={`p-3 rounded-pill mt-3 mb-2 w-100 ${
             btnStatus ? "btn-triggered" : ""
           }`}
         >

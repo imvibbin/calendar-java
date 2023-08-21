@@ -1,8 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Borel&display=swap");
-
-.login-title {
+.login-title-container {
   color: #fffafa;
-  font-size: 120px;
-  font-family: "Borel", cursive;
   text-shadow: 3px 3px 1px #8d89a6;
+  font-family: "Borel", cursive;
+}
+
+@media (min-width: 1366px) {
+  .login-title-container {
+    font-size: 120px;
+  }
+}
+
+@media (min-width: 700px) {
+  .login-title-container {
+    font-size: 80px;
+  }
 }

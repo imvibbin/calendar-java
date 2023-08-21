@@ -22,7 +22,7 @@ const LoginCalendar = () => {
   };
 
   return (
-    <div className="w-50 h-100 d-flex align-items-center justify-content-center">
+    <div className="w-50 h-100 d-flex align-items-center justify-content-center border">
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}

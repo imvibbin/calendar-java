@@ -4,6 +4,7 @@ import Landing from "./pages/Landing";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage/LoginPage.tsx";
 import { AnimatePresence } from "framer-motion";
+import Test from "./pages/Test.tsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route index element={<Landing />} />
             <Route path="/registration" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/test" element={<Test />} />
           </Routes>
         </Router>
       </AnimatePresence>

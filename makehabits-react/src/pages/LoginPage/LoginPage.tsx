@@ -34,7 +34,6 @@ const LoginPage = () => {
         exit={{}}
         className="main-container vh-100 d-flex align-items-center justify-content-between p-5"
       >
-        <button onClick={notification}>test</button>
         <LoginTitle />
         <LoginCalendar />
         <ToastContainer />

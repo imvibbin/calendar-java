@@ -1,12 +1,13 @@
 import React from "react";
 import perfil from "../../assets/perfil.png";
 import notificacion from "../../assets/notificacion.png";
-import app from "../../assets/app.png";
+
 import gym from "../../assets/gym.png";
 import work from "../../assets/work.png";
 import study from "../../assets/study.png";
 import cook from "../../assets/cook.png";
 import calendar from "../../assets/calendar.png";
+import cleaning from "../../assets/cleaning.png";
 
 const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
   // Handle the click event here
@@ -16,8 +17,8 @@ const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
 function SideBarNavRight() {
   const eventsWithImages = [
     {
-      name: "App Development Course",
-      imageUrl: app,
+      name: "Cleaning Home",
+      imageUrl: cleaning,
     },
     {
       name: "Gym",
@@ -79,12 +80,56 @@ function SideBarNavRight() {
             </svg>
           </span>
         </p>
+        <div>
+          <p className="month">Agosto 2023</p>
+          <ol>
+            <li className="day-name">Lun</li>
+            <li className="day-name">Mar</li>
+            <li className="day-name">Mié</li>
+            <li className="day-name">Jue</li>
+            <li className="day-name">Vie</li>
+            <li className="day-name">Sáb</li>
+            <li className="day-name">Dom</li>
 
-        <span className="calendar-icon ">
-          <img src={calendar} alt="tome" />
-        </span>
+            <li className="first-day">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+            <li>21</li>
+            <li>22</li>
+            <li>23</li>
+            <li>24</li>
+            <li>25</li>
+            <li>26</li>
+            <li>27</li>
+            <li>28</li>
+            <li>29</li>
+            <li>30</li>
+            <li>31</li>
+          </ol>
+        </div>
+        <br />
+
         <div className="container">
-          <span>List Activity</span>
+          <span>
+            <h5> Activity List</h5>
+          </span>
         </div>
         <br />
         <div className="container1">
@@ -100,6 +145,7 @@ function SideBarNavRight() {
               </span>
 
               {event.name}
+
               <div className=" btn-custom-btn">
                 <ul>
                   <svg

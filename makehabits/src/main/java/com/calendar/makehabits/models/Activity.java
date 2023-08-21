@@ -9,7 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Activity {
-  private Long id;
+  private Long task_id;
   private String name;
-  private User user;
+  private User user_id;
+  private String task_name;
+  private String task_description;
+  private Enum task_type;
 }

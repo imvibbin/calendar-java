@@ -13,7 +13,7 @@ public class UserRepository {
   private JdbcTemplate jdbcTemplate;
 
   public UserRepository(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;bv 
+    this.jdbcTemplate = jdbcTemplate;}
   public User findById(long id) {
     String GET_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
     try {
@@ -45,7 +45,7 @@ public class UserRepository {
 
   public short createUser(User userToRegister) {
     String CHECK_IF_USER_EXISTS = "SELECT * FROM users WHERE username = ?";
-    String REGISTER_NEW_USER = "INSERT INTO users (username, password, rol_id) VALUES (?, ?, 2)";
+    String REGISTER_NEW_USER = "INSERT INTO users (username, password, email) VALUES (?, ?, 2)";
     try {
       List<User> users = jdbcTemplate.query(
           CHECK_IF_USER_EXISTS, new UserRowMapper(), userToRegister.getUsername());

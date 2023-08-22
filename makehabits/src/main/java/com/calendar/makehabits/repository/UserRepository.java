@@ -46,18 +46,24 @@ public class UserRepository {
   }
 
   public short createUser(User userToRegister) {
-    String CHECK_IF_USER_EXISTS = "SELECT * FROM users WHERE username = ?";
-    String REGISTER_NEW_USER = "INSERT INTO users (username, password, rol_id) VALUES (?, ?, 2)";
-    try {
-      List<User> users = jdbcTemplate.query(
-          CHECK_IF_USER_EXISTS, new UserRowMapper(), userToRegister.getUsername());
+    String CHECK_IF_USER_EXISTS = "SELECT COUNT(*) FROM users WHERE username = ?";
+    String CHECK_IF_EMAIL_EXISTS = "SELECT COUNT(*) FROM users WHERE email = ?";
+    String REGISTER_NEW_USER = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
 
-      if (users.size() > 0) {
+    try {
+      int usersByUsernameCount = jdbcTemplate.queryForObject(CHECK_IF_USER_EXISTS, Integer.class,
+          userToRegister.getUsername());
+      int usersByEmailCount = jdbcTemplate.queryForObject(CHECK_IF_EMAIL_EXISTS, Integer.class,
+          userToRegister.getEmail());
+
+      if (usersByUsernameCount > 0) {
         return 2; // User already exists
+      } else if (usersByEmailCount > 0) {
+        return 3; // Email already exists
       }
 
-      Object[] params = { userToRegister.getUsername(), userToRegister.getPassword() };
-      int rowsAffected = jdbcTemplate.update(REGISTER_NEW_USER, params);
+      int rowsAffected = jdbcTemplate.update(REGISTER_NEW_USER,
+          userToRegister.getUsername(), userToRegister.getEmail(), userToRegister.getPassword());
 
       if (rowsAffected == 0) {
         return 1; // Error in user registration
@@ -65,7 +71,6 @@ public class UserRepository {
         return 0; // Successful registration
       }
     } catch (DataAccessException e) {
-      // Handle database access exception here
       e.printStackTrace();
       return -1; // Return a negative value to indicate a general error
     }

@@ -1,33 +1,21 @@
 .main-container-content {
-  width: 50%;
-  height: 85%;
-  background-color: #fffafa;
-  border-radius: 50px;
-  box-shadow: 7px 15px 2px 3px #5b414e;
+  background: linear-gradient(to top, #fffafa 60%, #ebced9);
+  border-radius: 40px;
+  box-shadow: 7px 15px 5px 3px #2f2e34;
   z-index: 1000;
 }
 
 .calendar-top {
   height: 25%;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
   background-color: #8d89a6;
 }
 
 .pill {
   width: 45px;
   height: 110px;
-  background-color: #f2d5f8;
-}
-
-.pill1 {
-  top: -40px;
-  left: 82px;
-}
-
-.pill2 {
-  top: -40px;
-  right: 82px;
+  background-color: #ff7c92;
 }
 
 .circle {
@@ -36,39 +24,85 @@
   background-color: #fffafa;
 }
 
-.circle1 {
-  top: 10px;
-  left: 70px;
+.calendar-title {
+  width: 50%;
+  height: 70%;
+  background-color: #646273;
+  border: 5px #a5a2bd solid;
 }
 
-.circle2 {
-  top: 10px;
-  right: 70px;
+.calendar-title-content {
+  color: #fffafa;
+  height: 100%;
+  font-size: 80px;
+  font-family: "Borel", cursive;
 }
 
 .calendar-arrows {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #fffafa;
   cursor: pointer;
 }
 
-.calendar-arrows > svg {
+.calendar-arrows svg {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.calendar-arrow-previous {
-  margin-left: 20%;
+@media (min-width: 1366px) {
+  .main-container-content {
+    width: 85%;
+    height: 65%;
+    outline: 15px #4f4d5b solid;
+  }
+
+  .pill1 {
+    top: -40px;
+    left: 132px;
+  }
+
+  .pill2 {
+    top: -40px;
+    right: 132px;
+  }
+
+  .circle1 {
+    top: 10px;
+    left: 120px;
+  }
+
+  .circle2 {
+    top: 10px;
+    right: 120px;
+  }
 }
 
-.calendar-arrow-next {
-  margin-right: 20%;
-}
+@media (min-width: 700px) and (max-width: 1366px) {
+  .main-container-content {
+    width: 90%;
+    height: 75%;
+    outline: 10px #4f4d5b solid;
+  }
 
-.calendar-title {
-  color: #fffafa;
-  font-size: 100px;
-  font-weight: bolder;
+  .pill1 {
+    top: -40px;
+    left: 102px;
+  }
+
+  .pill2 {
+    top: -40px;
+    right: 102px;
+  }
+
+  .circle1 {
+    top: 10px;
+    left: 90px;
+  }
+
+  .circle2 {
+    top: 10px;
+    right: 90px;
+  }
 }

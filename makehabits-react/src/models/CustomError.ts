@@ -1,10 +1,4 @@
 interface CustomError {
+  status: number;
   message: string;
-
-  CustomError(message: string) {
-
 }
-}
-
-
-export default CustomError;

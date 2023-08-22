@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Landing from "./pages/Landing";
-import RegisterPage from "./pages/RegisterPage/RegisterPage.tsx";
-import LoginPage from "./pages/LoginPage/LoginPage.tsx";
+import UserCredentialsPage from "./pages/UserCredentialsPage/UseCredentialsPage.tsx";
 import { AnimatePresence } from "framer-motion";
 import Test from "./pages/Test.tsx";
 
@@ -13,8 +12,8 @@ function App() {
         <Router>
           <Routes>
             <Route index element={<Landing />} />
-            <Route path="/registration" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/registration" element={<UserCredentialsPage />} />
+            <Route path="/login" element={<UserCredentialsPage />} />
             <Route path="/test" element={<Test />} />
           </Routes>
         </Router>

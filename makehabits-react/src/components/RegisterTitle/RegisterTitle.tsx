@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import "./LoginTitle.css";
+import "./RegisterTitle.css";
 
 const words = ["plan", "your day,", "organize", "your life"];
 
-const LoginTitle = () => {
+const RegisterTitle = () => {
   const windowWidth = window.innerWidth;
 
   return (
@@ -38,4 +38,4 @@ const LoginTitle = () => {
   );
 };
 
-export default LoginTitle;
+export default RegisterTitle;

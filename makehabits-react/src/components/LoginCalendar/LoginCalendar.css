@@ -1,14 +1,14 @@
 .main-container-content {
   background: linear-gradient(to top, #fffafa 60%, #ebced9);
-  border-radius: 50px;
+  border-radius: 40px;
   box-shadow: 7px 15px 5px 3px #2f2e34;
   z-index: 1000;
 }
 
 .calendar-top {
   height: 25%;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
   background-color: #8d89a6;
 }
 

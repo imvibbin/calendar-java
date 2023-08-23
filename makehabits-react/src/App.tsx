@@ -1,31 +1,28 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom'
 import './App.css'
-import LoginPage from '../pages/LoginPage'
-import Landing from './pages/Landing'
-import NavBar from './pages/NavBar'
-import Layout from './components/Layout/Layout'
-import NoCollisionLayout from './components/DraggableLib/TimeCells'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NoCollisionLayout from './components/Lib/DraggableLib/TimeCells.tsx'
 import "./App.css";
 import Layout from "./components/Layout/Layout.tsx";
 import UserCredentialsPage from "./pages/UserCredentialsPage/UserCredentialsPage.tsx";
+import "./App.css";
 import { AnimatePresence } from "framer-motion";
-import Test from "./pages/Test.tsx";
-
+import TimePickerLib from './components/Lib/AntLib/TimePickerLib/TimePickerLib.tsx';
 function App() {
-
-
   return (
     <>
-    <NoCollisionLayout/>
-{/*     <BrowserRouter>
-    <Routes>
-      <Route index element= {<Landing />}/>
-      <Route path ="home"element= {<NavBar/>}/>
-    </Routes>
-
-    </BrowserRouter> */}
+      <AnimatePresence>
+        <Router>
+          <Routes>
+            <Route index element={<Layout />} />
+            <Route path="/registration" element={<UserCredentialsPage />} />
+            <Route path="/login" element={<UserCredentialsPage />} />
+            <Route path="/test" element={< NoCollisionLayout/>} />
+            <Route path="/layout" element={< Layout/>} />
+            <Route path="/time" element={< TimePickerLib/>} />
+          </Routes>
+        </Router>
+      </AnimatePresence>
     </>
   );
 }

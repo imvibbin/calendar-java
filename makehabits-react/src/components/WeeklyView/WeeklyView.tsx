@@ -1,5 +1,6 @@
 import React from 'react';
 import './WeeklyView.scss'; // Make sure to create this CSS file for styling
+import TimeCells from '../Lib/DraggableLib/TimeCells'
 
 const WeeklyView = () => {
   const numRows = 16;
@@ -68,13 +69,14 @@ const WeeklyView = () => {
         </div>
         <div className="grid--calendar">
 
-          <div className='calendar--row'>1</div>
+        <TimeCells/>
+          {/* <div className='calendar--row'>1</div>
           <div className='calendar--row'>2</div>
           <div className='calendar--row'>3</div>
           <div className='calendar--row'>4</div>
           <div className='calendar--row'>5</div>
           <div className='calendar--row'>6</div>
-          <div className='calendar--row'>7</div>
+          <div className='calendar--row'>7</div> */}
         </div>
         </div>
     </div>

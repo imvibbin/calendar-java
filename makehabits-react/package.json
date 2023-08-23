@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@shopify/draggable": "^1.0.0-beta.8",
+    "antd": "^5.8.3",
+    "antd-weekly-calendar": "^1.1.2",
     "bootstrap": "^5.3.1",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",

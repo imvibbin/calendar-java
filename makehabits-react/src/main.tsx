@@ -7,14 +7,17 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import './assets/fonts/Publio W01 Regular/Publio W01 Regular.ttf';
 
-import Try from "./components/Try/Try";
-import PopUp from "./components/PopUp/PopUp";
-import Landing from "./pages/Landing";
 import Layout from "./components/Layout/Layout";
-import CalendarGrid from "./components/CalendarGrid/CalendarGrid";
+import WeeklyView from "./components/WeeklyView/WeeklyView";
+import PopUpLib from "./components/AntLib/PopUpLib/PopUpLib";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Layout/>
+    <>
+        <Layout/>
+      </>
   </React.StrictMode>,
 );
+
+
+

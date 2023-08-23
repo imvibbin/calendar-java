@@ -9,6 +9,7 @@ const PopUpLib: React.FC = () => {
 
   const onFinish = (values: any) => {
     const jsonEventData = JSON.stringify(values);
+    localStorage.setItem(values.range, jsonEventData);
     console.log(jsonEventData); 
     setIsModalOpen(false);
     form.resetFields();

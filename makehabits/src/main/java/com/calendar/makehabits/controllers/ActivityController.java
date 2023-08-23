@@ -18,27 +18,27 @@ import com.calendar.makehabits.repository.ActivityRepository;
 @RestController
 public class ActivityController {
 
-	@Autowired
-	private ActivityRepository activityRepository;
-	
-	@CrossOrigin(origins = "http://localhost:5173")
-	@PostMapping("/activity")
-	public Activity createActivity(@RequestBody Activity activity) {
-		return activityRepository.save(activity);
-	}
-
-	@PutMapping("/activity")
-	public Activity updateActivity(@RequestBody Activity activity) {
-		return activityRepository.save(activity);
-	}
-
-	@GetMapping("/activity/{userId}")
-	public List<Activity> getActivitiesByUserId(@PathVariable Long userId) {
-		return null;
-	}
-
-	@DeleteMapping("/activity/{id}")
-	public void deleteActivity(@PathVariable Long id) {
-		activityRepository.deleteById(id);
-	}
+  // @Autowired
+  // private ActivityRepository activityRepository;
+  //
+  // @CrossOrigin(origins = "http://localhost:5173")
+  // @PostMapping("/activity")
+  // public Activity createActivity(@RequestBody Activity activity) {
+  // return activityRepository.save(activity);
+  // }
+  //
+  // @PutMapping("/activity")
+  // public Activity updateActivity(@RequestBody Activity activity) {
+  // return activityRepository.save(activity);
+  // }
+  //
+  // @GetMapping("/activity/{userId}")
+  // public List<Activity> getActivitiesByUserId(@PathVariable Long userId) {
+  // return null;
+  // }
+  //
+  // @DeleteMapping("/activity/{id}")
+  // public void deleteActivity(@PathVariable Long id) {
+  // activityRepository.deleteById(id);
+  // }
 }

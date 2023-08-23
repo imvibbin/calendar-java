@@ -1,8 +1,8 @@
 interface UserInterface {
-  id: number;
+  user_id: number;
   username: string;
+  email: string;
   password: string;
-  rol: number;
 }
 
 export default UserInterface;

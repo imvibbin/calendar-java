@@ -2,6 +2,7 @@
 import React, { ChangeEvent } from "react";
 
 interface InputFieldProps {
+  className: string;
   icon: React.ReactNode;
   type: string;
   id: string;
@@ -12,6 +13,7 @@ interface InputFieldProps {
 }
 
 const UserCredentialInput: React.FC<InputFieldProps> = ({
+  className,
   icon,
   type,
   id,
@@ -20,7 +22,9 @@ const UserCredentialInput: React.FC<InputFieldProps> = ({
   value,
   onChange,
 }) => (
-  <div className="main-container-content-form-input d-flex justify-content-between align-items-center w-100">
+  <div
+    className={`main-container-content-form-input d-flex justify-content-between align-items-center w-100 ${className}`}
+  >
     <div className="input-icons p-3 rounded-circle d-flex justify-content-center align-items-center h-100">
       {icon}
     </div>

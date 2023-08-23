@@ -68,13 +68,13 @@ const WeeklyView = () => {
         </div>
         <div className="grid--calendar">
 
-          <div className='grid--row'>1</div>
-          <div className='grid--row'>2</div>
-          <div className='grid--row'>3</div>
-          <div className='grid--row'>4</div>
-          <div className='grid--row'>5</div>
-          <div className='grid--row'>6</div>
-          <div className='grid--row'>7</div>
+          <div className='calendar--row'>1</div>
+          <div className='calendar--row'>2</div>
+          <div className='calendar--row'>3</div>
+          <div className='calendar--row'>4</div>
+          <div className='calendar--row'>5</div>
+          <div className='calendar--row'>6</div>
+          <div className='calendar--row'>7</div>
         </div>
         </div>
     </div>

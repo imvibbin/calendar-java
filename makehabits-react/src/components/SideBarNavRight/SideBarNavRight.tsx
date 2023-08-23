@@ -1,6 +1,4 @@
 import React from "react";
-import perfil from "../../assets/perfil.png";
-import notificacion from "../../assets/notificacion.png";
 
 import gym from "../../assets/gym.png";
 import work from "../../assets/work.png";
@@ -61,69 +59,49 @@ function SideBarNavRight() {
   return (
     <>
       <header className="App-header">
-        <p className="user-text">
-          <span className="notification">
-            <img src={notificacion} alt="notificaciones" />
-          </span>
+        <p className="month">Agosto 2023</p>
+        <ol>
+          <li className="day-name">Lun</li>
+          <li className="day-name">Mar</li>
+          <li className="day-name">Mié</li>
+          <li className="day-name">Jue</li>
+          <li className="day-name">Vie</li>
+          <li className="day-name">Sáb</li>
+          <li className="day-name">Dom</li>
 
-          <span className="user-icon ">
-            <img src={perfil} alt="User" />
-            User{" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="1.5em"
-              viewBox="0 0 512 512"
-              fill="#A5B4CB"
-            >
-              <svg width="100" height="100" style={{ fill: "#A5B4CB" }}></svg>
-              <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-            </svg>
-          </span>
-        </p>
-        <div>
-          <p className="month">Agosto 2023</p>
-          <ol>
-            <li className="day-name">Lun</li>
-            <li className="day-name">Mar</li>
-            <li className="day-name">Mié</li>
-            <li className="day-name">Jue</li>
-            <li className="day-name">Vie</li>
-            <li className="day-name">Sáb</li>
-            <li className="day-name">Dom</li>
+          <li className="first-day">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+          <li>10</li>
+          <li>11</li>
+          <li>12</li>
+          <li>13</li>
+          <li>14</li>
+          <li>15</li>
+          <li>16</li>
+          <li>17</li>
+          <li>18</li>
+          <li>19</li>
+          <li>20</li>
+          <li>21</li>
+          <li>22</li>
+          <li>23</li>
+          <li>24</li>
+          <li>25</li>
+          <li>26</li>
+          <li>27</li>
+          <li>28</li>
+          <li>29</li>
+          <li>30</li>
+          <li>31</li>
+        </ol>
 
-            <li className="first-day">1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
-            <li>12</li>
-            <li>13</li>
-            <li>14</li>
-            <li>15</li>
-            <li>16</li>
-            <li>17</li>
-            <li>18</li>
-            <li>19</li>
-            <li>20</li>
-            <li>21</li>
-            <li>22</li>
-            <li>23</li>
-            <li>24</li>
-            <li>25</li>
-            <li>26</li>
-            <li>27</li>
-            <li>28</li>
-            <li>29</li>
-            <li>30</li>
-            <li>31</li>
-          </ol>
-        </div>
         <br />
 
         <div className="container">

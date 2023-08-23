@@ -1,0 +1,85 @@
+.main-container-form {
+  height: 75%;
+}
+
+.input-icons {
+  border-top: 1px #ffb4c1 solid;
+  border-bottom: 1px #ffb4c1 solid;
+  border-left: 1px #ffb4c1 solid;
+  border-right: none;
+  background-color: #ffb4c1;
+}
+
+.main-container-content input {
+  border: 1px #ffb4c1 solid;
+  width: 83%;
+}
+
+.main-container-content button {
+  border: hidden;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ffb4c1;
+}
+
+.links {
+  height: fit-content;
+}
+
+.create-acc {
+  width: 100%;
+}
+
+.create-acc * {
+  color: #ffb4c1;
+}
+
+.create-acc > span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.main-container-content-shadow {
+  width: 50%;
+  height: 85%;
+  background-color: #5b414e;
+  border-radius: 50px;
+  z-index: 0;
+}
+
+@media (min-width: 1366px) {
+  .main-container-form {
+    padding: 5%;
+  }
+
+  .main-container-content-form-input {
+    height: 60px;
+  }
+
+  .input-icons {
+    width: 60px;
+  }
+
+  .main-container-form button {
+    height: 60px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1366px) {
+  .main-container-form {
+    padding: 2%;
+  }
+
+  .main-container-content-form-input {
+    height: 50px;
+  }
+
+  .input-icons {
+    width: 50px;
+  }
+
+  .main-container-form button {
+    height: 40px;
+  }
+}

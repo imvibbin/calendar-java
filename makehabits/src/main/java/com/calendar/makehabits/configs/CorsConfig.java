@@ -1,4 +1,4 @@
-package com.calendar.makehabits.utils;
+package com.calendar.makehabits.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

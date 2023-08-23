@@ -12,8 +12,8 @@ const LoginCalendarForm = () => {
   const userInitial = {
     user_id: 0,
     username: "",
+    email: "",
     password: "",
-    rol_id: 0,
   };
 
   const [user, setUser] = useState<UserInterface>(userInitial);

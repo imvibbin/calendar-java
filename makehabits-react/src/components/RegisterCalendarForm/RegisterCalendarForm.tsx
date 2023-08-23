@@ -4,6 +4,7 @@ import { createUser } from "../../services/UserService";
 import BackendErrorType from "../../enums/BackendErrorType";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import CustomError from "../../models/CustomError";
 import { motion } from "framer-motion";
 import UserCredentialInput from "../UserCredentialInput/UserCredentialInput";
 
@@ -47,6 +48,43 @@ const RegisterCalendarForm = () => {
     setNewUser({ ...newUser, [name]: value });
   };
 
+  const errorHandler = (error: unknown) => {
+    const backendError = error as CustomError;
+    if (backendError.message) {
+      // Map the error message to MessageType enum value
+      const errorType = backendError.message;
+
+      if (errorType) {
+        // Handle specific error cases
+        switch (errorType) {
+          case BackendErrorType.UsernameAlreadyExists:
+            // Handle username already exists error
+            // For example: display an error message to the user
+            notification(false, 2);
+            console.error("Username already exists.");
+            break;
+          case BackendErrorType.EmailAlreadyExists:
+            // Handle email already exists error
+            // For example: display an error message to the user
+            notification(false, 3);
+            console.error("Email already exists.");
+            break;
+          // Add cases for other error types as needed
+          default:
+            notification(false, 4);
+            console.error("An error occurred:", backendError.message);
+            break;
+        }
+      } else {
+        console.error("An unknown error occurred.");
+      }
+    } else {
+      console.error(
+        "Failed to authenticate newUser: An unknown error occurred.",
+      );
+    }
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -58,40 +96,7 @@ const RegisterCalendarForm = () => {
         navigate("/");
       }, 2000);
     } catch (error) {
-      const backendError = error as CustomError;
-      if (backendError.message) {
-        // Map the error message to MessageType enum value
-        const errorType = backendError.message;
-
-        if (errorType) {
-          // Handle specific error cases
-          switch (errorType) {
-            case BackendErrorType.UsernameAlreadyExists:
-              // Handle username already exists error
-              // For example: display an error message to the user
-              notification(false, 2);
-              console.error("Username already exists.");
-              break;
-            case BackendErrorType.EmailAlreadyExists:
-              // Handle email already exists error
-              // For example: display an error message to the user
-              notification(false, 3);
-              console.error("Email already exists.");
-              break;
-            // Add cases for other error types as needed
-            default:
-              notification(false, 4);
-              console.error("An error occurred:", backendError.message);
-              break;
-          }
-        } else {
-          console.error("An unknown error occurred.");
-        }
-      } else {
-        console.error(
-          "Failed to authenticate newUser: An unknown error occurred.",
-        );
-      }
+      errorHandler(error);
     }
   };
 

@@ -177,3 +177,20 @@ li {
     transform: rotate(-90deg);
 
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+
+    padding: 10px;
+    
+    width: 30%;
+    margin-top: -4%;
+  
+  }
+  .grid-item {
+    
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+  }

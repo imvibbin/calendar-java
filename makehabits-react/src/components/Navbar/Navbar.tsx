@@ -3,6 +3,7 @@ import notificacion from "../../assets/notificacion.png";
 const Navbar = () => {
   return (
     <>
+    
       <div className={"d-flex landing landing-logo  "}>
         <div className={"landing-title"}>
           <svg
@@ -62,16 +63,21 @@ const Navbar = () => {
           </svg>
           <h5>MAKE HABITS</h5>
         </div>
-
-        <p className="user-text">
-          <span className="notification">
+        <div className="grid-container">
+        <div className="grid-item">
+          </div>
+  <div className="grid-item"> <span className="notification">
             <img src={notificacion} alt="notificaciones" />
-          </span>
-
-          <span className="user-icon ">
+          </span></div>
+  <div className="grid-item"> <span className="user-icon ">
             <img src={perfil} alt="User" />
-            User{" "}
-            <svg
+             
+            </span></div>
+  <div className="grid-item">
+  
+    <p className="user-text">
+      User
+  <svg
               xmlns="http://www.w3.org/2000/svg"
               height="1.5em"
               viewBox="0 0 512 512"
@@ -80,8 +86,10 @@ const Navbar = () => {
               <svg width="100" height="100" style={{ fill: "#A5B4CB" }}></svg>{" "}
               <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />{" "}
             </svg>
-          </span>
-        </p>
+            </p></div> 
+            
+  </div>
+      
       </div>
     </>
   );

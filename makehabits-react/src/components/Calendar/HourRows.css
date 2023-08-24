@@ -1,0 +1,21 @@
+/* Test.css */
+
+/* Add this rule to set a fixed height for the cells */
+.cell {
+  height: 50px; /* You can adjust the value as needed */
+}
+
+.event {
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.event:hover {
+  background-color: "#928EFF";
+}
+
+.event-photo {
+  width: 85%;
+  height: 85%;
+}

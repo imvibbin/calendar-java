@@ -3,7 +3,7 @@ import "./App.css";
 import Layout from "./components/Layout/Layout.tsx";
 import UserCredentialsPage from "./pages/UserCredentialsPage/UserCredentialsPage.tsx";
 import { AnimatePresence } from "framer-motion";
-import Test from "./pages/Test.tsx";
+import CalendarPage from "./pages/CalendarPage/Calendar.tsx";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
             <Route index element={<Layout />} />
             <Route path="/registration" element={<UserCredentialsPage />} />
             <Route path="/login" element={<UserCredentialsPage />} />
-            <Route path="/test" element={<Test />} />
+            <Route path="/calendar" element={<CalendarPage />} />
           </Routes>
         </Router>
       </AnimatePresence>

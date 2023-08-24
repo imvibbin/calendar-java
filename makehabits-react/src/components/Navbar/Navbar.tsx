@@ -80,7 +80,7 @@ const Navbar = () => {
               <img
                 src={next}
                 alt="next"
-                style={{ width: "32px", height: "32px" }}
+                style={{ width: "20px", height: "20px" }}
               />
             </span>
           </div>

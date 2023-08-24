@@ -2,6 +2,7 @@ import "./Landing.css";
 import logoUser from "../assets/logo-user.png";
 import SideBarNavRight from "../components/SideBarNavRight/SideBarNavRight";
 import Navbar from "../components/Navbar/Navbar";
+
 const Landing = () => {
   return (
     <div className="container-fluid text-center text-light">

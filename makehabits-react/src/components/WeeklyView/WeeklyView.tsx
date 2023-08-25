@@ -18,7 +18,7 @@ const WeeklyView = () => {
       const cellContent = daysOfWeek[col];
       const cellDayClass = "grid--day--cell";
       const cellStyle = {
-        backgroundColor: getRandomColor()
+        backgroundColor: 'white'
       };
       
       DayCells.push(
@@ -37,7 +37,7 @@ const WeeklyView = () => {
       const cellContent = hourRange[row];
       const cellHourClass = "grid--hour--cell";
       const cellStyle = {
-        backgroundColor: getRandomColor()
+        backgroundColor: 'white'
       };
       
       HourCells.push(
@@ -68,8 +68,14 @@ const WeeklyView = () => {
         {generateTimeCells()}
         </div>
         <div className="grid--calendar">
-
-        <TimeCells/>
+{/*         <div className="under-mask">
+      {Array.from({ length: 105 }, (_, index) => (
+        <div key={index} className="under-mask--cell">
+            
+        </div>
+      ))}
+    </div> */}
+    <TimeCells/>
           {/* <div className='calendar--row'>1</div>
           <div className='calendar--row'>2</div>
           <div className='calendar--row'>3</div>

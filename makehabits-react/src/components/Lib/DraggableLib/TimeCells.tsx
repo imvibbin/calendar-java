@@ -11,9 +11,9 @@ const ReactGridLayout = WidthProvider(RGL);
   class NoCollisionLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
-    items: 12,
+    items: 5,
     cols: 7,
-    rowHeight: 10,
+    rowHeight: 40,
     onLayoutChange: function() {},
     // This turns off compaction so you can place items wherever.
     verticalCompact: false,

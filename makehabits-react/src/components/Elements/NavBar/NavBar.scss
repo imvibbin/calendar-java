@@ -1,0 +1,36 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    max-height: 80px ;
+}
+.logo-wrapper{
+
+    width: 48px !important;
+}
+.header--weekview{
+    width: 78%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.weekview--logo{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    h1{
+
+        margin: 0;
+    }
+}
+
+.header--user{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 22%;
+    gap: 1rem;
+    flex-wrap: nowrap;
+}
+

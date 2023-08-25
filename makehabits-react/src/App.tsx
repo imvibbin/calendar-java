@@ -8,6 +8,7 @@ import UserCredentialsPage from "./pages/UserCredentialsPage/UserCredentialsPage
 import "./App.css";
 import { AnimatePresence } from "framer-motion";
 import TimePickerLib from './components/Lib/AntLib/TimePickerLib/TimePickerLib.tsx';
+import UnderMask from './components/Elements/UnderMask/UnderMask.tsx';
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
             <Route path="/test" element={< NoCollisionLayout/>} />
             <Route path="/layout" element={< Layout/>} />
             <Route path="/time" element={< TimePickerLib/>} />
+            <Route path="/hola" element={< UnderMask/>} />
           </Routes>
         </Router>
       </AnimatePresence>

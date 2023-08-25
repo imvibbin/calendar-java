@@ -1,4 +1,4 @@
-/* import  EventInterface  from "../models/EventInterface";
+ import  EventInterface  from "../models/EventInterface";
 
   class JsonManager {
     private events: EventInterface[] = [];
@@ -51,4 +51,4 @@
   const updatedEvents = jsonManager.getEvents();
   console.log(updatedEvents);
 export { updateEvent, deleteEvent };
- */
+ 

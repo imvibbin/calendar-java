@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, DatePicker, Input, Form, TimePicker } from 'antd';
+import { Button, Modal, ConfigProvider, DatePicker, Input, Form, TimePicker } from 'antd';
 import  EventInterface  from '../../../../models/EventInterface'; // Import the EventInterface
 
 import './PopUpLib.scss';
@@ -84,8 +84,26 @@ const disabledDateTime = () => ({
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal
+    <ConfigProvider
+    theme={{
+      components: {
+        Button: {
+          colorPrimary: '#f564a9',
+          colorBorder: '#f564a9',
+          colorPrimaryActive:'#f564a9',
+          colorText: '#533b4d',
+          colorLinkActive:'#fae3c6',
+          colorPrimaryHover:'#f564a9',
+        },
+        Modal:{
+          colorBgMask:'rgba(245, 100, 169, 0.15)'
+        }
+
+      },
+    }}
+  >
+      <Button onClick={showModal}>
+        + New Activity
       </Button>
       <Modal className='modalLib' footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
       <div className="ticket">
@@ -169,7 +187,9 @@ const disabledDateTime = () => ({
         </div>
       </div>
       </Modal>
+    </ConfigProvider>
     </>
+
   );
 };
 

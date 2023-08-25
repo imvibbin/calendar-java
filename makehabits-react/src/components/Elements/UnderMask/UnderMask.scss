@@ -1,0 +1,15 @@
+.under-mask {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    gap: 1px; /* Gap between cells */
+    border: 1px solid #000; /* Solid border for columns */
+    overflow: hidden; /* Hide overflow to prevent dotted lines from extending outside */
+  }
+  
+  .under-mask--cell {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    border-top: 1px dotted #000; /* Dotted border for rows */
+  }

@@ -1,30 +1,31 @@
-import type { Dayjs } from 'dayjs';
-
 import React from 'react';
-import { Calendar, theme } from 'antd';
-
-
-import { Col, Radio, Row, Select, Typography } from 'antd';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import type { Dayjs } from 'dayjs';
+import dayLocaleData from 'dayjs/plugin/localeData';
+import { Calendar, Col, Radio, Row, Select, Typography, theme } from 'antd';
 import type { CalendarProps } from 'antd';
 
+dayjs.extend(dayLocaleData);
 
-
-
-import './MonthCalendarLib.scss'
-
-const MonthCalendarLib: React.FC = () => {
+const App: React.FC = () => {
   const { token } = theme.useToken();
 
+  const onPanelChange = (value: Dayjs, mode: CalendarProps<Dayjs>['mode']) => {
+    console.log(value.format('YYYY-MM-DD'), mode);
+  };
+
   const wrapperStyle: React.CSSProperties = {
-    width: 250,
+    width: 300,
     border: `1px solid ${token.colorBorderSecondary}`,
-    borderRadius: token.borderRadius,
+    borderRadius: token.borderRadiusLG,
   };
 
   return (
     <div style={wrapperStyle}>
-      <Calendar fullscreen={false} mode={'month'} 
-        headerRender={({ value, type, onChange }) => {
+      <Calendar
+        fullscreen={false}
+        headerRender={({ value, type, onChange, onTypeChange }) => {
           const start = 0;
           const end = 12;
           const monthOptions = [];
@@ -57,7 +58,7 @@ const MonthCalendarLib: React.FC = () => {
           }
           return (
             <div style={{ padding: 8 }}>
-             
+              <Typography.Title level={4}>Custom header</Typography.Title>
               <Row gutter={8}>
                 <Col>
                   <Radio.Group
@@ -98,10 +99,10 @@ const MonthCalendarLib: React.FC = () => {
             </div>
           );
         }}
-        
+        onPanelChange={onPanelChange}
       />
     </div>
   );
 };
 
-export default MonthCalendarLib;
+export default App;

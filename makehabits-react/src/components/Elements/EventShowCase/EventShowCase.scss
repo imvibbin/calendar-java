@@ -1,0 +1,50 @@
+.habit {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.75rem;
+    color: black;
+}
+
+.showcase-habit {
+    max-height: 170px;
+    padding: 1rem 0rem 1rem 0rem;
+    overflow: hidden;
+}
+
+.user-icon img {
+    width: 30px;
+    /* Ajusta el ancho según tus necesidades */
+    height: 30px;
+    /* Ajusta la altura según tus necesidades */
+    margin-right: 10px;
+
+    /* Espacio entre el icono y el título del curso */
+}
+
+
+
+
+/* 
+ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+li {
+    width: 30px;
+    height: 30px;
+    background-color: pink;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+
+} */
+
+

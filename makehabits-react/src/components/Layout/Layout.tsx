@@ -15,9 +15,14 @@ import NavBar from "../Elements/NavBar/NavBar";
 const Sidebar = () => {
   return (
     <aside className="sidebar">
+      <div>
       <MonthCalendarLib />  
+      </div>
+      <div>
+      <h3>Activity List</h3>
       <PopUpLib />
       <EventShowCase />
+      </div>
     </aside>
   );
 };

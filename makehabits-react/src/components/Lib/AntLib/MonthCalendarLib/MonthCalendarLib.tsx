@@ -1,11 +1,11 @@
-import type { Dayjs } from 'dayjs';
+/* import type { Dayjs } from 'dayjs'; */
 
 import React from 'react';
 import { Calendar, theme } from 'antd';
 
 
-import { Col, Radio, Row, Select, Typography } from 'antd';
-import type { CalendarProps } from 'antd';
+import { Col, Row, Select,} from 'antd';
+import type {  } from 'antd';
 
 
 
@@ -16,14 +16,14 @@ const MonthCalendarLib: React.FC = () => {
   const { token } = theme.useToken();
 
   const wrapperStyle: React.CSSProperties = {
-    width: 250,
+    width: '100%',
     border: `1px solid ${token.colorBorderSecondary}`,
     borderRadius: token.borderRadius,
   };
 
   return (
     <div style={wrapperStyle}>
-      <Calendar fullscreen={false} mode={'month'} 
+      <Calendar fullscreen={false}
         headerRender={({ value, type, onChange }) => {
           const start = 0;
           const end = 12;
@@ -60,17 +60,9 @@ const MonthCalendarLib: React.FC = () => {
              
               <Row gutter={8}>
                 <Col>
-                  <Radio.Group
-                    size="small"
-                    value={type}
-                  >
-                    <Radio.Button value="month">Month</Radio.Button>
-                  </Radio.Group>
-                </Col>
-                <Col>
                   <Select
                     size="small"
-                    dropdownMatchSelectWidth={false}
+                    dropdownMatchSelectWidth={true}
                     className="my-year-select"
                     value={year}
                     onChange={(newYear) => {
@@ -98,8 +90,14 @@ const MonthCalendarLib: React.FC = () => {
             </div>
           );
         }}
-        
-      />
+   /*      cellRender={(current, info) => {
+          if (info.type !== 'date') return info.originNode;
+          const style: React.CSSProperties = {};
+          if (current.date() === 1) {
+            style.border = '1px solid #1677ff';
+            style.borderRadius = '50%';
+          }
+      }} *//>
     </div>
   );
 };

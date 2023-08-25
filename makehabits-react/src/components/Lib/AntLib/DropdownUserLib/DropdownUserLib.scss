@@ -5,15 +5,28 @@
    
 }
 a{
-    color: white !important;
+    color: #333 !important;
     text-decoration: none;
 }
 .user--image{
     width: 32px;
     height: 32px;
 }
-
-img{
+.user--name{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.user--image img{
     border-radius: 21px;
     width: 100%;
+}
+.dropdown-card{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* background-color: #f6f7f960; */
+}
+.card--icon{
+    width: 32px;
+    height: 32px;
 }

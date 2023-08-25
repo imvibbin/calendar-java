@@ -1,70 +1,31 @@
-import React, { useState } from "react";
-
+import "./Test.css";
+import fundo from "../assets/fundo.jpg";
 const Test = () => {
-  const [draggedCell, setDraggedCell] = useState<HTMLElement | null>(null);
-
-  const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
-    setDraggedCell(event.currentTarget);
-  };
-
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
-
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    if (draggedCell) {
-      const targetCell = event.currentTarget;
-
-      // Swap the contents of the dragged cell and the target cell
-      const temp = draggedCell.innerHTML;
-      draggedCell.innerHTML = targetCell.innerHTML;
-      targetCell.innerHTML = temp;
-
-      setDraggedCell(null);
-    }
-  };
-
   return (
     <>
-      <div className="row justify-content-center">
+      <div className="celda row justify-content-center">
         <div
-          className="col-3 border border-black ms-1"
-          draggable
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
+          className="col-6 border border-white ms-1"
+          style={{
+            borderRadius: "10px",
+            width: "250px",
+            height: "50px",
+            backgroundColor: "#5852FF",
+            display: "flex",
+            alignItems: "center",
+          }}
         >
-          1
-        </div>
-        <div
-          className="col-3 border border-black ms-1"
-          draggable
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          2
-        </div>
-      </div>
-      <div className="row justify-content-center">
-        <div
-          className="col-3 border border-black ms-1"
-          draggable
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          3
-        </div>
-        <div
-          className="col-3 border border-black ms-1"
-          draggable
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          4
+          <div className="Image">
+            <img
+              src={fundo}
+              alt="fundo"
+              style={{ width: "10%", height: "70%", margin: "0 0 0 0" }}
+            />
+          </div>
+          <div className="text-container">
+            <p style={{ margin: 0 }}>Hola</p>
+            <p style={{ margin: 0 }}>adios</p>
+          </div>
         </div>
       </div>
     </>

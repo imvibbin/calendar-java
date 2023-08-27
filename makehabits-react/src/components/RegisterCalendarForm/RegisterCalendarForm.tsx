@@ -89,11 +89,10 @@ const RegisterCalendarForm = () => {
     event.preventDefault();
 
     try {
-      const response = await createUser(newUser);
-      localStorage.setItem("USER_DATA", JSON.stringify(response));
+      await createUser(newUser);
       notification(true, 1);
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 2000);
     } catch (error) {
       errorHandler(error);

@@ -47,17 +47,13 @@ public class ActivityController {
    final HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-    /* if (activities == null) {
-      return new ResponseEntity<>(
-          Messages.getMessage(MessageType.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
-    }
- */
+
     return new ResponseEntity<>(activities, HttpStatus.OK);
    
    }
 
-   /* @DeleteMapping("/activity/{id}")
+   @DeleteMapping("/activity/{id}")
    public void deleteActivity(@PathVariable Long id) {
-   activityService.deleteById(id);
-   } */
+   activityService.deleteActivity(id);
+   }
 }

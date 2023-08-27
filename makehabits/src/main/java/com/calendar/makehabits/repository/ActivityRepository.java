@@ -51,6 +51,17 @@ public class ActivityRepository {
         return null;
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long task_id) {
+        String DELETE_ACTIVITY_BY_ID = "DELETE FROM tasks WHERE task_id = ?";
+        try {
+            int rowsAffected = jdbcTemplate.update(
+                DELETE_ACTIVITY_BY_ID,task_id
+            );
+
+            return rowsAffected > 0;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return false;
+        } 
     }
 }

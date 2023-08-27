@@ -18,4 +18,8 @@ public class ActivityService {
   public boolean createActivity(Activity newActivity) {
     return activity.createActivity(newActivity);
   }
+
+  public boolean deleteActivity(long task_id) {
+    return activity.deleteById(task_id);
+  }
 }

@@ -1,4 +1,3 @@
-
 package com.calendar.makehabits.models;
 
 import lombok.AllArgsConstructor;
@@ -16,9 +15,4 @@ public class Activity {
   private String task_name;
   private String task_description;
   private String task_type;
-public void setUser(User user) {
-}
-public void User(User user) {
-}
-  
 }

@@ -1,5 +1,6 @@
 package com.calendar.makehabits.models;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,5 @@ public class User {
   private String username;
   private String email;
   private String password;
+  private List<Activity> activities;
 }

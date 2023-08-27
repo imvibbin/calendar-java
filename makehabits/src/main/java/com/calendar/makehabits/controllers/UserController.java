@@ -11,14 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-  @Autowired
-  private UserService userService;
+  @Autowired private UserService userService;
 
   @GetMapping("/{id}")
   public ResponseEntity<?> getUserById(@PathVariable long id) {
@@ -37,7 +35,8 @@ public class UserController {
 
   @PostMapping("/login-auth")
   public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
-    List<User> users = userService.userLogin(loginRequest.getUsername(), loginRequest.getPassword());
+    List<User> users =
+        userService.userLogin(loginRequest.getUsername(), loginRequest.getPassword());
 
     HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);

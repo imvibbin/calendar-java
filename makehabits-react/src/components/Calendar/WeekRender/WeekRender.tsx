@@ -16,7 +16,7 @@ const months = [
   { name: "November", days: 30 },
   { name: "December", days: 31 },
 ];
-const WeekRow = () => {
+const WeekRender = () => {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(8);
   const [currentWeekStart, setCurrentWeekStart] = useState(1);
 
@@ -48,4 +48,4 @@ const WeekRow = () => {
   );
 };
 
-export default WeekRow;
+export default WeekRender;

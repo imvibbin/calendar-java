@@ -2,20 +2,21 @@
 
 /* Add this rule to set a fixed height for the cells */
 .cell {
-  height: 50px; /* You can adjust the value as needed */
+  height: 80px; /* You can adjust the value as needed */
 }
 
 .event {
   color: white;
   border-radius: 10px;
   cursor: pointer;
-}
-
-.event:hover {
-  background-color: "#928EFF";
+  z-index: 1;
 }
 
 .event-photo {
   width: 85%;
   height: 85%;
+}
+
+.dragging-indicator {
+  background-color: #928eff;
 }

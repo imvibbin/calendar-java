@@ -1,13 +1,13 @@
 import React from "react";
-import WeekRow from "../../components/Calendar/WeekRow";
-import HourRows from "../../components/Calendar/HourRows";
+import WeekRender from "../../components/Calendar/WeekRender/WeekRender";
+import HourRender from "../../components/Calendar/HourRender/HourRender";
 
 const CalendarPage = () => {
   return (
     <>
       <div className="week-container">
-        <WeekRow />
-        <HourRows />
+        <WeekRender />
+        <HourRender />
       </div>
     </>
   );

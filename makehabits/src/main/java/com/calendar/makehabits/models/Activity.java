@@ -3,13 +3,19 @@ package com.calendar.makehabits.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Activity {
-  private Long id;
+  private long task_id;
   private String name;
-  private User user;
+  private int user_id;
+  private String task_name;
+  private String task_description;
+  private Boolean task_type;
+  
 }

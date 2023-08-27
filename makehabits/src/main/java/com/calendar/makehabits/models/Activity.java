@@ -12,10 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Activity {
   private long task_id;
-  private String name;
   private int user_id;
   private String task_name;
   private String task_description;
-  private Boolean task_type;
+  private String task_type;
+public void setUser(User user) {
+}
+public void User(User user) {
+}
   
 }

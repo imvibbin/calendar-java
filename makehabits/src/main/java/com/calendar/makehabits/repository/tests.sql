@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Tasks (
     user_id INT,
     task_name VARCHAR(255) NOT NULL,
     task_description TEXT,
-    task_type ENUM('tarea', 'hábito') NOT NULL,
+    task_type ENUM('tarea', 'habito') NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 

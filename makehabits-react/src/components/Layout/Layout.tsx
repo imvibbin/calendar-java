@@ -6,6 +6,7 @@ import "./Layout.scss"; // Import your CSS file for styling
 /* import { useNavigate } from "react-router-dom"; */
 import EventShowCase from "../Elements/EventShowCase/EventShowCase";
 import NavBar from "../Elements/NavBar/NavBar";
+import CalendarPage from "../../pages/CalendarPage/Calendar";
 /* const Header = () => {
   
   
@@ -16,12 +17,12 @@ const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div>
-      <MonthCalendarLib />  
+        <MonthCalendarLib />
       </div>
       <div>
-      <h3>Activity List</h3>
-      <PopUpLib />
-      <EventShowCase />
+        <h3>Activity List</h3>
+        <PopUpLib />
+        <EventShowCase />
       </div>
     </aside>
   );
@@ -29,15 +30,18 @@ const Sidebar = () => {
 const MainContent = () => {
   return (
     <main className="main-content">
-      <WeeklyView />
+      <CalendarPage />
     </main>
+    // <main className="main-content">
+    //   <WeeklyView />
+    // </main>
   );
 };
 
 const Layout = () => {
   return (
     <div className="layout">
-      <NavBar/>
+      <NavBar />
       <div className="content-wrapper">
         <MainContent />
         <Sidebar />

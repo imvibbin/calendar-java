@@ -1,0 +1,11 @@
+.calendar-row {
+  height: 55px;
+}
+
+.calendar-row:nth-child(even) {
+  border-top: 1px gainsboro dashed;
+}
+
+.calendar-cell {
+  border-left: 1px gainsboro solid;
+}

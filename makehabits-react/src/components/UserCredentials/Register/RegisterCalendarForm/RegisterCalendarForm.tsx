@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import UserInterface from "../../models/UserInterface";
-import { createUser } from "../../services/UserService";
-import BackendErrorType from "../../enums/BackendErrorType";
+import UserInterface from "../../../../models/UserInterface";
+import { createUser } from "../../../../services/UserService";
+import BackendErrorType from "../../../../enums/BackendErrorType"; 
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import CustomError from "../../models/CustomError";
+import CustomError from "../../../../models/CustomError";
 import { motion } from "framer-motion";
-import UserCredentialInput from "../UserCredentialInput/UserCredentialInput";
+import UserCredentialInput from "../../UserCredentialInput/UserCredentialInput";
 
 import "./RegisterCalendarForm.css";
 

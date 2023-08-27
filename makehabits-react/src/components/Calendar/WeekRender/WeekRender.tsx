@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./WeekRender.css";
 
 const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -24,8 +25,8 @@ const WeekRender = () => {
 
   return (
     <>
-      <div className="row week">
-        <div className="col border"></div>
+      <div className="row week w-100">
+        <div className="col"></div>
         {[...Array(7)].map((_, i) => {
           const dayNumber = currentWeekStart + i;
 
@@ -33,14 +34,14 @@ const WeekRender = () => {
             return (
               <div
                 key={i}
-                className="col d-flex flex-column align-items-center justify-content-center text-center p-4 border"
+                className="col day-display d-flex flex-column align-items-center justify-content-center text-center"
               >
                 <div>{daysOfWeek[i]}</div>
                 <div>{dayNumber}</div>
               </div>
             );
           } else {
-            return <div key={i} className="col border"></div>;
+            return <div key={i} className="col"></div>;
           }
         })}
       </div>

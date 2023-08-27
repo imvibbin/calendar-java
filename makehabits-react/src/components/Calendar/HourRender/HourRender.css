@@ -1,8 +1,16 @@
 /* Test.css */
 
 /* Add this rule to set a fixed height for the cells */
-.cell {
-  height: 80px; /* You can adjust the value as needed */
+.row-height {
+  height: 50px; /* You can adjust the value as needed */
+}
+
+.row-height:nth-child(even) {
+  border-top: 1px gainsboro dashed;
+}
+
+.calendar-slot {
+  border-left: 1px gainsboro solid;
 }
 
 .event {

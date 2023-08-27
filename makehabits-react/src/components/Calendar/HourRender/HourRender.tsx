@@ -90,9 +90,9 @@ const HourRender = () => {
   return (
     <>
       {hours.map((hour) => (
-        <div key={hour} className="row">
+        <div key={hour} className="row row-height w-100">
           {/* Display the hour */}
-          <div className="col cell d-flex align-items-center justify-content-center text-center p-4 border">
+          <div className="col d-flex align-items-center justify-content-center text-center">
             {hour}:00 - {(hour + 1) % 24}:00
           </div>
           {/* Loop through days */}
@@ -112,7 +112,7 @@ const HourRender = () => {
               <motion.div
                 key={`event-${index}`}
                 id={currentDivId}
-                className={`col calendar-slot border position-relative ${
+                className={`col calendar-slot position-relative h-100 ${
                   isAddingEvent ? "add-event" : ""
                 } ${
                   calendarSlotId === currentDivId ? "dragging-indicator" : ""

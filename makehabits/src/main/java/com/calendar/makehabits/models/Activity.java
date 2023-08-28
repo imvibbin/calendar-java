@@ -13,6 +13,7 @@ public class Activity {
   private long task_id;
   private int user_id;
   private String task_name;
+  private String task_hourrange;
   private String task_description;
   private String task_type;
 }

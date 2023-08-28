@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS Tasks (
     task_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     task_name VARCHAR(255) NOT NULL,
+    task_hourrange VARCHAR(255) NOT NULL,
     task_description TEXT,
     task_type ENUM('tarea', 'habito') NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)

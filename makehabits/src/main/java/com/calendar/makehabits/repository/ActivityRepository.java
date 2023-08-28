@@ -31,13 +31,15 @@ public class ActivityRepository {
 
   public boolean createActivity(Activity newActivity) {
     String CREATE_NEW_ACTIVITY =
-        "INSERT INTO tasks (user_id, task_name, task_description, task_type) VALUES (?, ?, ?, ?)";
+        "INSERT INTO tasks (user_id, task_name, task_hourrange, task_description, task_type) VALUES"
+            + " (?, ?, ?, ?, ?)";
     try {
       int rowsAffected =
           jdbcTemplate.update(
               CREATE_NEW_ACTIVITY,
               newActivity.getUser_id(),
               newActivity.getTask_name(),
+              newActivity.getTask_hourrange(),
               newActivity.getTask_description(),
               newActivity.getTask_type());
 

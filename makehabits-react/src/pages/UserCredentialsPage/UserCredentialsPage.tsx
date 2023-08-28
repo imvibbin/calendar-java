@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import LoginCalendar from "../../components/LoginCalendar/LoginCalendar";
-import LoginTitle from "../../components/LoginTitle/LoginTitle";
-import RegisterTitle from "../../components/RegisterTitle/RegisterTitle";
-import RegisterCalendar from "../../components/RegisterCalendar/RegisterCalendar";
+import LoginTitle from "../../components/UserCredentials/Login/LoginTitle/LoginTitle";
+import LoginCalendar from "../../components/UserCredentials/Login/LoginCalendar/LoginCalendar";
+import RegisterTitle from "../../components/UserCredentials/Register/RegisterTitle/RegisterTitle";
+import RegisterCalendar from "../../components/UserCredentials/Register/RegisterCalendar/RegisterCalendar";
 import "react-toastify/dist/ReactToastify.css";
 import "./UserCredentialsPage.css";
 import { useLocation } from "react-router-dom";

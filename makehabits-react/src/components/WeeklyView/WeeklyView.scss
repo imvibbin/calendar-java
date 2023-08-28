@@ -1,8 +1,9 @@
-*{
+* {
   --header-day-width: 0;
-
 }
-body, html, #root {
+body,
+html,
+#root {
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -16,11 +17,11 @@ body, html, #root {
 
 .dayHeader {
   display: grid;
-  grid-template-columns:  60px repeat(7, 1fr);
+  grid-template-columns: 60px repeat(7, 1fr);
   width: 100%;
   height: 20px;
 }
-.grid--day--cell{
+.grid--day--cell {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +30,7 @@ body, html, #root {
 
 .grid {
   display: flex;
-  
+
   height: calc(100% - 20px); /* Use calc to calculate the remaining width */
 }
 
@@ -39,8 +40,7 @@ body, html, #root {
   width: 60px;
 }
 
-.grid--calendar{
-
+.grid--calendar {
   position: relative;
 }
 
@@ -53,9 +53,6 @@ body, html, #root {
   font-size: 12px;
 }
 
-
-
-
 .grid--calendar {
   display: flex;
   width: 100%;
@@ -63,14 +60,13 @@ body, html, #root {
   overflow: auto;
 }
 
-.calendar--row{
+.calendar--row {
   background-color: aqua;
 
   border-left: 1px black solid;
   width: 100%;
   height: 30px;
 }
-.calendar--row:last-child{
-
+.calendar--row:last-child {
   border-right: 1px black solid;
 }

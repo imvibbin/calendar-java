@@ -3,15 +3,14 @@ package com.calendar.makehabits.controllers;
 import com.calendar.makehabits.enums.MessageType;
 import com.calendar.makehabits.models.Messages;
 import com.calendar.makehabits.models.User;
+import com.calendar.makehabits.models.UserActivity;
 import com.calendar.makehabits.services.UserService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestController
 @RequestMapping("/users")
@@ -37,18 +36,17 @@ public class UserController {
 
   @PostMapping("/login-auth")
   public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
-    List<User> users = userService.userLogin(loginRequest.getUsername(), loginRequest.getPassword());
+    User user = userService.userLogin(loginRequest.getUsername(), loginRequest.getPassword());
 
     HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-    if (users.isEmpty()) {
+    if (user == null) {
       return new ResponseEntity<>(
           Messages.getMessage(MessageType.INVALID_USER_OR_PASSWORD), HttpStatus.UNAUTHORIZED);
     }
 
-    User loggedInUser = users.get(0);
-    return new ResponseEntity<>(loggedInUser, httpHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(user, httpHeaders, HttpStatus.OK);
   }
 
   @PostMapping("/registration")

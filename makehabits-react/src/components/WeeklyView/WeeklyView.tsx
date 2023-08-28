@@ -1,26 +1,42 @@
 /* import React from 'react'; */
-import './WeeklyView.scss'; // Make sure to create this CSS file for styling
-import TimeCells from '../Lib/DraggableLib/TimeCells'
+import "./WeeklyView.css"; // Make sure to create this CSS file for styling
+import "./WeeklyView.scss"; // Make sure to create this CSS file for styling
+import TimeCells from "../Lib/DraggableLib/TimeCells";
+import { Container, Row, Col } from "react-bootstrap";
 
 const WeeklyView = () => {
   const numRows = 16;
   const numCols = 8;
-  const daysOfWeek = ['', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const daysOfWeek = ["", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
   /* const daysOfMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct', 'Nov', 'Dec'];*/
-  const hourRange = ['8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM','4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM','8:00 PM', '9:00 PM', '10:00 PM'];
-  
+  const hourRange = [
+    "8:00 AM",
+    "9:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "1:00 PM",
+    "2:00 PM",
+    "3:00 PM",
+    "4:00 PM",
+    "5:00 PM",
+    "6:00 PM",
+    "7:00 PM",
+    "8:00 PM",
+    "9:00 PM",
+    "10:00 PM",
+  ];
 
-  const generateDayCells = () => { 
+  const generateDayCells = () => {
     const DayCells = [];
     for (let col = 0; col < numCols; col++) {
-
       const cellKey = `cell--${0}-${col}`;
       const cellContent = daysOfWeek[col];
       const cellDayClass = "grid--day--cell";
       const cellStyle = {
-        backgroundColor: 'white',
+        backgroundColor: "white",
       };
-      
+
       DayCells.push(
         <div key={cellKey} className={cellDayClass} style={cellStyle}>
           {cellContent}
@@ -37,9 +53,9 @@ const WeeklyView = () => {
       const cellContent = hourRange[row];
       const cellHourClass = "grid--hour--cell";
       const cellStyle = {
-        backgroundColor: 'white'
+        backgroundColor: "white",
       };
-      
+
       HourCells.push(
         <div key={cellKey} className={cellHourClass} style={cellStyle}>
           {cellContent}
@@ -49,35 +65,44 @@ const WeeklyView = () => {
     return HourCells;
   };
 
+  const GridComponent: React.FC = () => {
+    const numRows = 15;
+    const numCols = 7;
 
+    const generateGrid = () => {
+      const rows = [];
+      for (let i = 0; i < numRows; i++) {
+        const cols = [];
+        for (let j = 0; j < numCols; j++) {
+          cols.push(<div key={j} className="col calendar-cell"></div>);
+        }
+        rows.push(
+          <div key={i} className="row calendar-row">
+            {cols}
+          </div>
+        );
+      }
+      return rows;
+    };
 
+    return (
+      <div className="container position-absolute h-100 border border-danger">
+        {generateGrid()}
+      </div>
+    );
+  };
 
   return (
     <div className="CalendarUI">
       <div className="dayHeader">{generateDayCells()}</div>
 
       <div className="grid">
-        <div className="grid--hour">
-        {generateTimeCells()}
-        </div>
+        <div className="grid--hour">{generateTimeCells()}</div>
         <div className="grid--calendar">
-{/*         <div className="under-mask">
-      {Array.from({ length: 105 }, (_, index) => (
-        <div key={index} className="under-mask--cell">
-            
+          <GridComponent />
+          <TimeCells />
         </div>
-      ))}
-    </div> */}
-    <TimeCells/>
-          {/* <div className='calendar--row'>1</div>
-          <div className='calendar--row'>2</div>
-          <div className='calendar--row'>3</div>
-          <div className='calendar--row'>4</div>
-          <div className='calendar--row'>5</div>
-          <div className='calendar--row'>6</div>
-          <div className='calendar--row'>7</div> */}
-        </div>
-        </div>
+      </div>
     </div>
   );
 };

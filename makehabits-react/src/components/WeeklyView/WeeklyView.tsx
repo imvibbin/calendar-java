@@ -66,7 +66,7 @@ const WeeklyView = () => {
   };
 
   const GridComponent: React.FC = () => {
-    const numRows = 15;
+    const numRows = 7;
     const numCols = 7;
 
     const generateGrid = () => {
@@ -74,10 +74,10 @@ const WeeklyView = () => {
       for (let i = 0; i < numRows; i++) {
         const cols = [];
         for (let j = 0; j < numCols; j++) {
-          cols.push(<div key={j} className="col calendar-cell"></div>);
+          cols.push(<div key={j} className=" calendar-cell"></div>);
         }
         rows.push(
-          <div key={i} className="row calendar-row">
+          <div key={i} className=" calendar-row">
             {cols}
           </div>
         );
@@ -86,7 +86,7 @@ const WeeklyView = () => {
     };
 
     return (
-      <div className="container position-absolute h-100 border border-danger">
+      <div className="mask">
         {generateGrid()}
       </div>
     );

@@ -1,11 +1,12 @@
 /* import type { Dayjs } from 'dayjs'; */
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { CalendarProps } from 'antd';
-import {  Calendar } from 'antd';
-import type { Dayjs } from 'dayjs';
-import dayLocaleData from 'dayjs/plugin/localeData';
+import {  Calendar,Alert } from 'antd';
 
+import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs'
+import isoWeek from 'dayjs/plugin/isoWeek'
 import { Col, Row, Select,} from 'antd';
 import type {  } from 'antd';
 
@@ -15,6 +16,27 @@ import type {  } from 'antd';
 import './MonthCalendarLib.scss'
 
 const MonthCalendarLib: React.FC = () => {
+  dayjs.extend(isoWeek)
+  const [value, setValue] = useState(() => dayjs());
+  const [selectedValue, setSelectedValue] = useState(() => dayjs());
+  const onSelect = (newValue: Dayjs) => {
+    setValue(newValue);
+    setSelectedValue(newValue);
+    
+    console.log(newValue.isoWeekday());
+    console.log(newValue.startOf('week'));
+    console.log(newValue.endOf('week'));
+
+  };
+
+
+  function name(x:Dayjs) {
+    
+  }
+/*   const currentWeek  */
+  const onPanelChange = (newValue: Dayjs) => {
+    setValue(newValue);
+  };
 /*   const wrapperStyle: React.CSSProperties = {
     width: '100%',
     borderRadius:  token.borderRadius,
@@ -23,12 +45,13 @@ const MonthCalendarLib: React.FC = () => {
 
   return (
     <div /* style={wrapperStyle} */>
-      <Calendar fullscreen={false}
+      {/* <Alert message={`You selected date: ${selectedValue?.format('YYYY-MM-DD')}`} /> */}
+      <Calendar value={value} onSelect={onSelect} onPanelChange={onPanelChange} fullscreen={false}
         headerRender={({ value, onChange }) => {
           const start = 0;
           const end = 12;
           const monthOptions = [];
-
+          /* console.log(value); */
           let current = value.clone();
           const localeData = value.localeData();
           
@@ -37,6 +60,7 @@ const MonthCalendarLib: React.FC = () => {
             current = current.month(i);
             months.push(localeData.monthsShort(current));
           }
+
           /* onst firstDayOfWeek = value().startOf(value)
  */
           for (let i = start; i < end; i++) {

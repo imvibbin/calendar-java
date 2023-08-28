@@ -16,4 +16,5 @@ public class Activity {
   private String task_hourrange;
   private String task_description;
   private String task_type;
+  private int task_habitrepeated;
 }

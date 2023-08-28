@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS makehabits_test;
 CREATE DATABASE IF NOT EXISTS makehabits_test;
 
 USE makehabits_test;
@@ -17,7 +18,8 @@ CREATE TABLE IF NOT EXISTS Tasks (
     task_name VARCHAR(255) NOT NULL,
     task_hourrange VARCHAR(255) NOT NULL,
     task_description TEXT,
-    task_type ENUM('tarea', 'habito') NOT NULL,
+    task_type ENUM('appointment', 'habit') NOT NULL,
+    task_habitrepeated INT,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 

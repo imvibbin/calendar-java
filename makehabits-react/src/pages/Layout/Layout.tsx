@@ -1,11 +1,11 @@
 /* import React from "react"; */
-import WeeklyView from "../WeeklyView/WeeklyView";
-import MonthCalendarLib from "../Lib/AntLib/MonthCalendarLib/MonthCalendarLib";
-import PopUpLib from "../Lib/AntLib/PopUpLib/PopUpLib";
+import WeeklyView from "../../components/WeeklyView/WeeklyView";
+import MonthCalendarLib from "../../components/Lib/AntLib/MonthCalendarLib/MonthCalendarLib";
+import PopUpLib from "../../components/Lib/AntLib/PopUpLib/PopUpLib";
 import "./Layout.scss"; // Import your CSS file for styling
 /* import { useNavigate } from "react-router-dom"; */
-import EventShowCase from "../Elements/EventShowCase/EventShowCase";
-import NavBar from "../Elements/NavBar/NavBar";
+import EventShowCase from "../../components/Elements/EventShowCase/EventShowCase";
+import NavBar from "../../components/Elements/NavBar/NavBar";
 import CalendarPage from "../../pages/CalendarPage/Calendar";
 /* const Header = () => {
   
@@ -29,12 +29,12 @@ const Sidebar = () => {
 };
 const MainContent = () => {
   return (
-    <main className="main-content">
+/*     <main className="main-content">
       <CalendarPage />
-    </main>
-    // <main className="main-content">
-    //   <WeeklyView />
-    // </main>
+    </main> */
+     <main className="main-content">
+       <WeeklyView />
+     </main>
   );
 };
 

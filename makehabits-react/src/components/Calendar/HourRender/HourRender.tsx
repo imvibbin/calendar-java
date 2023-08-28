@@ -3,8 +3,13 @@ import { motion, PanInfo } from "framer-motion";
 import EventDisplay from "../EventDisplay/EventDisplay";
 import EventCreator from "../EventCreator/EventCreator";
 import "./HourRender.css";
+import UserInterface from "../../../models/UserInterface";
 
 const HourRender = () => {
+  const userData: UserInterface =
+    JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
+  console.log(userData);
+
   const hours = Array.from({ length: 24 }, (_, index) => index);
   const [addingEvent, setAddingEvent] = useState(false);
   const [selectedCell, setSelectedCell] = useState("");

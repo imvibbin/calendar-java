@@ -1,10 +1,6 @@
 /* Test.css */
 
 /* Add this rule to set a fixed height for the cells */
-.row-height {
-  height: 50px; /* You can adjust the value as needed */
-}
-
 .row-height:nth-child(even) {
   border-top: 1px gainsboro dashed;
 }

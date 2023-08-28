@@ -3,7 +3,6 @@ package com.calendar.makehabits.controllers;
 import com.calendar.makehabits.enums.MessageType;
 import com.calendar.makehabits.models.Messages;
 import com.calendar.makehabits.models.User;
-import com.calendar.makehabits.models.UserActivity;
 import com.calendar.makehabits.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

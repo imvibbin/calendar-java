@@ -8,7 +8,6 @@ import UserInterface from "../../../models/UserInterface";
 const HourRender = () => {
   const userData: UserInterface =
     JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
-  console.log(userData);
 
   const hours = Array.from({ length: 24 }, (_, index) => index);
   const [addingEvent, setAddingEvent] = useState(false);
@@ -17,8 +16,8 @@ const HourRender = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [eventsData, setEventsData] = useState({
     events: [
-      { name: "event1", info: "hour2-3/day4", duration: 60, days: 1 },
-      { name: "event2", info: "hour9-10/day2", duration: 120, days: 4 },
+      { name: "event1", info: "hour2/day4", duration: 60, days: 1 },
+      { name: "event2", info: "hour9/day2", duration: 120, days: 4 },
     ],
   });
 
@@ -42,7 +41,6 @@ const HourRender = () => {
         { name: eventName, info: cellId, duration: eventDuration, days: 1 },
       ],
     }));
-    console.log(eventsData);
     setAddingEvent(false);
     setSelectedCell("");
   };
@@ -102,9 +100,7 @@ const HourRender = () => {
           </div>
           {/* Loop through days */}
           {[...Array(7)].map((_, index) => {
-            const currentDivId = `hour${hour}-${(hour + 1) % 24}/day${
-              index + 1
-            }`;
+            const currentDivId = `hour${hour}/day${index + 1}`;
             const event = eventsData.events.find(
               (event) => event.info === currentDivId,
             );

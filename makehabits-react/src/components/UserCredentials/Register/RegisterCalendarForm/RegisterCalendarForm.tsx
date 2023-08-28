@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import UserInterface from "../../../../models/UserInterface";
 import { createUser } from "../../../../services/UserService";
-import BackendErrorType from "../../../../enums/BackendErrorType"; 
+import BackendErrorType from "../../../../enums/BackendErrorType";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import CustomError from "../../../../models/CustomError";
@@ -16,6 +16,7 @@ const RegisterCalendarForm = () => {
     username: "",
     email: "",
     password: "",
+    activities: [],
   };
 
   const [newUser, setNewUser] = useState<UserInterface>(userInitial);

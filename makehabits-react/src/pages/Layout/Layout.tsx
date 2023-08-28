@@ -16,10 +16,10 @@ import CalendarPage from "../../pages/CalendarPage/Calendar";
 const Sidebar = () => {
   return (
     <aside className="sidebar">
-      <div>
+      <div className="sidebar__MonthCalendarLib">
         <MonthCalendarLib />
       </div>
-      <div>
+      <div className="sidebar__eventShowCase">
         <h3>Activity List</h3>
         <PopUpLib />
         <EventShowCase />

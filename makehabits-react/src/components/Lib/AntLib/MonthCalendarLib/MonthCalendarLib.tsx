@@ -24,11 +24,14 @@ const MonthCalendarLib: React.FC = () => {
     setSelectedValue(newValue);
     
     console.log(newValue.isoWeekday());
-    console.log(newValue.startOf('week'));
-    console.log(newValue.endOf('week'));
+   
 
   };
 
+  let currentStartWeek = value.startOf('week');
+  let currentEndWeek = value.endOf('week');
+  console.log(currentStartWeek);
+ /*  currentStartWeek */
 
   function name(x:Dayjs) {
     
@@ -130,3 +133,5 @@ const MonthCalendarLib: React.FC = () => {
 };
 
 export default MonthCalendarLib;
+
+export{ }

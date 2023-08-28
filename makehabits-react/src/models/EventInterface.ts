@@ -25,7 +25,7 @@ interface Habit extends EventInterface {
   
   export type Form = Habit | Appointment;
 
-/*    const Activity: Form = {
+    const Activity: Form = {
     id: 1,
     type: 'habit',
     name: 'gym',
@@ -33,4 +33,4 @@ interface Habit extends EventInterface {
     hourrange: ["2023-08-23T19:30:00.814Z","2023-08-23T21:00:00.389Z"],
     habitRepeated: 2,
 
-};  */
+};  

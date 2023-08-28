@@ -9,7 +9,7 @@ import "./App.css";
 import { AnimatePresence } from "framer-motion";
 import TimePickerLib from './components/Lib/AntLib/TimePickerLib/TimePickerLib.tsx';
 import UnderMask from './components/Elements/UnderMask/UnderMask.tsx';
-
+import AnotherVersion from './components/Lib/AntLib/AnotherVersion/AnotherVersion.tsx';
 function App() {
   return (
     <>
@@ -23,6 +23,7 @@ function App() {
             <Route path="/layout" element={< Layout/>} />
             <Route path="/time" element={< TimePickerLib/>} />
             <Route path="/hola" element={< UnderMask/>} />
+            <Route path="/Another" element={< AnotherVersion/>} />
           </Routes>
         </Router>
       </AnimatePresence>

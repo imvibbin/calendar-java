@@ -18,7 +18,7 @@ const WeeklyView = () => {
       const cellContent = daysOfWeek[col];
       const cellDayClass = "grid--day--cell";
       const cellStyle = {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
       };
       
       DayCells.push(

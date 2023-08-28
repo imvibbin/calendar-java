@@ -13,6 +13,7 @@
     "antd": "^5.8.4",
     "antd-weekly-calendar": "^1.1.2",
     "bootstrap": "^5.3.1",
+    "dayjs": "^1.11.9",
     "framer-motion": "^10.16.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",

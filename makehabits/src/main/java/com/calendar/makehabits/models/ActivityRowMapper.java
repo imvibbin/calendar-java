@@ -8,16 +8,29 @@ public class ActivityRowMapper implements RowMapper<Activity> {
 
   @Override
   public Activity mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-    // ... Tu código de mapeo aquí
-    Activity activity = new Activity();
-    activity.setTask_id(resultSet.getLong("task_id"));
-    activity.setUser_id(resultSet.getInt("user_id"));
-    activity.setTask_name(resultSet.getString("task_name"));
-    activity.setTask_hourrange(resultSet.getString("task_hourrange"));
-    activity.setTask_description(resultSet.getString("task_hourrange"));
-    activity.setTask_habitrepeated(resultSet.getInt("task_habitrepeated"));
-    activity.setTask_type(resultSet.getString("task_type"));
-
-    return activity;
+    String task_type = resultSet.getString("task_type");
+    if (task_type.equals("habit")) {
+      Habit habit = new Habit();
+      habit.setTask_id(resultSet.getLong("task_id"));
+      habit.setUser_id(resultSet.getInt("user_id"));
+      habit.setTask_name(resultSet.getString("task_name"));
+      habit.setTask_description(resultSet.getString("task_description"));
+      habit.setTask_type(task_type);
+      habit.setTask_hour_range(resultSet.getString("task_hour_range"));
+      habit.setTask_habit_repetitions(resultSet.getInt("task_habit_repetitions"));
+      return habit;
+    } else if (task_type.equals("appointment")) {
+      Appointment appointment = new Appointment();
+      appointment.setTask_id(resultSet.getLong("task_id"));
+      appointment.setUser_id(resultSet.getInt("user_id"));
+      appointment.setTask_name(resultSet.getString("task_name"));
+      appointment.setTask_description(resultSet.getString("task_description"));
+      appointment.setTask_type(task_type);
+      appointment.setTask_hour_range(resultSet.getString("task_hour_range"));
+      appointment.setTask_date_range(resultSet.getString("task_date_range"));
+      return appointment;
+    } else {
+      return new Activity();
+    }
   }
 }

@@ -2,6 +2,8 @@ package com.calendar.makehabits.repository;
 
 import com.calendar.makehabits.models.Activity;
 import com.calendar.makehabits.models.ActivityRowMapper;
+import com.calendar.makehabits.models.Appointment;
+import com.calendar.makehabits.models.Habit;
 import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,20 +33,38 @@ public class ActivityRepository {
 
   public boolean createActivity(Activity newActivity) {
     String CREATE_NEW_ACTIVITY =
-        "INSERT INTO Tasks (user_id,task_name,task_hourrange, task_description, task_type,"
-            + " task_habitrepeated) VALUES (?,?,?,?,?,?)";
+        "INSERT INTO Tasks (user_id, task_name, task_hour_range, task_date_range, task_description,"
+            + " task_type, task_habit_repetitions) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try {
-      int rowsAffected =
-          jdbcTemplate.update(
-              CREATE_NEW_ACTIVITY,
-              newActivity.getUser_id(),
-              newActivity.getTask_name(),
-              newActivity.getTask_hourrange(),
-              newActivity.getTask_description(),
-              newActivity.getTask_type(),
-              newActivity.getTask_habitrepeated());
-
-      return rowsAffected > 0;
+      if (newActivity instanceof Habit) {
+        Habit habit = (Habit) newActivity;
+        int rowsAffected =
+            jdbcTemplate.update(
+                CREATE_NEW_ACTIVITY,
+                habit.getUser_id(),
+                habit.getTask_name(),
+                habit.getTask_hour_range(),
+                null,
+                habit.getTask_description(),
+                habit.getTask_type(),
+                habit.getTask_habit_repetitions());
+        return rowsAffected > 0;
+      } else if (newActivity instanceof Appointment) {
+        Appointment appointment = (Appointment) newActivity;
+        int rowsAffected =
+            jdbcTemplate.update(
+                CREATE_NEW_ACTIVITY,
+                appointment.getUser_id(),
+                appointment.getTask_name(),
+                appointment.getTask_hour_range(),
+                appointment.getTask_date_range(),
+                appointment.getTask_description(),
+                appointment.getTask_type(),
+                null);
+        return rowsAffected > 0;
+      } else {
+        return false;
+      }
     } catch (DataAccessException e) {
       e.printStackTrace();
       return false;

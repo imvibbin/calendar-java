@@ -16,11 +16,13 @@ CREATE TABLE IF NOT EXISTS Tasks (
     task_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     task_name VARCHAR(255) NOT NULL,
-    task_hourrange VARCHAR(255) NOT NULL,
+    task_hour_range VARCHAR(255) NOT NULL,
+    task_date_range VARCHAR(255),
     task_description TEXT,
     task_type ENUM('appointment', 'habit') NOT NULL,
-    task_habitrepeated INT,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    task_habit_repetitions INT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    CHECK ((task_type = 'habit' AND task_date_range IS NULL) OR (task_type = 'appointment' AND task_habit_repetitions IS NULL))
 );
 
 -- Agrega una columna para el número del día de la semana en la tabla Calendar

@@ -3,9 +3,14 @@ import { Dropdown, Space, MenuProps } from "antd";
 import userPhoto from "../../../../assets/logo-user.png";
 import "./DropdownUserLib.scss";
 import { useNavigate } from "react-router-dom";
+import UserInterface from "../../../../models/UserInterface";
 
 const DropdownUserLib: React.FC = () => {
   const navigate = useNavigate();
+
+  const userData: UserInterface =
+    JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
+  console.log(userData);
 
   const handleLogOut = () => {
     localStorage.removeItem("USER_DATA");
@@ -53,7 +58,7 @@ const DropdownUserLib: React.FC = () => {
     },
   ];
 
-  const retrievedUserName = "Captain";
+  const retrievedUserName = userData.username;
 
   return (
     <Dropdown menu={{ items }} placement="bottomLeft" arrow>

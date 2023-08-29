@@ -14,17 +14,18 @@ const HourRender = () => {
   const generateEventsFromUserData = (userData: UserInterface) => {
     return userData.activities.map((activity) => {
       const name = activity.task_name;
+      const eventId = activity.task_id;
+      const [startHourStr, endHourStr] = activity.task_hour_range.split("|");
+      const [startHour, startMinute] = startHourStr.split(":").map(Number);
+      const [endHour, endMinute] = endHourStr.split(":").map(Number);
+      const duration = (endHour - startHour) * 60 + (endMinute - startMinute);
+      console.log(duration);
 
       if (
         activity.task_type === "habit" &&
         "task_habit_repetitions" in activity
       ) {
         const habit = activity as Habit;
-        const eventId = habit.task_id;
-        const [startHourStr, endHourStr] = habit.task_hour_range.split("|");
-        const [startHour] = startHourStr.split(":").map(Number);
-        const [endHour] = endHourStr.split(":").map(Number);
-        const duration = (endHour - startHour) * 60;
         const days = habit.task_habit_repetitions;
         const info = `hour${startHour}/day${days}`;
 
@@ -34,12 +35,6 @@ const HourRender = () => {
         "task_date_range" in activity
       ) {
         const appointment = activity as Appointment;
-        const eventId = appointment.task_id;
-        const [startHourStr, endHourStr] =
-          appointment.task_hour_range.split("|");
-        const [startHour] = startHourStr.split(":").map(Number);
-        const [endHour] = endHourStr.split(":").map(Number);
-        const duration = (endHour - startHour) * 60;
         const [startDate, endDate] = appointment.task_date_range.split("|");
         const [day_start, month_start, year_start] = startDate.split("-");
         const startDateObject = new Date(
@@ -117,12 +112,15 @@ const HourRender = () => {
     handleDragCommon(info);
     setCalendarSlotId("");
 
-    const eventDragged = eventsData.events.map((event) => {
-      if (event?.eventId == eventId) {
-        return parseInt(event.info.split("/")[0].replace("hour", ""));
-      }
-    });
-    console.log("Hour: " + eventDragged);
+    // Update eventsData
+    setEventsData((prevState) => ({
+      ...prevState,
+      events: prevState.events.map((event) =>
+        event.eventId === eventId
+          ? { ...event, info: calendarSlotId }
+          : event,
+      ),
+    }));
   };
 
   const handleDrag = (

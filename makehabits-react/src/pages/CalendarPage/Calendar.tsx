@@ -6,7 +6,7 @@ import "./Calendar.css";
 const CalendarPage = () => {
   return (
     <>
-      <div className="row week-container h-100 border border-primary">
+      <div className="row week-container h-100">
         <WeekRender />
         <HourRender />
       </div>

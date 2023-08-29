@@ -1,8 +1,10 @@
 package com.calendar.makehabits.controllers;
 
+import com.calendar.makehabits.enums.MessageType;
 import com.calendar.makehabits.models.Activity;
 import com.calendar.makehabits.models.Appointment;
 import com.calendar.makehabits.models.Habit;
+import com.calendar.makehabits.models.Messages;
 import com.calendar.makehabits.services.ActivityService;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +59,12 @@ public class ActivityController {
   }
 
   @DeleteMapping("/activity/{id}")
-  public void deleteActivity(@PathVariable Long id) {
-    activityService.deleteActivity(id);
+  public ResponseEntity<?> deleteActivity(@PathVariable Long id) {
+    boolean deleted = activityService.deleteActivity(id);
+    if (deleted) {
+      return new ResponseEntity<>(Messages.getMessage(MessageType.OK), HttpStatus.OK);
+    }
+    return new ResponseEntity<>(
+        Messages.getMessage(MessageType.DATABASE_ERROR), HttpStatus.NOT_MODIFIED);
   }
 }

@@ -8,7 +8,7 @@ interface WeeklyViewProps {
 const WeeklyView: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
   const numRows = 16;
   const numCols = 8;
-  const daysOfWeek = ["", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const daysOfWeek = ["", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab", "Dom"];
   /* const daysOfMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct', 'Nov', 'Dec'];*/
   const hourRange = [
     "8:00 AM",
@@ -33,7 +33,8 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
     console.log(weeklyViewData);
     for (let col = 0; col < numCols; col++) {
       const cellKey = `cell--${0}-${col}`;
-      const cellContent = daysOfWeek[col] + weeklyViewData[col-1];
+      const cellPrefix = daysOfWeek[col];
+      const cellDay = weeklyViewData[col-1];
       const cellDayClass = "grid--day--cell";
       const cellStyle = {
         backgroundColor: "white",
@@ -41,7 +42,12 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
 
       DayCells.push(
         <div key={cellKey} className={cellDayClass} style={cellStyle}>
-          {cellContent}
+          <div>
+            {cellPrefix}
+          </div>
+          <div>
+            {cellDay}
+          </div>
         </div>
       );
     }

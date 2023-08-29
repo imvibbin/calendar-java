@@ -8,7 +8,7 @@ import CustomError from "../../../../models/CustomError";
 import { motion } from "framer-motion";
 import UserCredentialInput from "../../UserCredentialInput/UserCredentialInput";
 
-import "./RegisterCalendarForm.css";
+import "./RegisterCalendarForm.scss";
 
 const RegisterCalendarForm = () => {
   const userInitial = {

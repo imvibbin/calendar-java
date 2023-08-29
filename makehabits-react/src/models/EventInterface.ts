@@ -12,14 +12,15 @@ interface Habit extends EventInterface {
   task_type: "habit"; // Discriminator property
 
   // Properties specific to form task_type "input1"
-  task_habitrepeated: number;
+  task_habit_repetitions: string;
 }
 
 interface Appointment extends EventInterface {
   task_type: "appointment"; // Discriminator property
 
   // Properties specific to form task_type "input2"
-  task_hourrange: string;
+  task_date_range: string;
+
 }
 
 type FormEvent = Habit | Appointment;

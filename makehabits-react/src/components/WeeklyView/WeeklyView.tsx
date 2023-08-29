@@ -3,9 +3,9 @@ import "./WeeklyView.css"; // Make sure to create this CSS file for styling
 import "./WeeklyView.scss"; // Make sure to create this CSS file for styling
 import TimeCells from "../Lib/DraggableLib/TimeCells";
 interface WeeklyViewProps {
-  data: string[]; // Replace 'any' with the appropriate type for your data
+  weeklyViewData: string[]; // Replace 'any' with the appropriate type for your data
 }
-const WeeklyView: React.FC<WeeklyViewProps> = ({ data }) => {
+const WeeklyView: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
   const numRows = 16;
   const numCols = 8;
   const daysOfWeek = ["", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -30,9 +30,10 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({ data }) => {
 
   const generateDayCells = () => {
     const DayCells = [];
+    console.log(weeklyViewData);
     for (let col = 0; col < numCols; col++) {
       const cellKey = `cell--${0}-${col}`;
-      const cellContent = daysOfWeek[col];
+      const cellContent = daysOfWeek[col] + weeklyViewData[col-1];
       const cellDayClass = "grid--day--cell";
       const cellStyle = {
         backgroundColor: "white",
@@ -48,7 +49,7 @@ const WeeklyView: React.FC<WeeklyViewProps> = ({ data }) => {
   };
 
   const generateTimeCells = () => {
-    const currentWeek = data;
+    
     const HourCells = [];
     for (let row = 0; row < numRows; row++) {
       const cellKey = `cell--${row}-${0}`;

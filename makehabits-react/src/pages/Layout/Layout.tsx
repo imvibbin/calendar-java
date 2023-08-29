@@ -49,8 +49,12 @@ const Layout = () => {
   const handleNextWeek = () => {
     setWeeklyViewData(newData);
   };
-  const handleWeekSelection = () => {
-    setWeeklyViewData(newData);
+  const handleWeekSelection = (newDaysOfWeek: string[]) => {
+    // Update the daysOfWeek array
+
+    // You can also update other data or state as needed
+    setWeeklyViewData(newDaysOfWeek);
+    console.log(weeklyViewData);
   };
 
   const initialWeeklyViewData = generateInitialWeeklyData();
@@ -67,7 +71,7 @@ const Layout = () => {
       />
       <div className="content-wrapper">
         <main className="main-content">
-          <WeeklyView data={weeklyViewData} />
+          <WeeklyView weeklyViewData={weeklyViewData} />
         </main>
         <Sidebar onCalendarWeekChange={handleWeekSelection} 
         />

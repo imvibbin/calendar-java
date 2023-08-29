@@ -21,15 +21,16 @@ const MonthCalendarLib: React.FC<MonthCalendarLibProps> = ({ onCalendarWeekChang
     let startCurrentWeek = currentWeek.startOf('week').format('DD');
     let endCurrentWeek = currentWeek.endOf('week').format('DD');
     let currentMonth = currentWeek.month();
-    console.log('Mes' + currentMonth);
+/*     console.log('Mes' + currentMonth);
     console.log('Primero' +startCurrentWeek);
-    console.log('Ultimo' +endCurrentWeek); 
+    console.log('Ultimo' +endCurrentWeek);  */
     const daysOfWeek = [];
     for (let i = 0; i < 7; i++) {
     const day = currentWeek.startOf('week').add(i, 'day');
       daysOfWeek.push(day.format('DD'));
     }
     console.log(daysOfWeek);
+    onCalendarWeekChange(daysOfWeek);
   };
 
   const onPanelChange = (newValue: Dayjs) => {

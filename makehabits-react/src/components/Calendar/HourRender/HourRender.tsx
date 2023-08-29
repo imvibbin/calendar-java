@@ -2,8 +2,10 @@ import { useState } from "react";
 import { motion, PanInfo } from "framer-motion";
 import EventDisplay from "../EventDisplay/EventDisplay";
 import EventCreator from "../EventCreator/EventCreator";
-import "./HourRender.css";
 import UserInterface from "../../../models/UserInterface";
+import Habit from "../../../models/Habit";
+import Appointment from "../../../models/Appointment";
+import "./HourRender.css";
 
 const HourRender = () => {
   const userData: UserInterface =
@@ -16,8 +18,53 @@ const HourRender = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [eventsData, setEventsData] = useState({
     events: [
-      { name: "event1", info: "hour2/day4", duration: 60, days: 1 },
-      { name: "event2", info: "hour9/day2", duration: 120, days: 4 },
+      userData.activities.map((activity) => {
+        // Extract the relevant information from the activity object
+        const name = activity.task_name;
+
+        // Check the type of the activity
+        if (
+          activity.task_type === "habit" &&
+          "task_habit_repetitions" in activity
+        ) {
+          // Narrow the type of activity to Habit using a type guard
+          const habit = activity as Habit;
+
+          // Handle habit events
+          const [startHour, endHour] = habit.task_hour_range
+            .split("|")
+            .map(Number);
+          const duration = (endHour - startHour) * 60;
+          const days = habit.task_habit_repetitions;
+          const info = `hour${startHour}/day${days}`;
+
+          return { name, info, duration, days };
+        } else if (
+          activity.task_type === "appointment" &&
+          "task_date_range" in activity
+        ) {
+          // Narrow the type of activity to Appointment using a type guard
+          const appointment = activity as Appointment;
+
+          // Handle appointment events
+          const [startHour, endHour] = appointment.task_hour_range
+            .split("|")
+            .map(Number);
+          const duration = (endHour - startHour) * 60;
+          const [startDate, endDate] = appointment.task_date_range.split("|");
+          const days = Math.ceil(
+            (new Date(endDate).getTime() - new Date(startDate).getTime()) /
+              (1000 * 60 * 60 * 24),
+          );
+          const info = `hour${startHour}/day${
+            new Date(startDate).getDay() + 1
+          }`;
+
+          return { name, info, duration, days };
+        } else {
+          return null;
+        }
+      }),
     ],
   });
 

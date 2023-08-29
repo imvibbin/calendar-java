@@ -11,61 +11,66 @@ const HourRender = () => {
   const userData: UserInterface =
     JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
 
+  const generateEventsFromUserData = (userData: UserInterface) => {
+    return userData.activities.map((activity) => {
+      const name = activity.task_name;
+
+      if (
+        activity.task_type === "habit" &&
+        "task_habit_repetitions" in activity
+      ) {
+        const habit = activity as Habit;
+        const eventId = habit.task_id;
+        const [startHourStr, endHourStr] = habit.task_hour_range.split("|");
+        const [startHour] = startHourStr.split(":").map(Number);
+        const [endHour] = endHourStr.split(":").map(Number);
+        const duration = (endHour - startHour) * 60;
+        const days = habit.task_habit_repetitions;
+        const info = `hour${startHour}/day${days}`;
+
+        return { eventId, name, info, duration, days };
+      } else if (
+        activity.task_type === "appointment" &&
+        "task_date_range" in activity
+      ) {
+        const appointment = activity as Appointment;
+        const eventId = appointment.task_id;
+        const [startHourStr, endHourStr] =
+          appointment.task_hour_range.split("|");
+        const [startHour] = startHourStr.split(":").map(Number);
+        const [endHour] = endHourStr.split(":").map(Number);
+        const duration = (endHour - startHour) * 60;
+        const [startDate, endDate] = appointment.task_date_range.split("|");
+        const [day_start, month_start, year_start] = startDate.split("-");
+        const startDateObject = new Date(
+          `${month_start}-${day_start}-${year_start}`,
+        );
+
+        const [day_end, month_end, year_end] = endDate.split("-");
+        const endDateObject = new Date(`${month_end}-${day_end}-${year_end}`);
+
+        const days =
+          Math.ceil(
+            (endDateObject.getTime() - startDateObject.getTime()) /
+              (1000 * 60 * 60 * 24),
+          ) + 1;
+
+        const info = `hour${startHour}/day${startDateObject.getDay() + 1}`;
+
+        return { eventId, name, info, duration, days };
+      } else {
+        return null;
+      }
+    });
+  };
+
   const hours = Array.from({ length: 24 }, (_, index) => index);
   const [addingEvent, setAddingEvent] = useState(false);
   const [selectedCell, setSelectedCell] = useState("");
   const [calendarSlotId, setCalendarSlotId] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [eventsData, setEventsData] = useState({
-    events: [
-      userData.activities.map((activity) => {
-        // Extract the relevant information from the activity object
-        const name = activity.task_name;
-
-        // Check the type of the activity
-        if (
-          activity.task_type === "habit" &&
-          "task_habit_repetitions" in activity
-        ) {
-          // Narrow the type of activity to Habit using a type guard
-          const habit = activity as Habit;
-
-          // Handle habit events
-          const [startHour, endHour] = habit.task_hour_range
-            .split("|")
-            .map(Number);
-          const duration = (endHour - startHour) * 60;
-          const days = habit.task_habit_repetitions;
-          const info = `hour${startHour}/day${days}`;
-
-          return { name, info, duration, days };
-        } else if (
-          activity.task_type === "appointment" &&
-          "task_date_range" in activity
-        ) {
-          // Narrow the type of activity to Appointment using a type guard
-          const appointment = activity as Appointment;
-
-          // Handle appointment events
-          const [startHour, endHour] = appointment.task_hour_range
-            .split("|")
-            .map(Number);
-          const duration = (endHour - startHour) * 60;
-          const [startDate, endDate] = appointment.task_date_range.split("|");
-          const days = Math.ceil(
-            (new Date(endDate).getTime() - new Date(startDate).getTime()) /
-              (1000 * 60 * 60 * 24),
-          );
-          const info = `hour${startHour}/day${
-            new Date(startDate).getDay() + 1
-          }`;
-
-          return { name, info, duration, days };
-        } else {
-          return null;
-        }
-      }),
-    ],
+    events: generateEventsFromUserData(userData),
   });
 
   const handleCellClick = (cellId: string) => {
@@ -75,19 +80,12 @@ const HourRender = () => {
     }
   };
 
+  // TODO: implement modal
   const saveEvent = (
     cellId: string,
     eventName: string,
     eventDuration: number,
   ) => {
-    // Implement logic to save the event to your eventsData
-    setEventsData((prevState) => ({
-      ...prevState,
-      events: [
-        ...prevState.events,
-        { name: eventName, info: cellId, duration: eventDuration, days: 1 },
-      ],
-    }));
     setAddingEvent(false);
     setSelectedCell("");
   };
@@ -109,23 +107,22 @@ const HourRender = () => {
     });
   };
 
+  // TODO: implement drag
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
-    eventName: string,
+    eventId: number,
   ) => {
     setIsDragging(false);
     handleDragCommon(info);
     setCalendarSlotId("");
 
-    // Update the info property of the event with the new ID
-    setEventsData((prevState) => ({
-      ...prevState,
-      events: prevState.events.map((event) =>
-        event.name === eventName ? { ...event, info: calendarSlotId } : event,
-      ),
-    }));
-    console.log(eventsData);
+    const eventDragged = eventsData.events.map((event) => {
+      if (event?.eventId == eventId) {
+        return parseInt(event.info.split("/")[0].replace("hour", ""));
+      }
+    });
+    console.log("Hour: " + eventDragged);
   };
 
   const handleDrag = (
@@ -149,9 +146,8 @@ const HourRender = () => {
           {[...Array(7)].map((_, index) => {
             const currentDivId = `hour${hour}/day${index + 1}`;
             const event = eventsData.events.find(
-              (event) => event.info === currentDivId,
+              (event) => event?.info === currentDivId,
             );
-            const eventName = event?.name || "";
             const eventDuration = event?.duration || 60;
             const eventDays = event?.days || 1;
             const isAddingEvent = addingEvent && selectedCell === currentDivId;
@@ -167,7 +163,7 @@ const HourRender = () => {
                 }`}
                 onClick={() => handleCellClick(currentDivId)}
               >
-                {event && (
+                {event && eventsData.events.length > 0 && (
                   // Display EventDisplay component
                   <EventDisplay
                     eventData={event}
@@ -175,7 +171,6 @@ const HourRender = () => {
                     eventDays={eventDays}
                     handleDragEnd={handleDragEnd}
                     handleDrag={handleDrag}
-                    data-name={eventName}
                   />
                 )}
                 {!event && isAddingEvent && (

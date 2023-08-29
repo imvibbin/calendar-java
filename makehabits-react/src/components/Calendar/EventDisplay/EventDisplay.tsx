@@ -2,10 +2,16 @@ import React, { memo } from "react";
 import { motion, Variants } from "framer-motion";
 
 interface EventDisplayProps {
-  eventData: { name: string; info: string; duration: number; days: number };
+  eventData: {
+    eventId: number;
+    name: string;
+    info: string;
+    duration: number;
+    days: number;
+  };
   eventDuration: number;
   eventDays: number;
-  handleDragEnd: (event: any, info: any, name: string) => void;
+  handleDragEnd: (event: any, info: any, eventId: number) => void;
   handleDrag: (event: any, info: any) => void;
 }
 
@@ -46,7 +52,7 @@ const EventDisplay: React.FC<EventDisplayProps> = ({
   return (
     <motion.div
       drag
-      onDragEnd={(event, info) => handleDragEnd(event, info, eventData.name)}
+      onDragEnd={(event, info) => handleDragEnd(event, info, eventData.eventId)}
       onDrag={handleDrag}
       variants={animations}
       initial="intitial"

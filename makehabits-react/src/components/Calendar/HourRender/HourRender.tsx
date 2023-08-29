@@ -7,7 +7,11 @@ import Habit from "../../../models/Habit";
 import Appointment from "../../../models/Appointment";
 import "./HourRender.css";
 
-const HourRender = () => {
+interface WeeklyViewProps {
+  weeklyViewData: string[]; // Replace 'any' with the appropriate type for your data
+}
+
+const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
   const userData: UserInterface =
     JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
 
@@ -19,7 +23,6 @@ const HourRender = () => {
       const [startHour, startMinute] = startHourStr.split(":").map(Number);
       const [endHour, endMinute] = endHourStr.split(":").map(Number);
       const duration = (endHour - startHour) * 60 + (endMinute - startMinute);
-      console.log(duration);
 
       if (
         activity.task_type === "habit" &&
@@ -27,7 +30,9 @@ const HourRender = () => {
       ) {
         const habit = activity as Habit;
         const days = habit.task_habit_repetitions;
-        const info = `hour${startHour}/day${days}`;
+        // Add a leading zero to the day if it is a single digit
+        const formattedDays = days < 10 ? `0${days}` : days;
+        const info = `hour${startHour}/day${formattedDays}`;
 
         return { eventId, name, info, duration, days };
       } else if (
@@ -35,22 +40,23 @@ const HourRender = () => {
         "task_date_range" in activity
       ) {
         const appointment = activity as Appointment;
+        console.log(appointment.task_date_range);
         const [startDate, endDate] = appointment.task_date_range.split("|");
         const [day_start, month_start, year_start] = startDate.split("-");
-        const startDateObject = new Date(
-          `${month_start}-${day_start}-${year_start}`,
-        );
-
         const [day_end, month_end, year_end] = endDate.split("-");
-        const endDateObject = new Date(`${month_end}-${day_end}-${year_end}`);
 
+        // Calculate the number of days between the start and end dates
         const days =
-          Math.ceil(
-            (endDateObject.getTime() - startDateObject.getTime()) /
-              (1000 * 60 * 60 * 24),
-          ) + 1;
+          (Number(year_end) - Number(year_start)) * 365 +
+          (Number(month_end) - Number(month_start)) * 30 +
+          (Number(day_end) - Number(day_start)) +
+          1;
 
-        const info = `hour${startHour}/day${startDateObject.getDay() + 1}`;
+        // Add a leading zero to the day if it is a single digit
+        const formattedDay =
+          Number(day_start) < 10 ? `0${day_start}` : day_start;
+        console.log(formattedDay);
+        const info = `hour${startHour}/day${formattedDay}`;
 
         return { eventId, name, info, duration, days };
       } else {
@@ -116,9 +122,7 @@ const HourRender = () => {
     setEventsData((prevState) => ({
       ...prevState,
       events: prevState.events.map((event) =>
-        event.eventId === eventId
-          ? { ...event, info: calendarSlotId }
-          : event,
+        event?.eventId === eventId ? { ...event, info: calendarSlotId } : event,
       ),
     }));
   };
@@ -131,6 +135,8 @@ const HourRender = () => {
     handleDragCommon(info);
   };
 
+  console.log(weeklyViewData);
+  console.log(eventsData);
   // Main component
   return (
     <>
@@ -142,7 +148,7 @@ const HourRender = () => {
           </div>
           {/* Loop through days */}
           {[...Array(7)].map((_, index) => {
-            const currentDivId = `hour${hour}/day${index + 1}`;
+            const currentDivId = `hour${hour}/day${weeklyViewData[index]}`;
             const event = eventsData.events.find(
               (event) => event?.info === currentDivId,
             );

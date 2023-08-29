@@ -17,7 +17,7 @@ public class ActivityRowMapper implements RowMapper<Activity> {
       habit.setTask_description(resultSet.getString("task_description"));
       habit.setTask_type(task_type);
       habit.setTask_hour_range(resultSet.getString("task_hour_range"));
-      habit.setTask_habit_repetitions(resultSet.getInt("task_habit_repetitions"));
+      habit.setTask_habit_repetitions(resultSet.getString("task_habit_repetitions"));
       return habit;
     } else if (task_type.equals("appointment")) {
       Appointment appointment = new Appointment();

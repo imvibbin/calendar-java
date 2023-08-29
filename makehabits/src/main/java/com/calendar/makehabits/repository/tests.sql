@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Tasks (
     task_date_range VARCHAR(255),
     task_description TEXT,
     task_type ENUM('appointment', 'habit') NOT NULL,
-    task_habit_repetitions INT,
+    task_habit_repetitions VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     CHECK ((task_type = 'habit' AND task_date_range IS NULL) OR (task_type = 'appointment' AND task_habit_repetitions IS NULL))
 );

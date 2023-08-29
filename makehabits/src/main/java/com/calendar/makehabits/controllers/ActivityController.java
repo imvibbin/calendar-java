@@ -30,7 +30,7 @@ public class ActivityController {
     if ("habit".equals(taskType)) {
       activity = new Habit();
       ((Habit) activity)
-          .setTask_habit_repetitions((Integer) activityMap.get("task_habit_repetitions"));
+          .setTask_habit_repetitions((String) activityMap.get("task_habit_repetitions"));
     } else if ("appointment".equals(taskType)) {
       activity = new Appointment();
       ((Appointment) activity).setTask_date_range((String) activityMap.get("task_date_range"));

@@ -1,0 +1,143 @@
+
+
+.w-50 {
+  width: 50%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+/* .main-container-content */
+.main-container-content {
+  &.d-flex {
+    display: flex;
+  }
+
+  &.flex-column {
+    flex-direction: column;
+  }
+
+  &.align-items-center {
+    align-items: center;
+  }
+
+  &.justify-content-between {
+    justify-content: space-between;
+  }
+}
+
+/* .calendar-top */
+.calendar-top {
+  &.w-100 {
+    width: 100%;
+  }
+
+  &.position-relative {
+    position: relative;
+  }
+
+  /* .circle1, .circle2 */
+  .circle1,
+  .circle2 {
+    &.rounded-circle {
+      border-radius: 50%;
+    }
+
+    &.position-absolute {
+      position: absolute;
+    }
+
+    /* Define any additional styles */
+  }
+
+  /* .pill1, .pill2 */
+  .pill1,
+  .pill2 {
+    
+    &.position-absolute {
+      position: absolute;
+    }
+
+    /* Define any additional styles */
+  }
+
+  /* .calendar-title */
+  .calendar-title {
+    &.d-flex {
+      display: flex;
+    }
+
+    &.align-items-center {
+      align-items: center;
+    }
+
+    &.justify-content-between {
+      justify-content: space-between;
+    }
+
+    &.rounded-pill {
+      border-radius: 50px;
+    }
+
+    &.d-none {
+      display: none;
+    }
+
+    /* .calendar-arrows */
+    .calendar-arrows {
+      &.rounded-circle {
+        border-radius: 50%;
+      }
+
+      &.position-relative {
+        position: relative;
+      }
+
+      /* Define any additional styles */
+
+      /* svg */
+      svg {
+        /* Your icon styles */
+        height: 1em;
+      }
+    }
+
+    /* .calendar-title-content */
+    .calendar-title-content {
+      &.border {
+        /* Your border styles */
+      }
+
+      /* Define any additional styles */
+    }
+  }
+  .lineStroke1{
+    top: -30%;
+    left: 20%;
+  }
+  .lineStroke2{
+    top: -30%;
+    right: 20%;
+  }
+  .oval1{
+    top: 12%;
+    left: 19%;
+  }
+  .oval2{
+    top: 30%;
+    right: 20%;
+  }
+}

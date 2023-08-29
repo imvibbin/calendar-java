@@ -83,3 +83,66 @@
     height: 40px;
   }
 }
+
+.main-container-form {
+  &.w-100 {
+    width: 100%;
+  }
+
+  &.d-flex {
+    display: flex;
+  }
+
+  &.justify-content-center {
+    justify-content: center;
+  }
+
+  &.align-items-center {
+    align-items: center;
+  }
+}
+
+form {
+  &.w-50 {
+    width: 50%;
+  }
+
+  &.h-100 {
+    height: 100%;
+  }
+
+  &.d-flex {
+    display: flex;
+  }
+
+  &.flex-column {
+    flex-direction: column;
+  }
+
+  &.justify-content-center {
+    justify-content: center;
+  }
+
+  &.align-items-center {
+    align-items: center;
+  }
+}
+
+.inputs {
+  &.w-100 {
+    width: 100%;
+  }
+}
+
+.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Define any additional styles you might need for UserCredentialInput or other elements */
+
+/* Define the icon styles if needed */
+.icon {
+  svg {
+    /* Your icon styles */
+  }
+}

@@ -88,18 +88,18 @@ const PopUpLib: React.FC = () => {
           task_type: 'appointment',
           task_description: currentEventData.task_description,
           task_hourrange: currentEventData.task_hourrange[0].format('HH:mm') + '|'  + currentEventData.task_hourrange[1].format('HH:mm'),
-          task_date_range: '',
+          task_date_range: currentEventData.task_date_range[0].format('YYYY-MM-DD') + '|'  + currentEventData.task_date_range[1].format('YYYY-MM-DD'),
         };
         setEventData(appointment);
       }
       else if(selectedInput === "habit"){
         const habit: Habit = {
-          task_id: 1,
-          user_id: 2,
-          task_name: '',
+          task_id: currentEventData.task_id,
+          user_id: currentEventData.user_id,
+          task_name: currentEventData.task_name,
           task_type: 'habit',
-          task_description: '',
-          task_hourrange: '',
+          task_description: currentEventData.task_description,
+          task_hourrange: currentEventData.task_hourrange[0].format('HH:mm') + '|'  + currentEventData.task_hourrange[1].format('HH:mm'),
           task_habit_repetitions: '[1, 4, 6]',
           // ...initialize the object
         };

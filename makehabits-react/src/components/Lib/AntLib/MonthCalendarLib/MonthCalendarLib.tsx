@@ -27,7 +27,7 @@ const MonthCalendarLib: React.FC<MonthCalendarLibProps> = ({ onCalendarWeekChang
     const daysOfWeek = [];
     for (let i = 0; i < 7; i++) {
     const day = currentWeek.startOf('week').add(i, 'day');
-      daysOfWeek.push(day.format('DD'));
+      daysOfWeek.push(day.format('YYYY-MM-DD'));
     }
     console.log(daysOfWeek);
     onCalendarWeekChange(daysOfWeek);
@@ -45,7 +45,7 @@ const MonthCalendarLib: React.FC<MonthCalendarLibProps> = ({ onCalendarWeekChang
           onSelect={onSelect}
           onPanelChange={onPanelChange}
           fullscreen={false}
-          firstDayOfWeek={1} // Set the start of the week to Monday
+           // Set the start of the week to Monday
           headerRender={({ value, onChange }) => {
             const year = value.year();
             const month = value.month();

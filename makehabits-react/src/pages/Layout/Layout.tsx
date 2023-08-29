@@ -58,10 +58,7 @@ const Layout = () => {
   };
 
   const initialWeeklyViewData = generateInitialWeeklyData();
-  const [weeklyViewData, setWeeklyViewData] = useState<StringArray>(
-    initialWeeklyViewData,
-  );
-  const newData = ["1", "2"];
+  const [weeklyViewData, setWeeklyViewData] = useState<StringArray>(initialWeeklyViewData);
 
   // return (
   //   <div className="layout">

@@ -1,9 +1,9 @@
-import ActivityInterface from "../models/ActivityInterface";
+import EventInterface from "../models/EventInterface";
 
 const BASE_URL = "http://localhost:8080/activity";
 
 // Function to make a GET request to fetch all activitys
-async function getAllactivitys(): Promise<ActivityInterface[]> {
+async function getAllactivitys(): Promise<EventInterface[]> {
   try {
     const response = await fetch(BASE_URL);
     if (!response.ok) {
@@ -16,7 +16,9 @@ async function getAllactivitys(): Promise<ActivityInterface[]> {
 }
 
 // Function to make a POST request to create a new activity
-async function createActivity(newActivity: ActivityInterface): Promise<ActivityInterface> {
+async function createActivity(
+  newActivity: EventInterface,
+): Promise<EventInterface> {
   try {
     const response = await fetch(BASE_URL, {
       method: "POST",
@@ -36,16 +38,16 @@ async function createActivity(newActivity: ActivityInterface): Promise<ActivityI
 
 // Function to make a DELETE request to delete a activity
 async function deleteActivity(activityId: number): Promise<void> {
-  try {
-    const response = await fetch(`${BASE_URL}/${activityId}`, {
-      method: "DELETE",
-    });
-    if (!response.ok) {
-      throw new Error("Network response was not ok.");
-    }
-  } catch (error: any) {
-    throw new Error("Failed to delete activity: " + error.message);
+  const response = await fetch(`${BASE_URL}/${activityId}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message); // Throw an error with the error message from the backend
   }
+
+  return response.json();
 }
 
-export { createActivity, deleteActivity};
+export { createActivity, deleteActivity };

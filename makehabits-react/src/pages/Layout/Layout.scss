@@ -47,16 +47,14 @@
   border-radius: 20px 0px;
   height: calc(100% - 70px);
 
-  &__MonthCalendarLib{
+/*   &__MonthCalendarLib{
 
-  }
+  } */
   &__eventShowCase{
     height: calc(100% - 315px);
   }
 }
-.sidebar > *{
-  
-}
+
 /* Main content styles */
 .main-content {
   flex: 1;

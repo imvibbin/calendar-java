@@ -2,9 +2,10 @@
 import "./WeeklyView.css"; // Make sure to create this CSS file for styling
 import "./WeeklyView.scss"; // Make sure to create this CSS file for styling
 import TimeCells from "../Lib/DraggableLib/TimeCells";
-import { Container, Row, Col } from "react-bootstrap";
-
-const WeeklyView = () => {
+interface WeeklyViewProps {
+  data: string[]; // Replace 'any' with the appropriate type for your data
+}
+const WeeklyView: React.FC<WeeklyViewProps> = ({ data }) => {
   const numRows = 16;
   const numCols = 8;
   const daysOfWeek = ["", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -47,6 +48,7 @@ const WeeklyView = () => {
   };
 
   const generateTimeCells = () => {
+    const currentWeek = data;
     const HourCells = [];
     for (let row = 0; row < numRows; row++) {
       const cellKey = `cell--${row}-${0}`;

@@ -1,137 +1,98 @@
-/* import type { Dayjs } from 'dayjs'; */
-
 import React, { useState } from 'react';
-import type { CalendarProps } from 'antd';
-import {  Calendar,Alert } from 'antd';
+import { Calendar, Col, Row, Select, ConfigProvider } from 'antd';
+import dayjs, { Dayjs } from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
+import 'dayjs/locale/es';
+import locale from 'antd/locale/es_ES';
+import './MonthCalendarLib.scss';
 
-import type { Dayjs } from 'dayjs';
-import dayjs from 'dayjs'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import { Col, Row, Select,} from 'antd';
-import type {  } from 'antd';
+dayjs.extend(isoWeek);
+dayjs.locale('es');
+interface MonthCalendarLibProps {
+  onCalendarWeekChange: (newData: string[]) => void;
+}
 
+const MonthCalendarLib: React.FC<MonthCalendarLibProps> = ({ onCalendarWeekChange }) => {
+  const [value, setValue] = useState<Dayjs>(dayjs());
 
-
-
-import './MonthCalendarLib.scss'
-
-const MonthCalendarLib: React.FC = () => {
-  dayjs.extend(isoWeek)
-  const [value, setValue] = useState(() => dayjs());
-  const [selectedValue, setSelectedValue] = useState(() => dayjs());
   const onSelect = (newValue: Dayjs) => {
-    setValue(newValue);
-    setSelectedValue(newValue);
-    
-    console.log(newValue.isoWeekday());
-   
-
+    let currentWeek = newValue.locale('es');
+    setValue(currentWeek);
+    let startCurrentWeek = currentWeek.startOf('week').format('DD');
+    let endCurrentWeek = currentWeek.endOf('week').format('DD');
+    let currentMonth = currentWeek.month();
+    console.log('Mes' + currentMonth);
+    console.log('Primero' +startCurrentWeek);
+    console.log('Ultimo' +endCurrentWeek); 
+    const daysOfWeek = [];
+    for (let i = 0; i < 7; i++) {
+    const day = currentWeek.startOf('week').add(i, 'day');
+      daysOfWeek.push(day.format('DD'));
+    }
+    console.log(daysOfWeek);
   };
 
-  let currentStartWeek = value.startOf('week');
-  let currentEndWeek = value.endOf('week');
-  console.log(currentStartWeek);
- /*  currentStartWeek */
-
-  function name(x:Dayjs) {
-    
-  }
-/*   const currentWeek  */
   const onPanelChange = (newValue: Dayjs) => {
     setValue(newValue);
   };
-/*   const wrapperStyle: React.CSSProperties = {
-    width: '100%',
-    borderRadius:  token.borderRadius,
-    backgroundColor: '#FAA4BD',
-  };  */
 
   return (
-    <div /* style={wrapperStyle} */>
-      {/* <Alert message={`You selected date: ${selectedValue?.format('YYYY-MM-DD')}`} /> */}
-      <Calendar value={value} onSelect={onSelect} onPanelChange={onPanelChange} fullscreen={false}
-        headerRender={({ value, onChange }) => {
-          const start = 0;
-          const end = 12;
-          const monthOptions = [];
-          /* console.log(value); */
-          let current = value.clone();
-          const localeData = value.localeData();
-          
-          const months = [];
-          for (let i = 0; i < 12; i++) {
-            current = current.month(i);
-            months.push(localeData.monthsShort(current));
-          }
-
-          /* onst firstDayOfWeek = value().startOf(value)
- */
-          for (let i = start; i < end; i++) {
-            monthOptions.push(
-              <Select.Option key={i} value={i} className="month-item">
-                {months[i]}
-              </Select.Option>,
+    <div>
+      <ConfigProvider locale={locale}>
+        <Calendar
+          value={value}
+          onSelect={onSelect}
+          onPanelChange={onPanelChange}
+          fullscreen={false}
+          firstDayOfWeek={1} // Set the start of the week to Monday
+          headerRender={({ value, onChange }) => {
+            const year = value.year();
+            const month = value.month();
+            return (
+              <div style={{ padding: 8 }}>
+                <Row gutter={8}>
+                  <Col>
+                    <Select
+                      size="small"
+                      className="my-year-select"
+                      value={year}
+                      onChange={(newYear) => {
+                        const now = value.clone().year(newYear);
+                        onChange(now);
+                      }}
+                    >
+                      {Array.from({ length: 7 }, (_, i) => year - 1 + i).map((yearOption) => (
+                        <Select.Option key={yearOption} value={yearOption} className="year-item">
+                          {yearOption}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Col>
+                  <Col>
+                    <Select
+                      size="small"
+                      popupMatchSelectWidth={true}
+                      value={month}
+                      onChange={(newMonth) => {
+                        const now = value.clone().month(newMonth);
+                        onChange(now);
+                      }}
+                    >
+                      {Array.from({ length: 12 }, (_, i) => i).map((monthOption) => (
+                        <Select.Option key={monthOption} value={monthOption} className="month-item">
+                          {dayjs().month(monthOption).format('MMM')}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Col>
+                </Row>
+              </div>
             );
-          }
-        
-          const year = value.year();
-          const month = value.month();
-          const options = [];
-          for (let i = year - 10; i < year + 10; i += 1) {
-            options.push(
-              <Select.Option key={i} value={i} className="year-item">
-                {i}
-              </Select.Option>,
-            );
-          }
-          return (
-            <div style={{ padding: 8 }}>
-              <Row gutter={8}>
-                <Col>
-                  <Select
-                    size="small"
-                    className="my-year-select"
-                    value={year}
-                    onChange={(newYear) => {
-                      const now = value.clone().year(newYear);
-                      onChange(now);
-                    }}
-                  >
-                    {options}
-                  </Select>
-                </Col>
-                <Col>
-                  <Select
-                    size="small"
-                    popupMatchSelectWidth={true}
-                    value={month}
-                    onChange={(newMonth) => {
-                      const now = value.clone().month(newMonth);
-                      onChange(now);
-                    }}
-                  >
-                    {monthOptions}
-                  </Select>
-                </Col>
-              </Row>
-            </div>
-          );
-        }}
-        /* zzzzzz */
-        
-         /* cellRender={(current, info) => {
-          if (info.type !== 'date') return info.originNode;
-          const style: React.CSSProperties = {};
-          if (current.date() === 1) {
-            style.backgroundColor = '#1677ff';
-            style.borderRadius = '50%';
-          }
-      }} */ 
-      />
+          }}
+        />
+      </ConfigProvider>
     </div>
   );
 };
 
 export default MonthCalendarLib;
-
-export{ }

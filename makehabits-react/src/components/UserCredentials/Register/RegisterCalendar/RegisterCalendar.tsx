@@ -7,7 +7,7 @@ import "./RegisterCalendar.scss";
 const RegisterCalendar = () => {
   const calendarTitle = ["Build", "Your", "LiFe"];
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
   const handlePreviousClick = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);

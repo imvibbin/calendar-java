@@ -8,55 +8,121 @@ import {
   Form,
   TimePicker,
 } from "antd";
-import EventInterface from "../../../../models/EventInterface"; // Import the EventInterface
-
+import { EventInterface, Habit, Appointment, FormEvent } from '../../../../models/EventInterface';
 import "./PopUpLib.scss";
 
 /* import TimePickerLib from '../TimePickerLib/TimePickerLib'; */
 const PopUpLib: React.FC = () => {
   const { RangePicker } = DatePicker;
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<EventInterface>();
   const format = "HH:mm";
-  const defaultEventData: EventInterface = {
-    task_id: 1,
-    user_id: 1,
-    task_name: "",
-    task_description: "",
-    task_hourrange: [],
-  };
+
+
   const [selectedInput, setSelectedInput] = useState<string>("appointment");
-  const [eventData, setEventData] = useState<EventInterface>(defaultEventData);
+  const [eventData, setEventData] = useState<EventInterface>(  {
+    task_id: 1,
+    user_id: 2,
+    task_name: '',
+    task_description: '',
+    task_hourrange: '',
+  });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedInput(e.target.value);
 
-    const newType = e.target.value as Form["type"];
-    const defaultEventData: EventInterface = {
+
+    if(e.target.value === "appointment"){
+       const appointment: Appointment = {
+        task_id: 32,
+        user_id: 1,
+        task_name: '',
+        task_type: 'appointment',
+        task_description: '',
+        task_date_range: '',
+        task_hourrange: '',
+      }; 
+  
+      setEventData(appointment);
+    }
+    else if(e.target.value === "habit"){
+       const habit: Habit = {
+        task_id: 1,
+        user_id: 2,
+        task_name: '',
+        task_type: 'habit',
+        task_description: '',
+        task_hourrange: '',
+        task_habit_repetitions: '[1, 4, 6]',
+        // ...initialize the object
+      }; 
+      setEventData(habit);
+    }
+/*     const defaultEventData: EventInterface = {
       task_id: 1,
       task_name: "",
       task_description: "",
-      task_hourrange: [],
-      task_type: newType,
+      task_hourrange: "",
+      task_type: e.target.value,
       task_daterange: newType === "appointment" ? [] : [],
       task_habitRepeated: newType === "habit" ? 0 : 0,
-    };
+    }; */
 
-    setEventData(defaultEventData);
+    
   };
 
   const onFinish = (values: any) => {
-    const jsonEventData: EventInterface = {
+    let currentEventData = values;
+    currentEventData.task_hourrange
+  /*   console.log(currentEventData.task_hourrange[0].format('HH:mm'));
+    console.log(currentEventData.task_hourrange[1].format('HH:mm')); */
+    
+    
+      if(selectedInput === "appointment"){
+        
+        const appointment: Appointment = {
+          task_id: currentEventData.task_id,
+          user_id: currentEventData.user_id,
+          task_name: currentEventData.task_name,
+          task_type: 'appointment',
+          task_description: currentEventData.task_description,
+          task_hourrange: currentEventData.task_hourrange[0].format('HH:mm') + '|'  + currentEventData.task_hourrange[1].format('HH:mm'),
+          task_date_range: '',
+        };
+        setEventData(appointment);
+      }
+      else if(selectedInput === "habit"){
+        const habit: Habit = {
+          task_id: 1,
+          user_id: 2,
+          task_name: '',
+          task_type: 'habit',
+          task_description: '',
+          task_hourrange: '',
+          task_habit_repetitions: '[1, 4, 6]',
+          // ...initialize the object
+        };
+        setEventData(habit);
+      }
+      setIsModalOpen(false);
+      form.resetFields();
+      console.log(eventData);
+    }
+  /*
+  !UTILIZAR EVENT INTERFACE BEFORE UPDATING TO LOCAL STORAGE
+
+  const jsonEventData: EventInterface = {
       ...eventData,
       ...values,
-    };
+    }; 
 
     localStorage.setItem("eventData", JSON.stringify(jsonEventData));
-    console.log(jsonEventData);
-    setIsModalOpen(false);
-    form.resetFields();
+    
+   
+    
   };
-
+*/
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
@@ -86,7 +152,7 @@ const PopUpLib: React.FC = () => {
   const disabledDateTime = () => ({
     disabledHours: () => TotaDisableHours(0, 9),
   });
-
+ 
   return (
     <>
       <ConfigProvider
@@ -153,7 +219,7 @@ const PopUpLib: React.FC = () => {
                 autoComplete="off"
               >
                 <Form.Item
-                  name="event"
+                  name="task_name"
                   label="Title"
                   rules={[{ required: true }]}
                 >
@@ -161,7 +227,7 @@ const PopUpLib: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item
-                  name="description"
+                  name="task_description"
                   label="Description"
                   rules={[{ required: true }]}
                 >
@@ -169,7 +235,7 @@ const PopUpLib: React.FC = () => {
                 </Form.Item>
 
                 {selectedInput === "appointment" && (
-                  <Form.Item name="daterange" label="Date Range">
+                  <Form.Item name="task_hourrange" label="Date Range">
                     <RangePicker
                       cellRender={(current, info) => {
                         if (info.type !== "date") return info.originNode;
@@ -187,7 +253,7 @@ const PopUpLib: React.FC = () => {
                     />
                   </Form.Item>
                 )}
-                <Form.Item name="hourrange" label="Time Range">
+                <Form.Item name="task_hourrange" label="Time Range">
                   <TimePicker.RangePicker
                     minuteStep={30}
                     format={format}
@@ -234,7 +300,7 @@ const App: React.FC = () => {
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
+   
     setOpen(false);
   };
 

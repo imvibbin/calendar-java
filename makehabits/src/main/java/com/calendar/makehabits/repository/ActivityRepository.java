@@ -33,8 +33,9 @@ public class ActivityRepository {
 
   public boolean updateActivity(Activity newActivity) {
     String UPDATE_ACTIVITY =
-        "UPDATE Tasks task_name = ?, task_description = ?, task_hour_range = ?, task_date_range ="
-            + " ?, task_habit_repetitions = ?, task_type = ? WHERE task_id = ?";
+        "UPDATE Tasks SET task_name = ?, task_hour_range = ?, task_date_range = ?, task_description"
+            + " = ?, task_type = ?, task_habit_repetitions = ? WHERE task_id = ?";
+
     try {
       if (newActivity instanceof Habit) {
         Habit habit = (Habit) newActivity;
@@ -42,11 +43,11 @@ public class ActivityRepository {
             jdbcTemplate.update(
                 UPDATE_ACTIVITY,
                 habit.getTask_name(),
-                habit.getTask_description(),
                 habit.getTask_hour_range(),
                 null,
-                habit.getTask_habit_repetitions(),
+                habit.getTask_description(),
                 habit.getTask_type(),
+                habit.getTask_habit_repetitions(),
                 habit.getTask_id());
         return rowsAffected > 0;
       } else if (newActivity instanceof Appointment) {
@@ -55,11 +56,11 @@ public class ActivityRepository {
             jdbcTemplate.update(
                 UPDATE_ACTIVITY,
                 appointment.getTask_name(),
-                appointment.getTask_description(),
                 appointment.getTask_hour_range(),
                 appointment.getTask_date_range(),
-                null,
+                appointment.getTask_description(),
                 appointment.getTask_type(),
+                null,
                 appointment.getTask_id());
         return rowsAffected > 0;
       } else {

@@ -15,9 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,7 +61,7 @@ public class ActivityController {
     return new ResponseEntity<>(activities, HttpStatus.OK);
   }
 
-  @PutMapping
+  @PatchMapping
   public ResponseEntity<?> updateActivity(@RequestBody Map<String, Object> activityMap) {
     Activity activity;
     String taskType = (String) activityMap.get("task_type");
@@ -76,12 +76,13 @@ public class ActivityController {
       return new ResponseEntity<>(
           Messages.getMessage(MessageType.DATABASE_ERROR), HttpStatus.GATEWAY_TIMEOUT);
     }
+    activity.setTask_id((Integer) activityMap.get("task_id"));
     activity.setUser_id((Integer) activityMap.get("user_id"));
     activity.setTask_name((String) activityMap.get("task_name"));
     activity.setTask_hour_range((String) activityMap.get("task_hour_range"));
     activity.setTask_description((String) activityMap.get("task_description"));
     activity.setTask_type(taskType);
-    boolean success = activityService.createActivity(activity);
+    boolean success = activityService.updateActivity(activity);
     if (success) {
       return new ResponseEntity<>(Messages.getMessage(MessageType.OK), HttpStatus.OK);
     }

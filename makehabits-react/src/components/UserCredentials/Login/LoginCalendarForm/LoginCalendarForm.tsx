@@ -3,7 +3,7 @@ import UserInterface from "../../../../models/UserInterface";
 import { loginUser } from "../../../../services/UserService";
 import CustomError from "../../../../models/CustomError";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import UserCredentialInput from "../../UserCredentialInput/UserCredentialInput";
 import { motion } from "framer-motion";
 
@@ -138,7 +138,6 @@ const LoginCalendarForm = () => {
           </div>
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 };

@@ -6,6 +6,8 @@ import UserCredentialsPage from "./pages/UserCredentialsPage/UserCredentialsPage
 import { AnimatePresence } from "framer-motion";
 import TimePickerLib from "./components/Lib/AntLib/TimePickerLib/TimePickerLib.tsx";
 import AnotherVersion from "./components/Lib/AntLib/AnotherVersion/AnotherVersion.tsx";
+import { ToastContainer } from "react-toastify";
+
 function App() {
   return (
     <>
@@ -23,6 +25,7 @@ function App() {
             <Route path="/Another" element={<AnotherVersion />} />
           </Routes>
         </Router>
+        <ToastContainer />
       </AnimatePresence>
     </>
   );

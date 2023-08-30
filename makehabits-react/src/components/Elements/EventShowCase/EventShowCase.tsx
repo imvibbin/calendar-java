@@ -6,7 +6,7 @@ import { deleteActivity } from "../../../services/ActivityService";
 import "./EventShowCase.scss";
 import { useState } from "react";
 import CustomError from "../../../models/CustomError";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const notification = (deleteSuccess: boolean) => {
   const toastMessage = deleteSuccess ? "Success!" : "Cannot be deleted";
@@ -106,7 +106,6 @@ const EventShowCase = () => {
           </div>
         </div>
       ))}
-      <ToastContainer />
     </div>
   );
 };

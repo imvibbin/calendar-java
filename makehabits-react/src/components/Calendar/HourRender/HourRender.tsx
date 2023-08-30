@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { motion, PanInfo } from "framer-motion";
 import EventDisplay from "../EventDisplay/EventDisplay";
-import EventCreator from "../EventCreator/EventCreator";
 import UserInterface from "../../../models/UserInterface";
 import Habit from "../../../models/Habit";
 import Appointment from "../../../models/Appointment";
@@ -16,14 +15,36 @@ interface WeeklyViewProps {
 }
 
 const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
+  const hours = Array.from({ length: 24 }, (_, index) => index);
+  const [addingEvent, setAddingEvent] = useState(false);
+  const [selectedCell, setSelectedCell] = useState("");
+  const [calendarSlotId, setCalendarSlotId] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
   const userData: UserInterface =
     JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
 
+  const notification = (updateSuccess: boolean) => {
+    const toastMessage = updateSuccess ? "Success!" : "Event not updated";
+
+    toast[updateSuccess ? "success" : "error"](toastMessage, {
+      position: "top-center",
+      autoClose: updateSuccess ? 1000 : 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   const generateEventsFromUserData = (userData: UserInterface) => {
     return userData.activities.map((activity) => {
-      const name = activity.task_name;
-      const description = activity.task_description;
-      const eventId = activity.task_id;
+      const {
+        task_name: name,
+        task_description: description,
+        task_id: eventId,
+      } = activity;
       const [startHourStr, endHourStr] = activity.task_hour_range.split("|");
       const [startHour, startMinute] = startHourStr.split(":").map(Number);
       const [endHour, endMinute] = endHourStr.split(":").map(Number);
@@ -60,22 +81,26 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
           1;
 
         // Add a leading zero to the day if it is a single digit
-        const formattedDay =
-          Number(day_start) < 10 ? `0${day_start}` : day_start;
-        const info = `hour${startHour}/day${formattedDay}/month${month_start}/year${year_start}`;
-
-        return { eventId, name, description, info, startHour, endHour, duration, days, type };
+        const formattedHour =
+          Number(startHour) < 10 ? `0${startHour}` : startHour;
+        const info = `hour${formattedHour}/day${day_start}/month${month_start}/year${year_start}`;
+        return {
+          eventId,
+          name,
+          description,
+          info,
+          startHour,
+          endHour,
+          duration,
+          days,
+          type,
+        };
       } else {
         return null;
       }
     });
   };
 
-  const hours = Array.from({ length: 24 }, (_, index) => index);
-  const [addingEvent, setAddingEvent] = useState(false);
-  const [selectedCell, setSelectedCell] = useState("");
-  const [calendarSlotId, setCalendarSlotId] = useState("");
-  const [isDragging, setIsDragging] = useState(false);
   const [eventsData, setEventsData] = useState({
     events: generateEventsFromUserData(userData),
   });
@@ -90,9 +115,10 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
     // Extract the day, month, and year from the date
     const [year, month, day] = date.split("-").map(Number);
     // Generate the currentDivId string
-    const formattedDay = Number(day) < 10 ? `0${day}` : day;
-    const formattedMonth = Number(month) < 10 ? `0${month}` : month;
-    const currentDivId = `hour${hour}/day${formattedDay}/month${formattedMonth}/year${year}`;
+    const formattedHour = hour < 10 ? `0${hour}` : hour;
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const currentDivId = `hour${formattedHour}/day${formattedDay}/month${formattedMonth}/year${year}`;
     return currentDivId;
   };
 
@@ -131,6 +157,25 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
   };
 
   // TODO: implement drag
+  const updateActivityData = async (newFormatEvent: any) => {
+    try {
+      console.log(newFormatEvent);
+      const response = await updateActivity(newFormatEvent);
+      console.log(response);
+      notification(true);
+    } catch (error) {
+      notification(false);
+      const backendError = error as CustomError; // Cast to custom error type
+      if (backendError.message) {
+        console.error("Failed to authenticate user:", backendError.message);
+      } else {
+        console.error(
+          "Failed to authenticate user: An unknown error occurred.",
+        );
+      }
+    }
+  };
+
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
@@ -148,83 +193,53 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
       ),
     }));
 
-    const eventData = eventsData.events.find(
-      (event) => event?.eventId === eventId,
-    );
-    let newFormatEvent;
-    if (eventData) {
-      const [hourStr, dayStr, monthStr, yearStr] = calendarSlotId.split("/");
-      const hour = parseInt(hourStr.slice(4));
-      const day = parseInt(dayStr.slice(3));
-      const month = parseInt(monthStr.slice(5));
-      const year = parseInt(yearStr.slice(4));
-      const formattedMonth = Number(month) < 10 ? `0${month}` : month;
+    const newFormatEvent = eventsData.events.map((event) => {
+      if (event?.eventId === eventId) {
+        const [hourStr, dayStr, monthStr, yearStr] = calendarSlotId.split("/");
+        const hour = parseInt(hourStr.slice(4));
+        const day = parseInt(dayStr.slice(3));
+        const month = parseInt(monthStr.slice(5));
+        const year = parseInt(yearStr.slice(4));
+        const formattedMonth = month < 10 ? `0${month}` : month;
 
-      if (event.type === "habit") {
-        newFormatEvent = {
-          task_id: eventId,
-          user_id: userData.user_id,
-          task_name: eventData.name,
-          task_description: eventData.description,
-          task_hour_range: `${hour}:00|${hour + eventData.duration / 60}:00`,
-          task_type: event.type, // Discriminator property
-          task_habit_repetitions: `1|4|5`,
-        };
-      } else if (event.type === "appointment") {
-        console.log("duration: " + eventData.duration);
-        console.log("days: " + eventData.days);
+        if (event.type === "habit") {
+          return {
+            task_id: eventId,
+            user_id: userData.user_id,
+            task_name: event.name,
+            task_description: event.description,
+            task_hour_range: `${hour}:00|${hour + event.duration / 60}:00`,
+            task_type: event.type, // Discriminator property
+            task_habit_repetitions: `1|4|5`,
+          };
+        } else if (event.type === "appointment") {
+          console.log("duration: " + event.duration);
+          console.log("days: " + event.days);
 
-        const endDay = day + eventData.days;
-        const formattedDay = Number(endDay) < 10 ? `0${endDay}` : endDay;
-        newFormatEvent = {
-          task_id: eventId,
-          user_id: userData.user_id,
-          task_name: eventData.name,
-          task_description: eventData.description,
-          task_hour_range: `${hour}:00|${hour + eventData.duration / 60}:00`,
-          task_date_range: `${formattedDay}-${formattedMonth}-${year}|${formattedDay}-${formattedMonth}-${year}`,
-          task_type: event.type, // Discriminator property
-        };
+          const endDay = day + event.days;
+          const formattedDay = endDay < 10 ? `0${endDay}` : endDay;
+          return {
+            task_id: eventId,
+            user_id: userData.user_id,
+            task_name: event.name,
+            task_description: event.description,
+            task_hour_range: `${hour}:00|${hour + event.duration / 60}:00`,
+            task_date_range: `${formattedDay}-${formattedMonth}-${year}|${formattedDay}-${formattedMonth}-${year}`,
+            task_type: event.type, // Discriminator property
+          };
+        }
       }
-    }
+    });
+
+    console.log(newFormatEvent);
 
     // Find the index of the activity with task_id 19 in the activities array
     userData.activities = userData.activities.map((activity) =>
       activity.task_id === eventId ? newFormatEvent : activity,
     );
 
-    // try {
-    //   if (newFormatEvent) {
-    //     const response = await updateActivity(newFormatEvent);
-    //     console.log(response);
-    //   }
-    //   notification(true);
-    // } catch (error) {
-    //   notification(false);
-    //   const backendError = error as CustomError; // Cast to custom error type
-    //   if (backendError.message) {
-    //     console.error("Failed to authenticate user:", backendError.message);
-    //   } else {
-    //     console.error(
-    //       "Failed to authenticate user: An unknown error occurred.",
-    //     );
-    //   }
-    // }
-  };
-
-  const notification = (updateSuccess: boolean) => {
-    const toastMessage = updateSuccess ? "Success!" : "Event not updated";
-
-    toast[updateSuccess ? "success" : "error"](toastMessage, {
-      position: "top-center",
-      autoClose: updateSuccess ? 1000 : 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+    console.log(newFormatEvent);
+    updateActivityData(newFormatEvent);
   };
 
   const handleDrag = (
@@ -282,21 +297,10 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
               </motion.div>
             );
           })}
-          <ToastContainer />
         </div>
       ))}
     </>
   );
-
-                // {!event && isAddingEvent && (
-                //   // Render BlankCell component only if isAddingEvent is true
-                //   <EventCreator
-                //     currentDivId={currentDivId}
-                //     isAddingEvent={isAddingEvent}
-                //     saveEvent={saveEvent}
-                //     handleCellClick={handleCellClick}
-                //   />
-                // )}
 };
 
 export default HourRender;

@@ -1,3 +1,6 @@
+import { toast } from "react-toastify";
+import CustomError from "../../../../models/CustomError";
+import { createActivity } from "../../../../services/ActivityService";
 import React, { useState } from "react";
 import {
   Button,
@@ -8,107 +11,104 @@ import {
   Form,
   TimePicker,
 } from "antd";
-import { EventInterface, Habit, Appointment, FormEvent } from '../../../../models/EventInterface';
+import EventInterface from "../../../../models/EventInterface";
+import Habit from "../../../../models/Habit";
+import Appointment from "../../../../models/Appointment";
 import "./PopUpLib.scss";
+import UserInterface from "../../../../models/UserInterface";
 
 /* import TimePickerLib from '../TimePickerLib/TimePickerLib'; */
 const PopUpLib: React.FC = () => {
+  const userData: UserInterface =
+    JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
+
   const { RangePicker } = DatePicker;
   const [form] = Form.useForm<EventInterface>();
   const format = "HH:mm";
 
-
   const [selectedInput, setSelectedInput] = useState<string>("appointment");
-  const [eventData, setEventData] = useState<EventInterface>(  {
-    task_id: 1,
-    user_id: 2,
-    task_name: '',
-    task_description: '',
-    task_hourrange: '',
-  });
+  const [eventData, setEventData] = useState<Habit | Appointment | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedInput(e.target.value);
+  const notification = (updateSuccess: boolean) => {
+    const toastMessage = updateSuccess
+      ? "New event added"
+      : "Event not created";
 
-
-    if(e.target.value === "appointment"){
-       const appointment: Appointment = {
-        task_id: 32,
-        user_id: 1,
-        task_name: '',
-        task_type: 'appointment',
-        task_description: '',
-        task_date_range: '',
-        task_hourrange: '',
-      }; 
-  
-      setEventData(appointment);
-    }
-    else if(e.target.value === "habit"){
-       const habit: Habit = {
-        task_id: 1,
-        user_id: 2,
-        task_name: '',
-        task_type: 'habit',
-        task_description: '',
-        task_hourrange: '',
-        task_habit_repetitions: '[1, 4, 6]',
-        // ...initialize the object
-      }; 
-      setEventData(habit);
-    }
-/*     const defaultEventData: EventInterface = {
-      task_id: 1,
-      task_name: "",
-      task_description: "",
-      task_hourrange: "",
-      task_type: e.target.value,
-      task_daterange: newType === "appointment" ? [] : [],
-      task_habitRepeated: newType === "habit" ? 0 : 0,
-    }; */
-
-    
+    toast[updateSuccess ? "success" : "error"](toastMessage, {
+      position: "top-center",
+      autoClose: updateSuccess ? 1000 : 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
-  const onFinish = (values: any) => {
-    let currentEventData = values;
-    currentEventData.task_hourrange
-  /*   console.log(currentEventData.task_hourrange[0].format('HH:mm'));
-    console.log(currentEventData.task_hourrange[1].format('HH:mm')); */
-    
-    
-      if(selectedInput === "appointment"){
-        
-        const appointment: Appointment = {
-          task_id: currentEventData.task_id,
-          user_id: currentEventData.user_id,
-          task_name: currentEventData.task_name,
-          task_type: 'appointment',
-          task_description: currentEventData.task_description,
-          task_hourrange: currentEventData.task_hourrange[0].format('HH:mm') + '|'  + currentEventData.task_hourrange[1].format('HH:mm'),
-          task_date_range: currentEventData.task_date_range[0].format('YYYY-MM-DD') + '|'  + currentEventData.task_date_range[1].format('YYYY-MM-DD'),
-        };
-        setEventData(appointment);
+  const sendNewEvent = async (newEvent: Habit | Appointment | null) => {
+    try {
+      const response = await createActivity(newEvent);
+      console.log(response);
+      notification(true);
+    } catch (error) {
+      const backendError = error as CustomError; // Cast to custom error type
+      if (backendError.message) {
+        notification(false);
+        console.error("Failed to add a new event", backendError.message);
+      } else {
+        console.error("Failed to add a new event: An unknown error occurred.");
       }
-      else if(selectedInput === "habit"){
-        const habit: Habit = {
-          task_id: currentEventData.task_id,
-          user_id: currentEventData.user_id,
-          task_name: currentEventData.task_name,
-          task_type: 'habit',
-          task_description: currentEventData.task_description,
-          task_hourrange: currentEventData.task_hourrange[0].format('HH:mm') + '|'  + currentEventData.task_hourrange[1].format('HH:mm'),
-          task_habit_repetitions: '[1, 4, 6]',
-          // ...initialize the object
-        };
-        setEventData(habit);
-      }
-      setIsModalOpen(false);
-      form.resetFields();
-      console.log(eventData);
     }
+  };
+
+  const onFinish = (currentEventData: any) => {
+    let newEvent: Habit | Appointment | null = null;
+    if (selectedInput === "appointment") {
+      newEvent = {
+        task_id: 0,
+        user_id: userData.user_id,
+        task_name: currentEventData.task_name,
+        task_type: "appointment",
+        task_description: currentEventData.task_description,
+        task_hour_range:
+          currentEventData.task_hour_range[0].format("HH:mm") +
+          "|" +
+          currentEventData.task_hour_range[1].format("HH:mm"),
+        task_date_range:
+          currentEventData.task_hour_range[0].format("DD-MM-YYYY") +
+          "|" +
+          currentEventData.task_hour_range[1].format("DD-MM-YYYY"),
+      };
+    } else if (selectedInput === "habit") {
+      newEvent = {
+        task_id: 0,
+        user_id: userData.user_id,
+        task_name: currentEventData.task_name,
+        task_type: "habit",
+        task_description: currentEventData.task_description,
+        task_hour_range:
+          currentEventData.task_hour_range[0].format("HH:mm") +
+          "|" +
+          currentEventData.task_hour_range[1].format("HH:mm"),
+        task_habit_repetitions: "[1, 4, 6]",
+        // ...initialize the object
+      };
+    }
+setEventData((prevState) => {
+  if (prevState === null) {
+    return newEvent;
+  } else {
+    return { ...prevState, ...newEvent };
+  }
+});
+    sendNewEvent(newEvent);
+    setIsModalOpen(false);
+    form.resetFields();
+    console.log(eventData);
+  };
   /*
   !UTILIZAR EVENT INTERFACE BEFORE UPDATING TO LOCAL STORAGE
 
@@ -152,7 +152,7 @@ const PopUpLib: React.FC = () => {
   const disabledDateTime = () => ({
     disabledHours: () => TotaDisableHours(0, 9),
   });
- 
+
   return (
     <>
       <ConfigProvider
@@ -191,7 +191,7 @@ const PopUpLib: React.FC = () => {
                     type="checkbox"
                     value="appointment"
                     checked={selectedInput === "appointment"}
-                    onChange={handleCheckboxChange}
+                    onChange={(e) => setSelectedInput(e.target.value)}
                   />
                   Appointment
                 </label>
@@ -200,7 +200,7 @@ const PopUpLib: React.FC = () => {
                     type="checkbox"
                     value="habit"
                     checked={selectedInput === "habit"}
-                    onChange={handleCheckboxChange}
+                    onChange={(e) => setSelectedInput(e.target.value)}
                   />
                   Habit
                 </label>
@@ -235,7 +235,7 @@ const PopUpLib: React.FC = () => {
                 </Form.Item>
 
                 {selectedInput === "appointment" && (
-                  <Form.Item name="task_hourrange" label="Date Range">
+                  <Form.Item name="task_hour_range" label="Date Range">
                     <RangePicker
                       cellRender={(current, info) => {
                         if (info.type !== "date") return info.originNode;
@@ -253,7 +253,7 @@ const PopUpLib: React.FC = () => {
                     />
                   </Form.Item>
                 )}
-                <Form.Item name="task_hourrange" label="Time Range">
+                <Form.Item name="task_hour_range" label="Time Range">
                   <TimePicker.RangePicker
                     minuteStep={30}
                     format={format}

@@ -4,7 +4,7 @@ interface EventInterface {
   task_name: string;
   task_description: string;
   task_hour_range: string;
-  task_type: "habit" | "appointment"; // Discriminator property
+  task_type: "habit" | "appointment" | ""; // Discriminator property
 }
 
 export default EventInterface;

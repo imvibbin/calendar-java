@@ -16,7 +16,7 @@ const DropdownUserLib: React.FC = () => {
     localStorage.removeItem("USER_DATA");
     /*     console.log("logout"); */
     setTimeout(() => {
-      navigate("/login");
+      navigate("/");
     }, 1000);
   };
 

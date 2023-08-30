@@ -61,6 +61,9 @@ const EventShowCase = () => {
         (event) => event.task_id !== eventId,
       );
       localStorage.setItem("USER_DATA", JSON.stringify(updatedUserData));
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       const backendError = error as CustomError; // Cast to custom error type
       if (backendError.message) {

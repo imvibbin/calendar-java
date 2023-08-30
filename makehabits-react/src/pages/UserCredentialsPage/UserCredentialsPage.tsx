@@ -25,7 +25,7 @@ const UserCredentialsPage = () => {
             <RegisterCalendar />
           </>
         )}
-        {location.pathname === "/login" && (
+        {(location.pathname === "/login" || location.pathname === "/") && (
           <>
             <LoginTitle />
             <LoginCalendar />

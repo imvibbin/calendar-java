@@ -64,7 +64,7 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
           Number(day_start) < 10 ? `0${day_start}` : day_start;
         const info = `hour${startHour}/day${formattedDay}/month${month_start}/year${year_start}`;
 
-        return { eventId, name, description, info, duration, days, type };
+        return { eventId, name, description, info, startHour, endHour, duration, days, type };
       } else {
         return null;
       }
@@ -193,23 +193,23 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
       activity.task_id === eventId ? newFormatEvent : activity,
     );
 
-    try {
-      if (newFormatEvent) {
-        const response = await updateActivity(newFormatEvent);
-        console.log(response);
-      }
-      notification(true);
-    } catch (error) {
-      notification(false);
-      const backendError = error as CustomError; // Cast to custom error type
-      if (backendError.message) {
-        console.error("Failed to authenticate user:", backendError.message);
-      } else {
-        console.error(
-          "Failed to authenticate user: An unknown error occurred.",
-        );
-      }
-    }
+    // try {
+    //   if (newFormatEvent) {
+    //     const response = await updateActivity(newFormatEvent);
+    //     console.log(response);
+    //   }
+    //   notification(true);
+    // } catch (error) {
+    //   notification(false);
+    //   const backendError = error as CustomError; // Cast to custom error type
+    //   if (backendError.message) {
+    //     console.error("Failed to authenticate user:", backendError.message);
+    //   } else {
+    //     console.error(
+    //       "Failed to authenticate user: An unknown error occurred.",
+    //     );
+    //   }
+    // }
   };
 
   const notification = (updateSuccess: boolean) => {
@@ -279,15 +279,6 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
                     handleDrag={handleDrag}
                   />
                 )}
-                {!event && isAddingEvent && (
-                  // Render BlankCell component only if isAddingEvent is true
-                  <EventCreator
-                    currentDivId={currentDivId}
-                    isAddingEvent={isAddingEvent}
-                    saveEvent={saveEvent}
-                    handleCellClick={handleCellClick}
-                  />
-                )}
               </motion.div>
             );
           })}
@@ -296,6 +287,16 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
       ))}
     </>
   );
+
+                // {!event && isAddingEvent && (
+                //   // Render BlankCell component only if isAddingEvent is true
+                //   <EventCreator
+                //     currentDivId={currentDivId}
+                //     isAddingEvent={isAddingEvent}
+                //     saveEvent={saveEvent}
+                //     handleCellClick={handleCellClick}
+                //   />
+                // )}
 };
 
 export default HourRender;

@@ -5,9 +5,13 @@ interface EventDisplayProps {
   eventData: {
     eventId: number;
     name: string;
+    description: string;
     info: string;
+    startHour: number;
+    endHour: number;
     duration: number;
     days: number;
+    type: string;
   };
   eventDuration: number;
   eventDays: number;
@@ -59,21 +63,22 @@ const EventDisplay: React.FC<EventDisplayProps> = ({
       animate="animate"
       whileHover="hover"
       whileTap="click"
-      className="event d-flex align-items-center justify-content-center p-2"
+      className="event d-flex flex-column align-items-center justify-content-center p-2"
       style={{
         position: "absolute",
         top: 0,
         left: 0,
-        width: `${eventDays * 100}%`, // Event spans the entire cell width
+        width: `${eventDays * 98}%`, // Event spans the entire cell width
         height: `${(eventDuration / 60) * 95}%`,
         backgroundColor: "#5852FF", // Add your preferred styling here
       }}
     >
-      <div className="event-photo h-100"></div>
-      <div className="event-info h-100">{eventData.name}</div>
-      <div className="event-info-duration h-100">10:00</div>
+      <div className="event-info text-center">{eventData.name}</div>
     </motion.div>
   );
 };
 
+// <div className="event-info-duration">
+//   {eventData.startHour}:00 - {eventData.endHour}:00
+// </div>
 export default memo(EventDisplay);

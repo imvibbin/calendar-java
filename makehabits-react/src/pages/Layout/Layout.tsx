@@ -9,7 +9,11 @@ import dayjs from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 type StringArray = string[];
 import './Layout.scss/'
-const Sidebar = ({ onCalendarWeekChange }) => {
+
+interface MonthCalendarLibProps {
+  onCalendarWeekChange: (newData: string[]) => void;
+}
+const Sidebar:React.FC<MonthCalendarLibProps>= ({ onCalendarWeekChange }) => {
   return (
     <aside className="sidebar">
       <div className="sidebar__MonthCalendarLib">
@@ -43,11 +47,11 @@ const Layout = () => {
     return days;
   };
   const handlePreviousWeek = () => {
-    setWeeklyViewData(newData);
+    /* setWeeklyViewData(newData); */
   };
 
   const handleNextWeek = () => {
-    setWeeklyViewData(newData);
+    /* setWeeklyViewData(newData); */
   };
   const handleWeekSelection = (newDaysOfWeek: string[]) => {
     // Update the daysOfWeek array

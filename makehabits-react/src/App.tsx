@@ -6,6 +6,7 @@ import UserCredentialsPage from "./pages/UserCredentialsPage/UserCredentialsPage
 import { AnimatePresence } from "framer-motion";
 import TimePickerLib from "./components/Lib/AntLib/TimePickerLib/TimePickerLib.tsx";
 import AnotherVersion from "./components/Lib/AntLib/AnotherVersion/AnotherVersion.tsx";
+import EmbeddedPresentation from "./pages/Presentation/Canva.tsx";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
             <Route path="/layout" element={<Layout />} />
             <Route path="/time" element={<TimePickerLib />} />
             <Route path="/Another" element={<AnotherVersion />} />
+            <Route path="/holi" element={<EmbeddedPresentation />} />
           </Routes>
         </Router>
       </AnimatePresence>

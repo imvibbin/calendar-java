@@ -6,10 +6,16 @@ import {
   DatePicker,
   Input,
   Form,
+  Checkbox,
   TimePicker,
 } from "antd";
-import { EventInterface, Habit, Appointment, FormEvent } from '../../../../models/EventInterface';
+import { EventInterface, Habit, Appointment, /* FormEvent */ } from '../../../../models/EventInterface';
 import "./PopUpLib.scss";
+import dayjs from 'dayjs';
+import locale from 'antd/locale/es_ES';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 /* import TimePickerLib from '../TimePickerLib/TimePickerLib'; */
 const PopUpLib: React.FC = () => {
@@ -18,17 +24,35 @@ const PopUpLib: React.FC = () => {
   const format = "HH:mm";
 
 
+
   const [selectedInput, setSelectedInput] = useState<string>("appointment");
   const [eventData, setEventData] = useState<EventInterface>(  {
     task_id: 1,
-    user_id: 2,
+    user_id: 1,
     task_name: '',
+    task_type: 'appointment',
     task_description: '',
-    task_hourrange: '',
+    task_date_range: '',
+    task_hour_range: '',
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const generateDaysOfWeekInRange = (startDate, endDate, dayIndex) => {
+    const days = [];
+  
+    const currentDate = dayjs(startDate);
+    const lastDate = dayjs(endDate);
+  
+    while (currentDate.isBefore(lastDate) || currentDate.isSame(lastDate, 'day')) {
+      if (currentDate.day() === dayIndex) {
+        days.push(currentDate.format('YYYY-MM-DD'));
+      }
+      currentDate.add(1, 'day');
+    }
+  
+    return days;
+  };
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedInput(e.target.value);
 
@@ -41,20 +65,23 @@ const PopUpLib: React.FC = () => {
         task_type: 'appointment',
         task_description: '',
         task_date_range: '',
-        task_hourrange: '',
+        task_hour_range: '',
       }; 
   
       setEventData(appointment);
     }
     else if(e.target.value === "habit"){
+
+
        const habit: Habit = {
         task_id: 1,
         user_id: 2,
         task_name: '',
         task_type: 'habit',
         task_description: '',
-        task_hourrange: '',
-        task_habit_repetitions: '[1, 4, 6]',
+        task_hour_range: '',
+        task_date_range: '',
+        task_habit_repetitions: '',
         // ...initialize the object
       }; 
       setEventData(habit);
@@ -63,9 +90,9 @@ const PopUpLib: React.FC = () => {
       task_id: 1,
       task_name: "",
       task_description: "",
-      task_hourrange: "",
+      task_hour_range: "",
       task_type: e.target.value,
-      task_daterange: newType === "appointment" ? [] : [],
+      task_date_range: newType === "appointment" ? [] : [],
       task_habitRepeated: newType === "habit" ? 0 : 0,
     }; */
 
@@ -73,10 +100,12 @@ const PopUpLib: React.FC = () => {
   };
 
   const onFinish = (values: any) => {
-    let currentEventData = values;
-    currentEventData.task_hourrange
-  /*   console.log(currentEventData.task_hourrange[0].format('HH:mm'));
-    console.log(currentEventData.task_hourrange[1].format('HH:mm')); */
+    const currentEventData = values;
+
+    console.log(values);
+    /*  */
+  /*   console.log(currentEventData.task_hour_range[0].format('HH:mm'));
+    console.log(currentEventData.task_hour_range[1].format('HH:mm')); */
     
     
       if(selectedInput === "appointment"){
@@ -87,27 +116,29 @@ const PopUpLib: React.FC = () => {
           task_name: currentEventData.task_name,
           task_type: 'appointment',
           task_description: currentEventData.task_description,
-          task_hourrange: currentEventData.task_hourrange[0].format('HH:mm') + '|'  + currentEventData.task_hourrange[1].format('HH:mm'),
-          task_date_range: currentEventData.task_date_range[0].format('YYYY-MM-DD') + '|'  + currentEventData.task_date_range[1].format('YYYY-MM-DD'),
-        };
+          task_hour_range: (currentEventData.task_hour_range ?? [])[0]?.format('HH:mm') + '|' + (currentEventData.task_hour_range ?? [])[1]?.format('HH:mm'),
+          task_date_range: (currentEventData.task_date_range ?? [])[0]?.format('YYYY-MM-DD') + '|' + (currentEventData.task_date_range ?? [])[1]?.format('YYYY-MM-DD'),
+          };
         setEventData(appointment);
       }
       else if(selectedInput === "habit"){
-        const habit: Habit = {
+        const habit: Habit = {  
+       /*    generateDaysOfWeekInRange(){} */
           task_id: currentEventData.task_id,
           user_id: currentEventData.user_id,
           task_name: currentEventData.task_name,
           task_type: 'habit',
           task_description: currentEventData.task_description,
-          task_hourrange: currentEventData.task_hourrange[0].format('HH:mm') + '|'  + currentEventData.task_hourrange[1].format('HH:mm'),
-          task_habit_repetitions: '[1, 4, 6]',
+          task_hour_range: currentEventData.task_hour_range[0].format('HH:mm') + '|'  + currentEventData.task_hour_range[1].format('HH:mm'),
+          task_date_range: currentEventData.task_date_range[0].format('HH:mm') + '|'  + currentEventData.task_date_range[1].format('HH:mm'),
+          task_habit_repetitions: currentEventData.task_habit_repetitions,
           // ...initialize the object
         };
         setEventData(habit);
+        console.log(habit);
       }
       setIsModalOpen(false);
       form.resetFields();
-      console.log(eventData);
     }
   /*
   !UTILIZAR EVENT INTERFACE BEFORE UPDATING TO LOCAL STORAGE
@@ -123,9 +154,9 @@ const PopUpLib: React.FC = () => {
     
   };
 */
-  const onFinishFailed = (errorInfo: any) => {
+/*   const onFinishFailed = (errorInfo: string) => {
     console.log("Failed:", errorInfo);
-  };
+  }; */
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -152,10 +183,15 @@ const PopUpLib: React.FC = () => {
   const disabledDateTime = () => ({
     disabledHours: () => TotaDisableHours(0, 9),
   });
- 
+
+/*   const onChange = (checkedValues: CheckboxValueType[]) => {
+    console.log('checked = ', checkedValues);
+  }; */
+
+
   return (
     <>
-      <ConfigProvider
+      <ConfigProvider locale={locale}
         theme={{
           components: {
             Button: {
@@ -181,10 +217,49 @@ const PopUpLib: React.FC = () => {
           onCancel={handleCancel}
         >
           <div className="ticket">
+          <Form
+                form={form}
+                name="basic"
+                labelCol={{ span: 7 }}
+                wrapperCol={{ span: 17 }}
+                style={{ maxWidth: 700, padding: 5 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                autoComplete="off"
+              >
             <div className="ticket-time">
-              {selectedInput === "appointment" && <div>HI</div>}
+              {selectedInput === "appointment"  
+                
+              }
 
-              {selectedInput === "habit" && <div>Byee</div>}
+              {selectedInput === "habit" &&
+                <Form.Item name="task_habit_repetitions" label="Checkbox.Group">
+                <Checkbox.Group>
+                      <Checkbox value="Lunes" style={{ lineHeight: '32px' }}>
+                      Lunes
+                      </Checkbox>
+                  
+                      <Checkbox value="Martes" style={{ lineHeight: '32px' }}>
+                      Martes
+                      </Checkbox>
+                    
+                      <Checkbox value="Miercoles" style={{ lineHeight: '32px' }}>
+                      Miercoles
+                      </Checkbox>
+                    
+                      <Checkbox value="Jueves" style={{ lineHeight: '32px' }}>
+                        Jueves
+                      </Checkbox>
+                    
+                      <Checkbox value="Viernes" style={{ lineHeight: '32px' }}>
+                      Viernes
+                      </Checkbox>
+                      <Checkbox value="Sabado" style={{ lineHeight: '32px' }}>
+                        Sabado
+                      </Checkbox>
+                </Checkbox.Group>
+              </Form.Item>
+              }
               <div>
                 <label>
                   <input
@@ -207,17 +282,7 @@ const PopUpLib: React.FC = () => {
               </div>
             </div>
             <div className="ticket-info">
-              <Form
-                form={form}
-                name="basic"
-                labelCol={{ span: 7 }}
-                wrapperCol={{ span: 17 }}
-                style={{ maxWidth: 700, padding: 5 }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-              >
+              
                 <Form.Item
                   name="task_name"
                   label="Title"
@@ -234,8 +299,8 @@ const PopUpLib: React.FC = () => {
                   <Input />
                 </Form.Item>
 
-                {selectedInput === "appointment" && (
-                  <Form.Item name="task_hourrange" label="Date Range">
+                
+                  <Form.Item name="task_date_range" label="Date Range">
                     <RangePicker
                       cellRender={(current, info) => {
                         if (info.type !== "date") return info.originNode;
@@ -252,8 +317,8 @@ const PopUpLib: React.FC = () => {
                       }}
                     />
                   </Form.Item>
-                )}
-                <Form.Item name="task_hourrange" label="Time Range">
+                      
+                <Form.Item name="task_hour_range" label="Time Range">
                   <TimePicker.RangePicker
                     minuteStep={30}
                     format={format}
@@ -267,8 +332,8 @@ const PopUpLib: React.FC = () => {
                     Submit
                   </Button>
                 </Form.Item>
-              </Form>
-            </div>
+              </div>
+            </Form>
           </div>
         </Modal>
       </ConfigProvider>

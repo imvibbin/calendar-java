@@ -16,11 +16,11 @@ const MonthCalendarLib: React.FC<MonthCalendarLibProps> = ({ onCalendarWeekChang
   const [value, setValue] = useState<Dayjs>(dayjs());
 
   const onSelect = (newValue: Dayjs) => {
-    let currentWeek = newValue.locale('es');
+    const currentWeek = newValue.locale('es');
     setValue(currentWeek);
-    let startCurrentWeek = currentWeek.startOf('week').format('DD');
+/*     let startCurrentWeek = currentWeek.startOf('week').format('DD');
     let endCurrentWeek = currentWeek.endOf('week').format('DD');
-    let currentMonth = currentWeek.month();
+    let currentMonth = currentWeek.month(); */
 /*     console.log('Mes' + currentMonth);
     console.log('Primero' +startCurrentWeek);
     console.log('Ultimo' +endCurrentWeek);  */

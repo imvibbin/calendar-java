@@ -15,7 +15,8 @@ interface WeeklyViewProps {
 }
 
 const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
-  const hours = Array.from({ length: 24 }, (_, index) => index);
+  //const hours = Array.from({ length: 24 }, (_, index) => index);
+const hours = Array.from({ length: 24 }, (_, index) => (index + 5) % 24);
   const [addingEvent, setAddingEvent] = useState(false);
   const [selectedCell, setSelectedCell] = useState("");
   const [calendarSlotId, setCalendarSlotId] = useState("");

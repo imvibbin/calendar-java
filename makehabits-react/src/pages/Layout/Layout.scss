@@ -1,17 +1,19 @@
-  :root {
-    --landscape-width: 25; // % OR vw for responsive window resizing!
-    --portrait-width: 80vw;
-    --header-height: 4rem;
-    --secs: 0.4s;
-    --bg-left: springgreen;
-    --bg-right: cyan;
-    --bg-main: lemonchiffon;
-  }
-  body, html, #root {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-  }
+:root {
+  --landscape-width: 25; // % OR vw for responsive window resizing!
+  --portrait-width: 80vw;
+  --header-height: 4rem;
+  --secs: 0.4s;
+  --bg-left: springgreen;
+  --bg-right: cyan;
+  --bg-main: lemonchiffon;
+}
+body,
+html,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
 
 /* Layout styles */
 .layout {
@@ -31,7 +33,7 @@
   color: #333;
   display: flex;
   height: 60px;
-  svg{
+  svg {
     max-width: 32px !important;
   }
 }
@@ -39,7 +41,7 @@
 /* Sidebar styles */
 .sidebar {
   flex: 0 0 20%; /* Adjust the width as needed */
-  padding:  0 1rem;
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -47,16 +49,17 @@
   border-radius: 20px 0px;
   height: calc(100% - 70px);
 
-/*   &__MonthCalendarLib{
+  /*   &__MonthCalendarLib{
 
   } */
-  &__eventShowCase{
+  &__eventShowCase {
     height: calc(100% - 315px);
   }
+
+  z-index: 200;
 }
 
 /* Main content styles */
 .main-content {
   flex: 1;
 }
-

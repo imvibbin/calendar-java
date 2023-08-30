@@ -68,17 +68,17 @@ const EventDisplay: React.FC<EventDisplayProps> = ({
         position: "absolute",
         top: 0,
         left: 0,
-        width: `${eventDays * 100}%`, // Event spans the entire cell width
+        width: `${eventDays * 98}%`, // Event spans the entire cell width
         height: `${(eventDuration / 60) * 95}%`,
         backgroundColor: "#5852FF", // Add your preferred styling here
       }}
     >
-      <div className="event-info">{eventData.name}</div>
-      <div className="event-info-duration">
-        {eventData.startHour}:00 - {eventData.endHour}:00
-      </div>
+      <div className="event-info text-center">{eventData.name}</div>
     </motion.div>
   );
 };
 
+// <div className="event-info-duration">
+//   {eventData.startHour}:00 - {eventData.endHour}:00
+// </div>
 export default memo(EventDisplay);

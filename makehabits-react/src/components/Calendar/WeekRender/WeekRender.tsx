@@ -8,12 +8,16 @@ interface WeeklyViewProps {
 const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const WeekRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
+  const days = weeklyViewData.map((date) => {
+    const [year, month, day] = date.split("-").map(Number);
+    return day;
+  });
   return (
     <>
       <div className="row week w-100">
         <div className="col"></div>
         {[...Array(7)].map((_, i) => {
-          const dayNumber = weeklyViewData[i];
+          const dayNumber = days[i];
 
           return (
             <div

@@ -51,7 +51,7 @@ const LoginCalendarForm = () => {
       localStorage.setItem("USER_DATA", JSON.stringify(response));
       notification(true);
       setTimeout(() => {
-        navigate("/");
+        navigate("/calendar");
       }, 2000);
     } catch (error) {
       const backendError = error as CustomError; // Cast to custom error type

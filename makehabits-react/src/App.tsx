@@ -12,7 +12,9 @@ function App() {
       <AnimatePresence>
         <Router>
           <Routes>
-            <Route index element={<Layout />} />
+            <Route index element={<UserCredentialsPage />} />
+            <Route path="/calendar" element={<Layout />} />
+            <Route path="/login" element={<UserCredentialsPage />} />
             <Route path="/registration" element={<UserCredentialsPage />} />
             <Route path="/login" element={<UserCredentialsPage />} />
             <Route path="/test" element={<NoCollisionLayout />} />

@@ -1,19 +1,16 @@
-import  { useState, /* useEffect */ } from 'react';
-import WeeklyView from '../../components/WeeklyView/WeeklyView';
-import MonthCalendarLib from '../../components/Lib/AntLib/MonthCalendarLib/MonthCalendarLib';
-import PopUpLib from '../../components/Lib/AntLib/PopUpLib/PopUpLib';
-import EventShowCase from '../../components/Elements/EventShowCase/EventShowCase';
-import NavBar from '../../components/Elements/NavBar/NavBar';
+import { useState /* useEffect */ } from "react";
+import WeeklyView from "../../components/WeeklyView/WeeklyView";
+import CalendarPage from "../CalendarPage/Calendar";
+import MonthCalendarLib from "../../components/Lib/AntLib/MonthCalendarLib/MonthCalendarLib";
+import PopUpLib from "../../components/Lib/AntLib/PopUpLib/PopUpLib";
+import EventShowCase from "../../components/Elements/EventShowCase/EventShowCase";
+import NavBar from "../../components/Elements/NavBar/NavBar";
 /* import type { Dayjs } from 'dayjs'; */
-import dayjs from 'dayjs'
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 type StringArray = string[];
 import './Layout.scss/'
-
-interface MonthCalendarLibProps {
-  onCalendarWeekChange: (newData: string[]) => void;
-}
-const Sidebar:React.FC<MonthCalendarLibProps>= ({ onCalendarWeekChange }) => {
+const Sidebar = ({ onCalendarWeekChange }) => {
   return (
     <aside className="sidebar">
       <div className="sidebar__MonthCalendarLib">
@@ -28,22 +25,21 @@ const Sidebar:React.FC<MonthCalendarLibProps>= ({ onCalendarWeekChange }) => {
   );
 };
 
-
 const Layout = () => {
   const generateInitialWeeklyData = () => {
-    dayjs.extend(isSameOrBefore)
+    dayjs.extend(isSameOrBefore);
     const currentDate = dayjs();
-    const startOfWeek = currentDate.startOf('week');
-    const endOfWeek = currentDate.endOf('week');
-    
+    const startOfWeek = currentDate.startOf("week");
+    const endOfWeek = currentDate.endOf("week");
+
     const days = [];
     let currentDay = startOfWeek;
-    
-    while (dayjs(currentDay).isSameOrBefore(endOfWeek, 'day')) {
-      days.push(currentDay.format('YYYY-MM-DD'));
-      currentDay = currentDay.add(1, 'day');
+
+    while (dayjs(currentDay).isSameOrBefore(endOfWeek, "day")) {
+      days.push(currentDay.format("YYYY-MM-DD"));
+      currentDay = currentDay.add(1, "day");
     }
-    
+
     return days;
   };
   const handlePreviousWeek = () => {
@@ -64,20 +60,26 @@ const Layout = () => {
   const initialWeeklyViewData = generateInitialWeeklyData();
   const [weeklyViewData, setWeeklyViewData] = useState<StringArray>(initialWeeklyViewData);
 
-
+  // return (
+  //   <div className="layout">
+  //     <NavBar previousWeek={handlePreviousWeek} nextWeek={handleNextWeek} />
+  //     <div className="content-wrapper">
+  //       <main className="main-content">
+  //         <WeeklyView weeklyViewData={weeklyViewData} />
+  //       </main>
+  //       <Sidebar onCalendarWeekChange={handleWeekSelection} />
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <div className="layout">
-      <NavBar 
-        previousWeek={handlePreviousWeek}
-        nextWeek={handleNextWeek}
-      />
+      <NavBar previousWeek={handlePreviousWeek} nextWeek={handleNextWeek} />
       <div className="content-wrapper">
         <main className="main-content">
-          <WeeklyView weeklyViewData={weeklyViewData} />
+          <CalendarPage weeklyViewData={weeklyViewData} />
         </main>
-        <Sidebar onCalendarWeekChange={handleWeekSelection} 
-        />
+        <Sidebar onCalendarWeekChange={handleWeekSelection} />
       </div>
     </div>
   );

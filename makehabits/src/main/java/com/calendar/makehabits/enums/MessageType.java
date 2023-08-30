@@ -5,7 +5,8 @@ public enum MessageType {
   USER_NOT_FOUND("USER_NOT_FOUND", 404, "User not found"),
   INVALID_USER_OR_PASSWORD("INVALID_USER_OR_PASSWORD", 401, "Invalid user or password"),
   USERNAME_ALREADY_EXISTS("USERNAME_ALREADY_EXISTS", 409, "Username already exists"),
-  EMAIL_ALREADY_EXISTS("EMAIL_ALREADY_EXISTS", 409, "Email already exists");
+  EMAIL_ALREADY_EXISTS("EMAIL_ALREADY_EXISTS", 409, "Email already exists"),
+  DATABASE_ERROR("DATABASE_ERROR", 500, "Database error");
 
   private final String key;
   private final int status;

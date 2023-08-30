@@ -15,6 +15,10 @@ public class ActivityService {
     return activity.findAllActivitiesByUserId(id);
   }
 
+  public boolean updateActivity(Activity newActivity) {
+    return activity.updateActivity(newActivity);
+  }
+
   public boolean createActivity(Activity newActivity) {
     return activity.createActivity(newActivity);
   }

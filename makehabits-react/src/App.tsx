@@ -7,6 +7,8 @@ import { AnimatePresence } from "framer-motion";
 import TimePickerLib from "./components/Lib/AntLib/TimePickerLib/TimePickerLib.tsx";
 import AnotherVersion from "./components/Lib/AntLib/AnotherVersion/AnotherVersion.tsx";
 import EmbeddedPresentation from "./pages/Presentation/Canva.tsx";
+import { ToastContainer } from "react-toastify";
+
 function App() {
   return (
     <>
@@ -25,6 +27,7 @@ function App() {
             <Route path="/holi" element={<EmbeddedPresentation />} />
           </Routes>
         </Router>
+        <ToastContainer />
       </AnimatePresence>
     </>
   );

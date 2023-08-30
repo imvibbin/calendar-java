@@ -3,6 +3,7 @@ import { Dropdown, Space, MenuProps } from "antd";
 import userPhoto from "../../../../assets/logo-user.png";
 import "./DropdownUserLib.scss";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import UserInterface from "../../../../models/UserInterface";
 
 const DropdownUserLib: React.FC = () => {
@@ -15,9 +16,25 @@ const DropdownUserLib: React.FC = () => {
   const handleLogOut = () => {
     localStorage.removeItem("USER_DATA");
     /*     console.log("logout"); */
+    notification();
     setTimeout(() => {
       navigate("/");
     }, 1000);
+  };
+
+  const notification = () => {
+    const toastMessage = "Logging out";
+
+    toast.info(toastMessage, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   const items: MenuProps["items"] = [

@@ -68,8 +68,8 @@ const EventDisplay: React.FC<EventDisplayProps> = ({
         position: "absolute",
         top: 0,
         left: 0,
-        width: `${eventDays * 98}%`, // Event spans the entire cell width
-        height: `${(eventDuration / 60) * 95}%`,
+        width: `${eventDays * 100}%`, // Event spans the entire cell width
+        height: `${(eventDuration / 60) * 100}%`,
         backgroundColor: "#5852FF", // Add your preferred styling here
       }}
     >

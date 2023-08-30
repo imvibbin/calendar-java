@@ -55,7 +55,7 @@ const EventDisplay: React.FC<EventDisplayProps> = ({
 }) => {
   return (
     <motion.div
-      drag
+      drag={eventData.type != "habit"}
       onDragEnd={(event, info) => handleDragEnd(event, info, eventData.eventId)}
       onDrag={handleDrag}
       variants={animations}

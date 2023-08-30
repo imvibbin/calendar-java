@@ -129,16 +129,6 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
     }
   };
 
-  // TODO: implement modal
-  const saveEvent = (
-    cellId: string,
-    eventName: string,
-    eventDuration: number,
-  ) => {
-    setAddingEvent(false);
-    setSelectedCell("");
-  };
-
   const handleDragCommon = (info: PanInfo) => {
     setCalendarSlotId("");
     const slots = document.querySelectorAll(".calendar-slot");
@@ -200,7 +190,8 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
         const day = parseInt(dayStr.slice(3));
         const month = parseInt(monthStr.slice(5));
         const year = parseInt(yearStr.slice(4));
-        const formattedMonth = month < 10 ? `0${month}` : month;
+        const formattedStartDay = day < 10 ? `0${day}` : day;
+        const formattedStartMonth = month < 10 ? `0${month}` : month;
 
         if (event.type === "habit") {
           return {
@@ -213,25 +204,32 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
             task_habit_repetitions: `1|4|5`,
           };
         } else if (event.type === "appointment") {
-          console.log("duration: " + event.duration);
-          console.log("days: " + event.days);
-
           const endDay = day + event.days;
-          const formattedDay = endDay < 10 ? `0${endDay}` : endDay;
+          const date = new Date(year, month, 0);
+          const daysInMonth = date.getDate();
+          let newEndDay = endDay;
+          let newMonth = month;
+          if (endDay > daysInMonth) {
+            newEndDay = endDay % daysInMonth;
+            newMonth = month + 1;
+          }
+          const formattedEndDay = newEndDay < 10 ? `0${newEndDay}` : newEndDay;
+          const formattedEndMonth = newMonth < 10 ? `0${newMonth}` : newMonth;
+
           return {
             task_id: eventId,
             user_id: userData.user_id,
             task_name: event.name,
             task_description: event.description,
             task_hour_range: `${hour}:00|${hour + event.duration / 60}:00`,
-            task_date_range: `${formattedDay}-${formattedMonth}-${year}|${formattedDay}-${formattedMonth}-${year}`,
+            task_date_range: `${formattedStartDay}-${formattedStartMonth}-${year}|${formattedEndDay}-${formattedEndMonth}-${year}`,
             task_type: event.type, // Discriminator property
           };
         }
       }
     });
 
-    console.log(newFormatEvent);
+    console.log(newFormatEvent[0]);
 
     // Find the index of the activity with task_id 19 in the activities array
     userData.activities = userData.activities.map((activity) =>
@@ -239,7 +237,7 @@ const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
     );
 
     console.log(newFormatEvent);
-    updateActivityData(newFormatEvent);
+    updateActivityData(newFormatEvent[0]);
   };
 
   const handleDrag = (

@@ -21,8 +21,7 @@ public class ActivityRepository {
   public List<Activity> findAllActivitiesByUserId(long userId) {
     String GET_ACTIVITIES_BY_USER_ID = "SELECT * FROM tasks WHERE user_id = ? ";
     try {
-      List<Activity> activities =
-          jdbcTemplate.query(GET_ACTIVITIES_BY_USER_ID, new ActivityRowMapper(), userId);
+      List<Activity> activities = jdbcTemplate.query(GET_ACTIVITIES_BY_USER_ID, new ActivityRowMapper(), userId);
       System.out.println(activities);
       return activities;
     } catch (DataAccessException e) {
@@ -32,36 +31,33 @@ public class ActivityRepository {
   }
 
   public boolean updateActivity(Activity newActivity) {
-    String UPDATE_ACTIVITY =
-        "UPDATE Tasks SET task_name = ?, task_hour_range = ?, task_date_range = ?, task_description"
-            + " = ?, task_type = ?, task_habit_repetitions = ? WHERE task_id = ?";
+    String UPDATE_ACTIVITY = "UPDATE Tasks SET task_name = ?, task_hour_range = ?, task_date_range = ?, task_description"
+        + " = ?, task_type = ?, task_habit_repetitions = ? WHERE task_id = ?";
 
     try {
       if (newActivity instanceof Habit) {
         Habit habit = (Habit) newActivity;
-        int rowsAffected =
-            jdbcTemplate.update(
-                UPDATE_ACTIVITY,
-                habit.getTask_name(),
-                habit.getTask_hour_range(),
-                null,
-                habit.getTask_description(),
-                habit.getTask_type(),
-                habit.getTask_habit_repetitions(),
-                habit.getTask_id());
+        int rowsAffected = jdbcTemplate.update(
+            UPDATE_ACTIVITY,
+            habit.getTask_name(),
+            habit.getTask_hour_range(),
+            null,
+            habit.getTask_description(),
+            habit.getTask_type(),
+            habit.getTask_habit_repetitions(),
+            habit.getTask_id());
         return rowsAffected > 0;
       } else if (newActivity instanceof Appointment) {
         Appointment appointment = (Appointment) newActivity;
-        int rowsAffected =
-            jdbcTemplate.update(
-                UPDATE_ACTIVITY,
-                appointment.getTask_name(),
-                appointment.getTask_hour_range(),
-                appointment.getTask_date_range(),
-                appointment.getTask_description(),
-                appointment.getTask_type(),
-                null,
-                appointment.getTask_id());
+        int rowsAffected = jdbcTemplate.update(
+            UPDATE_ACTIVITY,
+            appointment.getTask_name(),
+            appointment.getTask_hour_range(),
+            appointment.getTask_date_range(),
+            appointment.getTask_description(),
+            appointment.getTask_type(),
+            null,
+            appointment.getTask_id());
         return rowsAffected > 0;
       } else {
         return false;
@@ -73,35 +69,32 @@ public class ActivityRepository {
   }
 
   public boolean createActivity(Activity newActivity) {
-    String CREATE_NEW_ACTIVITY =
-        "INSERT INTO Tasks (user_id, task_name, task_hour_range, task_date_range, task_description,"
-            + " task_type, task_habit_repetitions) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String CREATE_NEW_ACTIVITY = "INSERT INTO Tasks (user_id, task_name, task_hour_range, task_date_range, task_description,"
+        + " task_type, task_habit_repetitions) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try {
       if (newActivity instanceof Habit) {
         Habit habit = (Habit) newActivity;
-        int rowsAffected =
-            jdbcTemplate.update(
-                CREATE_NEW_ACTIVITY,
-                habit.getUser_id(),
-                habit.getTask_name(),
-                habit.getTask_hour_range(),
-                null,
-                habit.getTask_description(),
-                habit.getTask_type(),
-                habit.getTask_habit_repetitions());
+        int rowsAffected = jdbcTemplate.update(
+            CREATE_NEW_ACTIVITY,
+            habit.getUser_id(),
+            habit.getTask_name(),
+            habit.getTask_hour_range(),
+            null,
+            habit.getTask_description(),
+            habit.getTask_type(),
+            habit.getTask_habit_repetitions());
         return rowsAffected > 0;
       } else if (newActivity instanceof Appointment) {
         Appointment appointment = (Appointment) newActivity;
-        int rowsAffected =
-            jdbcTemplate.update(
-                CREATE_NEW_ACTIVITY,
-                appointment.getUser_id(),
-                appointment.getTask_name(),
-                appointment.getTask_hour_range(),
-                appointment.getTask_date_range(),
-                appointment.getTask_description(),
-                appointment.getTask_type(),
-                null);
+        int rowsAffected = jdbcTemplate.update(
+            CREATE_NEW_ACTIVITY,
+            appointment.getUser_id(),
+            appointment.getTask_name(),
+            appointment.getTask_hour_range(),
+            appointment.getTask_date_range(),
+            appointment.getTask_description(),
+            appointment.getTask_type(),
+            null);
         return rowsAffected > 0;
       } else {
         return false;

@@ -10,11 +10,11 @@ const DropdownUserLib: React.FC = () => {
 
   const userData: UserInterface =
     JSON.parse(localStorage.getItem("USER_DATA") ?? "{}") || null;
-/*   console.log(userData); */
+  /*   console.log(userData); */
 
   const handleLogOut = () => {
     localStorage.removeItem("USER_DATA");
-/*     console.log("logout"); */
+    /*     console.log("logout"); */
     setTimeout(() => {
       navigate("/login");
     }, 1000);

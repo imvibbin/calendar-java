@@ -1,6 +1,8 @@
+import Appointment from "../models/Appointment";
 import EventInterface from "../models/EventInterface";
+import Habit from "../models/Habit";
 
-const BASE_URL = "http://localhost:8080/activity";
+const BASE_URL = "http://localhost:8080";
 
 // Function to make a GET request to fetch all activitys
 async function getAllactivitys(): Promise<EventInterface[]> {
@@ -36,9 +38,29 @@ async function createActivity(
   }
 }
 
+async function updateActivity(
+  newActivity: EventInterface,
+): Promise<EventInterface> {
+  console.log(newActivity);
+  const response = await fetch(`${BASE_URL}/activity`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newActivity),
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message); // Throw an error with the error message from the backend
+  }
+
+  return response.json();
+}
+
 // Function to make a DELETE request to delete a activity
 async function deleteActivity(activityId: number): Promise<void> {
-  const response = await fetch(`${BASE_URL}/${activityId}`, {
+  const response = await fetch(`${BASE_URL}/activity/${activityId}`, {
     method: "DELETE",
   });
 
@@ -50,4 +72,4 @@ async function deleteActivity(activityId: number): Promise<void> {
   return response.json();
 }
 
-export { createActivity, deleteActivity };
+export { createActivity, deleteActivity, updateActivity };

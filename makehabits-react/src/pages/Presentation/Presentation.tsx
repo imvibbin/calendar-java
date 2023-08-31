@@ -2,9 +2,6 @@
 const Presentation = () => {
 
 return (
-    
-    
-    
     <div
     style={{
         

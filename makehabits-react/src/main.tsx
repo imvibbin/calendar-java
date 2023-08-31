@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
 import ReactDOM from "react-dom";
 import "./App.css";
 import Presentation from "./pages/Presentation/Presentation";

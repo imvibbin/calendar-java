@@ -34,7 +34,7 @@ return (
             margin: '0',
         }}
         src="https://www.canva.com/design/DAFsveC4rMM/view?embed"
-        allow="fullscreen" allowFullScreen
+        allow="fullscreen" allowFullScreen={true}
     ></iframe>
 </div>
 

@@ -1,6 +1,8 @@
 import { toast } from "react-toastify";
 import CustomError from "../../../../models/CustomError";
-import { createActivity } from "../../../../services/ActivityService";
+import { getAllactivitiesByIdUser, createActivity } from "../../../../services/ActivityService";
+import 'dayjs/locale/es';
+import locale from 'antd/locale/es_ES';
 import React, { useState } from "react";
 import {
   Button,
@@ -53,6 +55,30 @@ const PopUpLib: React.FC = () => {
       const response = await createActivity(newEvent);
       console.log(response);
       notification(true);
+      getUpdatedListOfEvents(newEvent?.user_id);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      const backendError = error as CustomError; // Cast to custom error type
+      if (backendError.message) {
+        notification(false);
+        console.error("Failed to add a new event", backendError.message);
+      } else {
+        console.error("Failed to add a new event: An unknown error occurred.");
+      }
+    }
+  };
+
+  const getUpdatedListOfEvents = async (userID: number) => {
+    try {
+      const response = await getAllactivitiesByIdUser(userID);
+      console.log(response);
+      // Add the new activity to the activities array
+
+      userData.activities = response; 
+      // Store the updated object back in localStorage
+      localStorage.setItem("USER_DATA", JSON.stringify(userData));
     } catch (error) {
       const backendError = error as CustomError; // Cast to custom error type
       if (backendError.message) {
@@ -97,13 +123,13 @@ const PopUpLib: React.FC = () => {
         // ...initialize the object
       };
     }
-setEventData((prevState) => {
-  if (prevState === null) {
-    return newEvent;
-  } else {
-    return { ...prevState, ...newEvent };
-  }
-});
+    setEventData((prevState) => {
+      if (prevState === null) {
+        return newEvent;
+      } else {
+        return { ...prevState, ...newEvent };
+      }
+    });
     sendNewEvent(newEvent);
     setIsModalOpen(false);
     form.resetFields();
@@ -156,6 +182,7 @@ setEventData((prevState) => {
   return (
     <>
       <ConfigProvider
+locale={locale}
         theme={{
           components: {
             Button: {
@@ -257,7 +284,7 @@ setEventData((prevState) => {
                   <TimePicker.RangePicker
                     minuteStep={30}
                     format={format}
-                    disabledTime={disabledDateTime}
+                    // disabledTime={disabledDateTime}
                     hourStep={1}
                   />
                 </Form.Item>

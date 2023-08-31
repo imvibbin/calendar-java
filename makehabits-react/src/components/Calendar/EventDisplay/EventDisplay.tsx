@@ -73,7 +73,7 @@ const EventDisplay: React.FC<EventDisplayProps> = ({
         backgroundColor: "#5852FF", // Add your preferred styling here
       }}
     >
-      <div className="event-info text-center">{eventData.name}</div>
+      <div className="event-info text-center">{eventData.name.toUpperCase()}</div>
     </motion.div>
   );
 };

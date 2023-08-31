@@ -6,8 +6,11 @@ import UserInterface from "../../../models/UserInterface";
 import Habit from "../../../models/Habit";
 import Appointment from "../../../models/Appointment";
 import "./HourRender.css";
-import { parseInt } from "lodash";
-import { updateActivity } from "../../../services/ActivityService";
+import { forEach, parseInt } from "lodash";
+import {
+  getAllactivitiesByIdUser,
+  updateActivity,
+} from "../../../services/ActivityService";
 import CustomError from "../../../models/CustomError";
 
 interface WeeklyViewProps {
@@ -16,7 +19,7 @@ interface WeeklyViewProps {
 
 const HourRender: React.FC<WeeklyViewProps> = ({ weeklyViewData }) => {
   //const hours = Array.from({ length: 24 }, (_, index) => index);
-const hours = Array.from({ length: 24 }, (_, index) => (index + 5) % 24);
+  const hours = Array.from({ length: 24 }, (_, index) => (index + 5) % 24);
   const [addingEvent, setAddingEvent] = useState(false);
   const [selectedCell, setSelectedCell] = useState("");
   const [calendarSlotId, setCalendarSlotId] = useState("");
@@ -147,22 +150,41 @@ const hours = Array.from({ length: 24 }, (_, index) => (index + 5) % 24);
     });
   };
 
-  // TODO: implement drag
+  const getUpdatedListOfEvents = async (userID: number) => {
+    try {
+      const response = await getAllactivitiesByIdUser(userID);
+      console.log(response);
+      // Add the new activity to the activities array
+
+      userData.activities = response;
+      // Store the updated object back in localStorage
+      localStorage.setItem("USER_DATA", JSON.stringify(userData));
+    } catch (error) {
+      const backendError = error as CustomError; // Cast to custom error type
+      if (backendError.message) {
+        notification(false);
+        console.error("Failed to add a new event", backendError.message);
+      } else {
+        console.error("Failed to add a new event: An unknown error occurred.");
+      }
+    }
+  };
+
   const updateActivityData = async (newFormatEvent: any) => {
     try {
+      console.log("Evento por enviar");
       console.log(newFormatEvent);
       const response = await updateActivity(newFormatEvent);
       console.log(response);
       notification(true);
+      getUpdatedListOfEvents(newFormatEvent.user_id);
     } catch (error) {
       notification(false);
       const backendError = error as CustomError; // Cast to custom error type
       if (backendError.message) {
-        console.error("Failed to authenticate user:", backendError.message);
+        console.error("Failed to update the event:", backendError.message);
       } else {
-        console.error(
-          "Failed to authenticate user: An unknown error occurred.",
-        );
+        console.error("Failed to update the event: An unknown error occurred.");
       }
     }
   };
@@ -176,6 +198,9 @@ const hours = Array.from({ length: 24 }, (_, index) => (index + 5) % 24);
     handleDragCommon(info);
     setCalendarSlotId("");
 
+    console.log("Event ID");
+    console.log(eventId);
+
     // Update eventsData
     setEventsData((prevState) => ({
       ...prevState,
@@ -184,61 +209,74 @@ const hours = Array.from({ length: 24 }, (_, index) => (index + 5) % 24);
       ),
     }));
 
-    const newFormatEvent = eventsData.events.map((event) => {
-      if (event?.eventId === eventId) {
-        const [hourStr, dayStr, monthStr, yearStr] = calendarSlotId.split("/");
-        const hour = parseInt(hourStr.slice(4));
-        const day = parseInt(dayStr.slice(3));
-        const month = parseInt(monthStr.slice(5));
-        const year = parseInt(yearStr.slice(4));
-        const formattedStartDay = day < 10 ? `0${day}` : day;
-        const formattedStartMonth = month < 10 ? `0${month}` : month;
-
-        if (event.type === "habit") {
-          return {
-            task_id: eventId,
-            user_id: userData.user_id,
-            task_name: event.name,
-            task_description: event.description,
-            task_hour_range: `${hour}:00|${hour + event.duration / 60}:00`,
-            task_type: event.type, // Discriminator property
-            task_habit_repetitions: `1|4|5`,
-          };
-        } else if (event.type === "appointment") {
-          const endDay = day + event.days;
-          const date = new Date(year, month, 0);
-          const daysInMonth = date.getDate();
-          let newEndDay = endDay;
-          let newMonth = month;
-          if (endDay > daysInMonth) {
-            newEndDay = endDay % daysInMonth;
-            newMonth = month + 1;
-          }
-          const formattedEndDay = newEndDay < 10 ? `0${newEndDay}` : newEndDay;
-          const formattedEndMonth = newMonth < 10 ? `0${newMonth}` : newMonth;
-
-          return {
-            task_id: eventId,
-            user_id: userData.user_id,
-            task_name: event.name,
-            task_description: event.description,
-            task_hour_range: `${hour}:00|${hour + event.duration / 60}:00`,
-            task_date_range: `${formattedStartDay}-${formattedStartMonth}-${year}|${formattedEndDay}-${formattedEndMonth}-${year}`,
-            task_type: event.type, // Discriminator property
-          };
-        }
-      }
-    });
-
-    console.log(newFormatEvent[0]);
-
-    // Find the index of the activity with task_id 19 in the activities array
-    userData.activities = userData.activities.map((activity) =>
-      activity.task_id === eventId ? newFormatEvent : activity,
+    let newFormatEvent;
+    const eventData = eventsData.events.find(
+      (event) => event?.eventId === eventId,
     );
+    const [hourStr, dayStr, monthStr, yearStr] = calendarSlotId.split("/");
+    const hour = parseInt(hourStr.slice(4));
+    const day = parseInt(dayStr.slice(3));
+    const month = parseInt(monthStr.slice(5));
+    let year = parseInt(yearStr.slice(4));
+    const formattedStartHour = hour < 10 ? `0${hour}` : hour;
+    const endHour = hour + eventData.duration / 60;
+    const formattedEndHour = endHour < 10 ? `0${endHour}` : endHour;
+    const formattedStartDay = day < 10 ? `0${day}` : day;
+    const formattedStartMonth = month < 10 ? `0${month}` : month;
+    console.log("Event to format");
+    console.log(eventData);
+    console.log("Event day");
+    console.log(day);
 
+    if (eventData?.type === "habit") {
+      newFormatEvent = {
+        task_id: eventId,
+        user_id: userData.user_id,
+        task_name: eventData?.name,
+        task_description: eventData?.description,
+        task_hour_range: `${formattedStartHour}:00|${formattedEndHour}:00`,
+        task_type: eventData?.type, // Discriminator property
+        task_habit_repetitions: `1|4|5`,
+      };
+} else if (eventData?.type === "appointment") {
+  console.log("Creating appointment");
+  console.log("");
+  const endDay = day + eventData?.days - 1;
+  const date = new Date(year, month - 1, 0); // Adjust month to be 0-based
+  const daysInMonth = date.getDate();
+  let newEndDay = endDay;
+  let newMonth = month;
+
+  if (eventData.days > 1) {
+    if (endDay > daysInMonth) {
+      newEndDay = endDay % daysInMonth;
+          console.log(newEndDay);
+      newMonth = month + 1;
+
+      if (newMonth > 12) {
+        newMonth = 1;
+        year = year + 1;
+      }
+    }
+  }
+
+  const formattedEndDay = eventData.days === 1 ? formattedStartDay : (newEndDay < 10 ? `0${newEndDay}` : newEndDay);
+  const formattedEndMonth = eventData.days === 1 ? formattedStartMonth : (newMonth < 10 ? `0${newMonth}` : newMonth);
+
+  newFormatEvent = {
+    task_id: eventId,
+    user_id: userData.user_id,
+    task_name: eventData?.name,
+    task_description: eventData?.description,
+    task_hour_range: `${formattedStartHour}:00|${formattedEndHour}:00`,
+    task_date_range: `${formattedStartDay}-${formattedStartMonth}-${year}|${formattedEndDay}-${formattedEndMonth}-${year}`,
+    task_type: eventData?.type, // Discriminator property
+  };
+}
+
+    console.log("Evento generado");
     console.log(newFormatEvent);
-    updateActivityData(newFormatEvent[0]);
+    updateActivityData(newFormatEvent);
   };
 
   const handleDrag = (

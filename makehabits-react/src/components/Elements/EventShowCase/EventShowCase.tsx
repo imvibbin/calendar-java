@@ -57,9 +57,11 @@ const EventShowCase = () => {
 
       // Update the USER_DATA item in the local storage
       const updatedUserData = { ...userData };
+      if (updatedUserData.activities != null) {
       updatedUserData.activities = updatedUserData.activities.filter(
         (event) => event.task_id !== eventId,
       );
+      }
       localStorage.setItem("USER_DATA", JSON.stringify(updatedUserData));
       setTimeout(() => {
         window.location.reload();
@@ -80,7 +82,8 @@ const EventShowCase = () => {
   return (
     <div className="showcase-habit overflow-y-scroll  ">
       {eventsData.map((event, index) => (
-        <div key={index} className="habit">
+        <div key={index} className="habit d-flex justify-content-between align-items-center px-5">
+          <div className="d-flex">
           <div className="habit__image">
             <img src={event.imageUrl} />
           </div>
@@ -89,20 +92,18 @@ const EventShowCase = () => {
             <div className="info__image">
               <img src={event.imageUser} />
               <span>Home</span>
-              {event.timeLapse}
             </div>
           </div>
+          </div>
           <div className="btn-custom-btn">
-            <ul>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                height="1em"
+                height="2em"
                 viewBox="0 -960 960 960"
                 onClick={() => handleOnClick(event.id)}
               >
                 <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
               </svg>
-            </ul>
           </div>
         </div>
       ))}

@@ -26,10 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/activity")
 public class ActivityController {
 
-  @Autowired private ActivityService activityService;
+  @Autowired
+  private ActivityService activityService;
 
   @PostMapping
-  public Boolean createActivity(@RequestBody Map<String, Object> activityMap) {
+  public ResponseEntity<?> createActivity(@RequestBody Map<String, Object> activityMap) {
     Activity activity;
     String taskType = (String) activityMap.get("task_type");
     if ("habit".equals(taskType)) {
@@ -40,14 +41,20 @@ public class ActivityController {
       activity = new Appointment();
       ((Appointment) activity).setTask_date_range((String) activityMap.get("task_date_range"));
     } else {
-      return false;
+      return new ResponseEntity<>(
+          Messages.getMessage(MessageType.DATABASE_ERROR), HttpStatus.GATEWAY_TIMEOUT);
     }
     activity.setUser_id((Integer) activityMap.get("user_id"));
     activity.setTask_name((String) activityMap.get("task_name"));
     activity.setTask_hour_range((String) activityMap.get("task_hour_range"));
     activity.setTask_description((String) activityMap.get("task_description"));
     activity.setTask_type(taskType);
-    return activityService.createActivity(activity);
+    boolean success = activityService.createActivity(activity);
+    if (success) {
+      return new ResponseEntity<>(Messages.getMessage(MessageType.OK), HttpStatus.OK);
+    }
+    return new ResponseEntity<>(
+        Messages.getMessage(MessageType.DATABASE_ERROR), HttpStatus.GATEWAY_TIMEOUT);
   }
 
   @GetMapping("/{userId}")

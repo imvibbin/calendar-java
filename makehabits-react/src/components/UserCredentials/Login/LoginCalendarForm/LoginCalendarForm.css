@@ -83,3 +83,20 @@
     height: 40px;
   }
 }
+.lineStroke1{
+  top: -30%;
+  left: 20%;
+}
+.lineStroke2{
+  top: -30%;
+  right: 20%;
+}
+.oval1{
+  top: 11%;
+  left: 19%;
+}
+.oval2{
+  top: 11%;
+  right: 19.2%;
+}
+

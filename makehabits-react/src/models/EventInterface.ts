@@ -4,8 +4,7 @@ interface EventInterface {
   task_name: string;
   task_description: string;
   task_hour_range: string;
-  task_date_range: string;
-  task_type: "habit" | "appointment"; // Discriminator property
+  task_type: "habit" | "appointment" | ""; // Discriminator property
 }
 
 export default EventInterface;
@@ -25,4 +24,4 @@ interface Appointment extends EventInterface {
 
 type FormEvent = Habit | Appointment;
 
-export type { EventInterface, Habit, Appointment, FormEvent }; 
+export type { EventInterface, Habit, Appointment, FormEvent };
